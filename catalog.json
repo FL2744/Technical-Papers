@@ -56,8 +56,8 @@
     "pdf": "Technical-Paper.pdf",
     "tex": "main.tex",
     "title": "FENNEC: A Browser-Based Conversational and Research Companion",
-    "commit": "c8674d3b7dd2b892e4cccddbf87fdcab99f07829",
-    "sha256": "3060a9d336e6e8b6c9514c5e9e8816cfc498232bc660cc79ca5963f6cd570cac"
+    "commit": "3e16d1845dffc79a2d3f2f8683780ee73319925a",
+    "sha256": "c66297fcecffbf15ddd2cbc9916fd383432a327b5e8b17f352920c284d60434a"
   },
   {
     "name": "KOALA",
