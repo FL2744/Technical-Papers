@@ -1,3 +1,5 @@
+<div align="left">
+
 # Technical Papers
 
 Technical reports for research software projects by William Taggart.
@@ -8,7 +10,7 @@ wtaggart@vt.edu
 The collection contains **11 reports**, with PDF, LaTeX, Markdown, and source bundles. Each project folder includes the figures and bibliography needed to build its paper.
 
 | Project | Technical paper | Files |
-| --- | --- | --- |
+| :--- | :--- | :--- |
 | [AFFECTOR](https://github.com/FL2744/AFFECTOR) | AFFECTOR: Coordinate-Guided Text Rewriting through Transformer Activation Interventions | [PDF](AFFECTOR.pdf) · [LaTeX](AFFECTOR/AFFECTOR.tex) · [Markdown](AFFECTOR/TECHNICAL_PAPER.md) · [Source](AFFECTOR/Source.zip) |
 | [AFFECTOR-ARC](https://github.com/FL2744/AFFECTOR-ARC) | AFFECTOR-ARC: Emotional Trajectory Control through Transformer Activation Steering | [PDF](AFFECTOR-ARC.pdf) · [LaTeX](AFFECTOR-ARC/AFFECTOR-ARC-ACM.tex) · [Markdown](AFFECTOR-ARC/TECHNICAL_PAPER.md) · [Source](AFFECTOR-ARC/Source.zip) |
 | [ARC Explorer](https://github.com/FL2744/ARC-Explorer) | ARC Explorer: A Native macOS Workspace for Remote High-Performance Computing | [PDF](ARC-Explorer.pdf) · [LaTeX](ARC-Explorer/ARC-Explorer.tex) · [Markdown](ARC-Explorer/TECHNICAL_PAPER.md) · [Source](ARC-Explorer/Source.zip) |
@@ -22,3 +24,5 @@ The collection contains **11 reports**, with PDF, LaTeX, Markdown, and source bu
 | [TURTLE](https://github.com/FL2744/TURTLE) | TURTLE: Trajectory-based Understanding and Rendering of Transformations in Latent Embeddings | [PDF](TURTLE.pdf) · [LaTeX](TURTLE/main.tex) · [Markdown](TURTLE/TECHNICAL_PAPER.md) · [Source](TURTLE/Source.zip) |
 
 The original project repositories remain the home of the applications and their release downloads. `catalog.json` records the source commit and PDF checksum for each report in this collection.
+
+</div>
