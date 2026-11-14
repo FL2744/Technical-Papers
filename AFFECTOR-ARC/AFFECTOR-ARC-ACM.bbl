@@ -1,0 +1,264 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{12}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{#1}\fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[Cui and Chen(2025)]%
+        {cui2025pas}
+\bibfield{author}{\bibinfo{person}{Sasha Cui} {and} \bibinfo{person}{Zhongren
+  Chen}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \bibinfo{title}{{Painless Activation Steering: An Automated,
+  Lightweight Approach for Post-Training Large Language Models}}.
+\newblock
+\newblock
+\showeprint[arxiv]{2509.22739v3}
+\urldef\tempurl%
+\url{https://arxiv.org/abs/2509.22739v3}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Cited version dated 2026-05-15; metadata checked 2026-11-13}.
+
+
+\bibitem[Diallo et~al\mbox{.}(2026)]%
+        {diallo2026style}
+\bibfield{author}{\bibinfo{person}{Diaoulé Diallo}, \bibinfo{person}{Katharina
+  Dworatzyk}, \bibinfo{person}{Sophie Jentzsch}, \bibinfo{person}{Peer
+  Schütt}, \bibinfo{person}{Sabine Theis}, {and} \bibinfo{person}{Tobias
+  Hecking}.} \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{{The Effectiveness of Style Vectors for Steering
+  Large Language Models: A Human Evaluation}}.
+\newblock
+\newblock
+\showeprint[arxiv]{2601.21505v1}
+\urldef\tempurl%
+\url{https://arxiv.org/abs/2601.21505v1}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Cited version dated 2026-01-29; metadata checked 2026-11-13}.
+
+
+\bibitem[Ferrando et~al\mbox{.}(2025)]%
+        {ferrando2025dsas}
+\bibfield{author}{\bibinfo{person}{Alex Ferrando}, \bibinfo{person}{Xavier
+  Suau}, \bibinfo{person}{Jordi Gonzàlez}, {and} \bibinfo{person}{Pau
+  Rodriguez}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \bibinfo{title}{{Dynamically Scaled Activation Steering}}.
+\newblock
+\newblock
+\showeprint[arxiv]{2512.03661v2}
+\urldef\tempurl%
+\url{https://arxiv.org/abs/2512.03661v2}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Cited version dated 2026-07-30; metadata checked 2026-11-13}.
+
+
+\bibitem[Ha et~al\mbox{.}(2026)]%
+        {ha2026empathy}
+\bibfield{author}{\bibinfo{person}{JuHeon Ha}, \bibinfo{person}{Byounghan Lee},
+  \bibinfo{person}{Yunseo Choi}, {and} \bibinfo{person}{Kyung-Ah Sohn}.}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{{Empathy Is Steerable but Multi-Axial: Mechanism
+  Geometry and Persona Effects in LLMs}}.
+\newblock
+\newblock
+\showeprint[arxiv]{2609.15654v1}
+\urldef\tempurl%
+\url{https://arxiv.org/abs/2609.15654v1}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Cited version dated 2026-09-14; metadata checked 2026-11-13}.
+
+
+\bibitem[Jeong(2026)]%
+        {jeong2026emotion}
+\bibfield{author}{\bibinfo{person}{Jihoon Jeong}.}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{{Extracting and Steering Emotion Representations in
+  Small Language Models: A Methodological Comparison}}.
+\newblock
+\newblock
+\showeprint[arxiv]{2604.04064v1}
+\urldef\tempurl%
+\url{https://arxiv.org/abs/2604.04064v1}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Cited version dated 2026-04-05; metadata checked 2026-11-13}.
+
+
+\bibitem[Panickssery et~al\mbox{.}(2024)]%
+        {panickssery2024caa}
+\bibfield{author}{\bibinfo{person}{Nina Panickssery}, \bibinfo{person}{Nick
+  Gabrieli}, \bibinfo{person}{Julian Schulz}, \bibinfo{person}{Meg Tong},
+  \bibinfo{person}{Evan Hubinger}, {and} \bibinfo{person}{Alexander~Matt
+  Turner}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \bibinfo{title}{{Steering Llama 2 via Contrastive Activation
+  Addition}}.
+\newblock
+\newblock
+\showeprint[arxiv]{2312.06681v4}
+\urldef\tempurl%
+\url{https://arxiv.org/abs/2312.06681v4}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Cited version dated 2024-07-05; metadata checked 2026-11-13}.
+
+
+\bibitem[Shu et~al\mbox{.}(2026)]%
+        {shu2026emotion}
+\bibfield{author}{\bibinfo{person}{Bangzhao Shu}, \bibinfo{person}{Arinjay
+  Singh}, {and} \bibinfo{person}{Mai ElSherief}.}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{{Why Are Some Emotions Harder for LLMs? Uncovering
+  the Causal Mechanisms of Emotion Inference via Sparse Autoencoders}}.
+\newblock
+\newblock
+\showeprint[arxiv]{2604.25866v3}
+\urldef\tempurl%
+\url{https://arxiv.org/abs/2604.25866v3}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Cited version dated 2026-10-24; metadata checked 2026-11-13}.
+
+
+\bibitem[Sun et~al\mbox{.}(2026)]%
+        {sun2026emotion}
+\bibfield{author}{\bibinfo{person}{Moran Sun}, \bibinfo{person}{Tianlin Li},
+  \bibinfo{person}{Yuwei Zheng}, \bibinfo{person}{Zhenhong Zhou},
+  \bibinfo{person}{Aishan Liu}, \bibinfo{person}{Xianglong Liu}, {and}
+  \bibinfo{person}{Yang Liu}.} \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{{How Emotion Shapes the Behavior of LLMs and Agents:
+  A Mechanistic Study}}.
+\newblock
+\newblock
+\showeprint[arxiv]{2604.00005v1}
+\urldef\tempurl%
+\url{https://arxiv.org/abs/2604.00005v1}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Cited version dated 2026-03-09; metadata checked 2026-11-13}.
+
+
+\bibitem[Turner et~al\mbox{.}(2023)]%
+        {turner2023actadd}
+\bibfield{author}{\bibinfo{person}{Alex Turner}, \bibinfo{person}{Lisa
+  Thiergart}, \bibinfo{person}{David Udell}, \bibinfo{person}{Gavin Leech},
+  \bibinfo{person}{Ulisse Mini}, {and} \bibinfo{person}{Monte MacDiarmid}.}
+  \bibinfo{year}{2023}\natexlab{}.
+\newblock \bibinfo{title}{{Activation Addition: Steering Language Models
+  Without Optimization}}.
+\newblock
+\newblock
+\showeprint[arxiv]{2308.10248v1}
+\urldef\tempurl%
+\url{https://arxiv.org/abs/2308.10248v1}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Cited version dated 2023-08-20; metadata checked 2026-11-13}.
+
+
+\bibitem[Wang et~al\mbox{.}(2026)]%
+        {wang2026readbest}
+\bibfield{author}{\bibinfo{person}{Yibo Wang}, \bibinfo{person}{Jisheng Dang},
+  \bibinfo{person}{Bimei Wang}, \bibinfo{person}{Yitao Wu},
+  \bibinfo{person}{Wencan Zhang}, \bibinfo{person}{Hong Peng},
+  \bibinfo{person}{Jizhao Liu}, \bibinfo{person}{Bin Hu}, \bibinfo{person}{Qi
+  Tian}, {and} \bibinfo{person}{Tat-Seng Chua}.}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{{Read-Best Is Not Steer-Best: A Probing--Steering
+  Layer Dissociation in Omni-Modal Large Language Models}}.
+\newblock
+\newblock
+\showeprint[arxiv]{2609.22135v1}
+\urldef\tempurl%
+\url{https://arxiv.org/abs/2609.22135v1}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Cited version dated 2026-08-24; metadata checked 2026-11-13}.
+
+
+\bibitem[Wu et~al\mbox{.}(2025)]%
+        {wu2025emotion}
+\bibfield{author}{\bibinfo{person}{Xiuwen Wu}, \bibinfo{person}{Hao Wang},
+  \bibinfo{person}{Zhiang Yan}, \bibinfo{person}{Xiaohan Tang},
+  \bibinfo{person}{Pengfei Xu}, \bibinfo{person}{Wai-Ting Siok},
+  \bibinfo{person}{Ping Li}, \bibinfo{person}{Jia-Hong Gao},
+  \bibinfo{person}{Bingjiang Lyu}, {and} \bibinfo{person}{Lang Qin}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \bibinfo{title}{{AI shares emotion with humans across languages and
+  cultures}}.
+\newblock
+\newblock
+\showeprint[arxiv]{2506.13978v1}
+\urldef\tempurl%
+\url{https://arxiv.org/abs/2506.13978v1}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Cited version dated 2025-06-11; metadata checked 2026-11-13}.
+
+
+\bibitem[Yang et~al\mbox{.}(2026)]%
+        {yang2026steerscope}
+\bibfield{author}{\bibinfo{person}{Haotian Yang}, \bibinfo{person}{Huikang
+  Jiang}, \bibinfo{person}{Yucheng Wu}, \bibinfo{person}{Wen-Jie Jiang},
+  \bibinfo{person}{Chenpeng Wang}, \bibinfo{person}{Yibin Lou}, {and}
+  \bibinfo{person}{Liangming Pan}.} \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{{Does Steering Break Your Model? A Multi-Dimensional
+  Evaluation Suite for LLM Steering Methods}}.
+\newblock
+\newblock
+\showeprint[arxiv]{2610.07722v1}
+\urldef\tempurl%
+\url{https://arxiv.org/abs/2610.07722v1}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Cited version dated 2026-10-06; metadata checked 2026-11-13}.
+
+
+\end{thebibliography}

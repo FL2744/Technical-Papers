@@ -1,0 +1,92 @@
+[
+  [
+    "Frozen model and contrastive calibration",
+    "One continuous path, a finite set of targets",
+    [
+      [
+        "Ordered geometry (t,v,d,i)",
+        "Piecewise-linear interpolation",
+        "c(t) = (v,d,2i-1)"
+      ],
+      [
+        "Original offsets [a,b), length N",
+        "Midpoint t = (a+b)/(2N)",
+        "One coordinate per chunk"
+      ]
+    ],
+    "Earlier output expansion does not move later target positions",
+    "Normalized alignment schematic. Target chunks sample a continuous source path at original character midpoints; a short target can miss narrow changes in a long source trajectory."
+  ],
+  [
+    "Coordinate-to-activation computation",
+    "Contrastive calibration supplies three directions",
+    [
+      [
+        "3 axes x 4 English pairs",
+        "24 prompt forward passes",
+        "Capture selected-layer states"
+      ],
+      [
+        "Positive minus negative",
+        "Mean contrast per axis",
+        "Normalize each row by RMS"
+      ]
+    ],
+    "Each selected layer stores B with shape 3 x 1024; no gradient updates",
+    "Calibration workflow. Small hand-authored contrasts estimate steering directions; normalization neither orthogonalizes them nor establishes emotional validity."
+  ],
+  [
+    "Intervention within the transformer",
+    "Controls shape the activation displacement",
+    [
+      [
+        "Axis temperature, mass, top-k",
+        "Mix coefficients with B",
+        "Scale by strength and state RMS"
+      ],
+      [
+        "Blend previous applied delta",
+        "Enforce relative RMS budget",
+        "Apply bounded delta"
+      ]
+    ],
+    "Strength proposes; inertia smooths; budget limits RMS(delta) / RMS(h)",
+    "Control pipeline. Axis controls operate on three emotional coefficients, not vocabulary logits. Raising budget has no effect while the proposal already lies below the ceiling."
+  ],
+  [
+    "Prompts, sampling, and bounded output",
+    "A change to both feed-forward branches",
+    [
+      [
+        "Post-attention state h",
+        "Edited state h + delta",
+        "Norm then FFN"
+      ],
+      [
+        "Same edited state",
+        "Residual path",
+        "Sum to block output"
+      ]
+    ],
+    "y = (h + delta) + FFN(Norm(h + delta))",
+    "Hook implementation schematic. The final prompt token and current cached-decoding token receive the intervention; hooks are removed on exit. Hosted API mode instead uses coordinate-bearing instructions."
+  ],
+  [
+    "Architecture, persistence, and privacy",
+    "Verification is a separate assessment",
+    [
+      [
+        "Original and revised chunks",
+        "Unsteered evaluator",
+        "Valid coordinate pairs"
+      ],
+      [
+        "Compare each to requested c",
+        "Distance and axis errors",
+        "Report paired coverage"
+      ]
+    ],
+    "Similarity = 1 - ||p - c|| / (2 sqrt(3)); it is not a probability",
+    "Verification workflow. Failed or direction-unknown assessments are not assigned invented scores, and this score is not an iterative feedback objective during rewriting."
+  ]
+]

@@ -1,0 +1,62 @@
+{
+  "screenshots": [
+    {
+      "file": "figures/screenshot-01.png",
+      "source": "affector-01.png",
+      "crop": [
+        10,
+        90,
+        2690,
+        1660
+      ],
+      "caption": "Document workspace with an example input, rewrite controls, and an empty output pane before generation."
+    },
+    {
+      "file": "figures/screenshot-02.png",
+      "source": "affector-02.png",
+      "crop": [
+        450,
+        260,
+        2660,
+        1590
+      ],
+      "caption": "Geometry editor showing the selected three-point trajectory and its steering controls."
+    },
+    {
+      "file": "figures/screenshot-03.png",
+      "source": "affector-03.png",
+      "crop": [
+        22,
+        24,
+        1498,
+        1138
+      ],
+      "caption": "Source-analysis dialog for generating a geometry and optionally calibrating a local activation basis."
+    },
+    {
+      "file": "figures/screenshot-04.png",
+      "source": "affector-04.png",
+      "crop": [
+        450,
+        260,
+        2660,
+        1590
+      ],
+      "caption": "Expanded numerical weights for the selected geometry, including the local calibration metadata."
+    },
+    {
+      "file": "figures/screenshot-05.png",
+      "source": "affector-05.png",
+      "crop": [
+        450,
+        270,
+        2660,
+        850
+      ],
+      "caption": "Verification controls before evaluation. No verification results have been computed in this view."
+    }
+  ],
+  "retained_diagrams": [
+    1
+  ]
+}

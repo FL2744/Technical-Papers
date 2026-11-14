@@ -1,0 +1,51 @@
+{
+  "screenshots": [
+    {
+      "file": "figures/screenshot-01.png",
+      "source": "affector-arc-01.png",
+      "crop": [
+        10,
+        100,
+        3835,
+        2180
+      ],
+      "caption": "Connection workspace with SSH settings and the Slurm GPU resource request. The client is offline in this capture."
+    },
+    {
+      "file": "figures/screenshot-02.png",
+      "source": "affector-arc-02.png",
+      "crop": [
+        520,
+        310,
+        3820,
+        2140
+      ],
+      "caption": "Document workspace displaying an existing Little Red Riding Hood input and rewrite."
+    },
+    {
+      "file": "figures/screenshot-03.png",
+      "source": "affector-arc-03.png",
+      "crop": [
+        520,
+        310,
+        3820,
+        2140
+      ],
+      "caption": "Geometry and weights editor with the trajectory and activation-steering controls."
+    },
+    {
+      "file": "figures/screenshot-04.png",
+      "source": "affector-arc-04.png",
+      "crop": [
+        520,
+        310,
+        3820,
+        920
+      ],
+      "caption": "Jobs and results controls in the offline client; the report pane has no loaded report."
+    }
+  ],
+  "retained_diagrams": [
+    1
+  ]
+}

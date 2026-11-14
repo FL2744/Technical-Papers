@@ -1,0 +1,162 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{8}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{#1}\fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[Cao et~al\mbox{.}(2021)]%
+        {editing}
+\bibfield{author}{\bibinfo{person}{N.~De Cao}, \bibinfo{person}{W. Aziz}, {and}
+  \bibinfo{person}{I. Titov}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \bibinfo{title}{{Editing Factual Knowledge in Language Models}}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://aclanthology.org/2021.emnlp-main.522/}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{EMNLP}.
+
+
+\bibitem[Fallahpour et~al\mbox{.}(2026)]%
+        {memorilla}
+\bibfield{author}{\bibinfo{person}{A. Fallahpour} {et~al\mbox{.}}}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{{Memorilla: Latent Semantic Memory for LLMs}}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://arxiv.org/abs/2610.21375v3}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{arXiv:2610.21375v3; project: https://memory.stanford.edu/}.
+
+
+\bibitem[Morris et~al\mbox{.}(2023)]%
+        {inversion}
+\bibfield{author}{\bibinfo{person}{J. Morris}, \bibinfo{person}{V. Kuleshov},
+  \bibinfo{person}{V. Shmatikov}, {and} \bibinfo{person}{A. Rush}.}
+  \bibinfo{year}{2023}\natexlab{}.
+\newblock \bibinfo{title}{{Text Embeddings Reveal (Almost) As Much As Text}}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://aclanthology.org/2023.emnlp-main.765/}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{EMNLP}.
+
+
+\bibitem[{Ollama}(2026)]%
+        {ollama}
+\bibfield{author}{\bibinfo{person}{{Ollama}}.} \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{{Chat API documentation}}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://docs.ollama.com/api/chat}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Accessed November 2026}.
+
+
+\bibitem[{Qwen Team}(2026)]%
+        {qwen}
+\bibfield{author}{\bibinfo{person}{{Qwen Team}}.}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{{Qwen3.5-0.8B: Model and configuration}}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://huggingface.co/Qwen/Qwen3.5-0.8B}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Model and configuration}.
+
+
+\bibitem[Schlag et~al\mbox{.}(2021)]%
+        {fastweights}
+\bibfield{author}{\bibinfo{person}{I. Schlag}, \bibinfo{person}{K. Irie}, {and}
+  \bibinfo{person}{J. Schmidhuber}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \bibinfo{title}{{Linear Transformers Are Secretly Fast Weight
+  Programmers}}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://arxiv.org/abs/2102.11174}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{ICML}.
+
+
+\bibitem[Taggart(2026)]%
+        {lamp}
+\bibfield{author}{\bibinfo{person}{William Taggart}.}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{{LAMP: Latent Associative Memory Programming}}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://github.com/FL2744/LAMP}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Software}.
+
+
+\bibitem[Turner et~al\mbox{.}(2024)]%
+        {actadd}
+\bibfield{author}{\bibinfo{person}{A.~M. Turner} {et~al\mbox{.}}}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \bibinfo{title}{{Steering Language Models With Activation
+  Engineering}}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://arxiv.org/abs/2308.10248v5}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{arXiv:2308.10248v5}.
+
+
+\end{thebibliography}

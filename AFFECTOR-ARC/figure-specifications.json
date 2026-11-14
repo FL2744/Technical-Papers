@@ -1,0 +1,92 @@
+[
+  [
+    "Emotional coordinates and trajectory interpolation",
+    "Schedule the computation on a GPU node",
+    [
+      [
+        "Text + geometry + controls",
+        "Slurm resource request",
+        "Allocated compute node"
+      ],
+      [
+        "CUDA model load",
+        "Calibrate and rewrite",
+        "Results and diagnostics"
+      ]
+    ],
+    "Single-process, single-GPU runner; queue requests are not performance measurements",
+    "Execution schematic. The compute workload belongs to the allocated GPU node. Resource requests describe scheduling needs and do not establish measured minimum requirements."
+  ],
+  [
+    "Estimating activation directions",
+    "Align geometry to original document positions",
+    [
+      [
+        "Increasing t in [0,1]",
+        "Linear interpolation",
+        "Endpoint clamping"
+      ],
+      [
+        "Chunk midpoint in original text",
+        "Sample (v,d,2i-1)",
+        "Hold target through chunk"
+      ]
+    ],
+    "One target per generation call; neighbors are not prior conversational context",
+    "Trajectory alignment. The runner stretches or compresses the source path over normalized target positions and may miss unsampled emotional changes."
+  ],
+  [
+    "From coordinates to bounded displacements",
+    "Recalibrate on the current CUDA runtime",
+    [
+      [
+        "12 English contrast pairs",
+        "Capture final prompt positions",
+        "24 forward passes"
+      ],
+      [
+        "Mean positive-minus-negative",
+        "RMS-normalize axis rows",
+        "B_l: 3 x 1024"
+      ]
+    ],
+    "Default layers 8, 16, 23 with weights 1, 1, 0.5; no optimizer",
+    "Calibration schematic. The runner recalibrates the imported trajectory on the current runtime. The contrast basis is an experimental numerical control, not a validated multilingual emotion scale."
+  ],
+  [
+    "User controls and rewrite instructions",
+    "Separate activation controls from token sampling",
+    [
+      [
+        "Axis temperature / mass / top-k",
+        "Strength + inertia + budget",
+        "Bounded hidden-state delta"
+      ],
+      [
+        "Generation temperature",
+        "Token top-p / top-k",
+        "Choose output token"
+      ]
+    ],
+    "At generation temperature 0, decoding is greedy and token top-p/top-k are inactive",
+    "Two distinct control paths. Axis selection modifies activation coefficients before generation scores; token sampling operates afterward on the vocabulary distribution."
+  ],
+  [
+    "Engineering checks and evidence",
+    "A failed chunk does not end the document",
+    [
+      [
+        "Attempt chunk once",
+        "Inspect repetition and ending",
+        "Select usable output or fallback"
+      ],
+      [
+        "Record warnings and raw draft",
+        "Advance to next chunk",
+        "Write text and report artifacts"
+      ]
+    ],
+    "Keep requested steering settings; report failure rather than silently weakening controls",
+    "Output lifecycle schematic. Bounded generation, complete-prefix selection, diagnostics and per-chunk continuation address specific failure modes; they do not guarantee emotional fit or preservation of all content."
+  ]
+]

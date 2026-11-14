@@ -1,0 +1,92 @@
+[
+  [
+    "Model and intervention point",
+    "Intervention at the final feed-forward stage",
+    [
+      [
+        "Final attention residual h",
+        "Add current delta",
+        "Norm then FFN"
+      ],
+      [
+        "Same edited state h + delta",
+        "Residual branch",
+        "Sum, final norm, logits"
+      ]
+    ],
+    "y = (h + delta) + FFN(Norm(h + delta))",
+    "Two-branch intervention schematic. The same displacement enters the normalization input and the residual path; no later attention layer follows this insertion point."
+  ],
+  [
+    "The forward-only writer",
+    "Authoring and validating an answer trajectory",
+    [
+      [
+        "Desired answer",
+        "Generate verified donor copy",
+        "Capture donor states"
+      ],
+      [
+        "Source + same token prefixes",
+        "Capture source states",
+        "Subtract aligned states"
+      ]
+    ],
+    "Free generation must reproduce the target before committing the memory",
+    "Sequence writer. Source and donor traces are teacher-forced with matching prefixes; a failed free-generation validation restores the prior memory."
+  ],
+  [
+    "Development evaluation",
+    "Position-indexed numerical replay",
+    [
+      [
+        "Question state",
+        "Select one eligible slot",
+        "Hold slot for answer"
+      ],
+      [
+        "Decoding position t",
+        "Read delta[i,t]",
+        "Apply gain x delta[i,t]"
+      ]
+    ],
+    "After the stored sequence ends, no further adjustment is supplied",
+    "Inference schematic. Routing occurs once per answer, while the selected adjustment varies with decoding position. This is restricted activation replay, not a stored answer-string lookup."
+  ],
+  [
+    "Costs and limitations",
+    "Recognition and reproduction are different tests",
+    [
+      [
+        "Source question",
+        "Similarity at least 0.999",
+        "Eligible memory route"
+      ],
+      [
+        "Tested paraphrase",
+        "Similarity about 0.9792",
+        "No route selected"
+      ]
+    ],
+    "12 selected sequence writes passed full-answer checks; broad paraphrase recall was not established",
+    "Reported recognition example. The strict default threshold rejects one tested paraphrase despite successful exact-source sequence writes; these are development observations."
+  ],
+  [
+    "Practical utility, reversibility, and recoverability",
+    "Separate storage enables reversible edits",
+    [
+      [
+        "Frozen model checkpoint",
+        "Unchanged parameter hashes",
+        "Baseline computation"
+      ],
+      [
+        "Memory safetensors",
+        "Keys, deltas, sequences, controls",
+        "Enable, replace or clear"
+      ]
+    ],
+    "Fixed matrices: 7.8125 MiB  |  Each FP32 sequence step: 4 KiB",
+    "Storage and reversibility schematic. Numerical memory is persisted separately from the frozen model. Its reversibility does not make encoded associations confidential."
+  ]
+]

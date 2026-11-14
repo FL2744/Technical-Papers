@@ -1,0 +1,90 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{3}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{#1}\fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[Gao et~al\mbox{.}(2023)]%
+        {alce}
+\bibfield{author}{\bibinfo{person}{Tianyu Gao}, \bibinfo{person}{Howard Yen},
+  \bibinfo{person}{Jiatong Yu}, {and} \bibinfo{person}{Danqi Chen}.}
+  \bibinfo{year}{2023}\natexlab{}.
+\newblock \bibinfo{title}{{Enabling Large Language Models to Generate Text with
+  Citations}}.
+\newblock \bibinfo{howpublished}{Proceedings of EMNLP;
+  doi:10.18653/v1/2023.emnlp-main.398}.
+\newblock
+\urldef\tempurl%
+\url{https://aclanthology.org/2023.emnlp-main.398/}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Min et~al\mbox{.}(2023)]%
+        {factscore}
+\bibfield{author}{\bibinfo{person}{Sewon Min}, \bibinfo{person}{Kalpesh
+  Krishna}, \bibinfo{person}{Xinxi Lyu}, \bibinfo{person}{Mike Lewis},
+  \bibinfo{person}{Wen tau Yih}, \bibinfo{person}{Pang Koh},
+  \bibinfo{person}{Mohit Iyyer}, \bibinfo{person}{Luke Zettlemoyer}, {and}
+  \bibinfo{person}{Hannaneh Hajishirzi}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \bibinfo{title}{{FActScore: Fine-grained Atomic Evaluation of Factual
+  Precision in Long Form Text Generation}}.
+\newblock \bibinfo{howpublished}{Proceedings of EMNLP;
+  doi:10.18653/v1/2023.emnlp-main.741}.
+\newblock
+\urldef\tempurl%
+\url{https://aclanthology.org/2023.emnlp-main.741/}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Shao et~al\mbox{.}(2024)]%
+        {storm}
+\bibfield{author}{\bibinfo{person}{Yijia Shao}, \bibinfo{person}{Yucheng
+  Jiang}, \bibinfo{person}{Theodore~A. Kanell}, \bibinfo{person}{Peter Xu},
+  \bibinfo{person}{Omar Khattab}, {and} \bibinfo{person}{Monica~S. Lam}.}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \bibinfo{title}{{Assisting in Writing Wikipedia-like Articles From
+  Scratch with Large Language Models}}.
+\newblock \bibinfo{howpublished}{arXiv:2402.14207}.
+\newblock
+\urldef\tempurl%
+\url{https://arxiv.org/abs/2402.14207}
+\showURL{%
+\tempurl}
+
+
+\end{thebibliography}

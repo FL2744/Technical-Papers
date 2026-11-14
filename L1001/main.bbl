@@ -1,0 +1,102 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{4}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{#1}\fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[Karpinska and Iyyer(2023)]%
+        {literary}
+\bibfield{author}{\bibinfo{person}{Marzena Karpinska} {and}
+  \bibinfo{person}{Mohit Iyyer}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \bibinfo{title}{{Large Language Models Effectively Leverage
+  Document-level Context for Literary Translation, but Critical Errors
+  Persist}}.
+\newblock \bibinfo{howpublished}{Proceedings of WMT;
+  doi:10.18653/v1/2023.wmt-1.41}.
+\newblock
+\urldef\tempurl%
+\url{https://aclanthology.org/2023.wmt-1.41/}
+\showURL{%
+\tempurl}
+
+
+\bibitem[{{Project Jupyter}}(2026)]%
+        {jupyter}
+\bibfield{author}{\bibinfo{person}{{{Project Jupyter}}}.}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{{Communication between a host page and a JupyterLite
+  instance running in an IFrame}}.
+\newblock \bibinfo{howpublished}{JupyterLite documentation, accessed November
+  14, 2026}.
+\newblock
+\urldef\tempurl%
+\url{https://jupyterlite.readthedocs.io/en/stable/howto/configure/advanced/iframe.html}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Rei et~al\mbox{.}(2020)]%
+        {comet}
+\bibfield{author}{\bibinfo{person}{Ricardo Rei}, \bibinfo{person}{Craig
+  Stewart}, \bibinfo{person}{Ana~C. Farinha}, {and} \bibinfo{person}{Alon
+  Lavie}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \bibinfo{title}{{COMET: A Neural Framework for MT Evaluation}}.
+\newblock \bibinfo{howpublished}{Proceedings of EMNLP;
+  doi:10.18653/v1/2020.emnlp-main.213}.
+\newblock
+\urldef\tempurl%
+\url{https://aclanthology.org/2020.emnlp-main.213/}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Voita et~al\mbox{.}(2019)]%
+        {docrepair}
+\bibfield{author}{\bibinfo{person}{Elena Voita}, \bibinfo{person}{Rico
+  Sennrich}, {and} \bibinfo{person}{Ivan Titov}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \bibinfo{title}{{Context-Aware Monolingual Repair for Neural Machine
+  Translation}}.
+\newblock \bibinfo{howpublished}{Proceedings of EMNLP-IJCNLP;
+  doi:10.18653/v1/D19-1081}.
+\newblock
+\urldef\tempurl%
+\url{https://aclanthology.org/D19-1081/}
+\showURL{%
+\tempurl}
+
+
+\end{thebibliography}

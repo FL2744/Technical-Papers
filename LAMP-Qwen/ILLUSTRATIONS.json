@@ -1,0 +1,62 @@
+{
+  "screenshots": [
+    {
+      "file": "figures/screenshot-01.png",
+      "source": "lamp-qwen-01.jpg",
+      "crop": [
+        15,
+        85,
+        2700,
+        1150
+      ],
+      "caption": "Chat workspace comparing base and memory-enabled responses in the displayed persona configuration. This interface example is not an accuracy benchmark."
+    },
+    {
+      "file": "figures/screenshot-02.png",
+      "source": "lamp-qwen-02.jpg",
+      "crop": [
+        500,
+        85,
+        2700,
+        1100
+      ],
+      "caption": "Memory-writing form with a source question and desired answer entered; the write has not been submitted."
+    },
+    {
+      "file": "figures/screenshot-03.png",
+      "source": "lamp-qwen-03.jpg",
+      "crop": [
+        500,
+        85,
+        2700,
+        1540
+      ],
+      "caption": "Question-bank browser with example prompts available for testing memory writes."
+    },
+    {
+      "file": "figures/screenshot-04.png",
+      "source": "lamp-qwen-04.jpg",
+      "crop": [
+        500,
+        85,
+        2700,
+        1440
+      ],
+      "caption": "Persona configuration interface for preparing a behavioral profile."
+    },
+    {
+      "file": "figures/screenshot-05.png",
+      "source": "lamp-qwen-05.jpg",
+      "crop": [
+        500,
+        85,
+        2700,
+        1100
+      ],
+      "caption": "Numerical weight editor showing part of the initially zero recognition-key row. Editing this row changes the matching weights."
+    }
+  ],
+  "retained_diagrams": [
+    1
+  ]
+}
