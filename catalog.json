@@ -34,8 +34,8 @@
     "pdf": "ARC-Explorer.pdf",
     "tex": "ARC-Explorer.tex",
     "title": "ARC Explorer: A Native macOS Workspace for Remote High-Performance Computing",
-    "commit": "440c38ab5d3f94d7ea9f12ef46c166a63242661d",
-    "sha256": "af62035c7069190b35c2f74551e95f908d03b853324e7ab4ef24b3a08653465a",
+    "commit": "84a253666773b40a9556568c222fbe39d15edc54",
+    "sha256": "19f69305b55a3f74dbda116414d8efea417a6377673d5898768d02e6b73ec973",
     "root_pdf": "ARC-Explorer.pdf"
   },
   {

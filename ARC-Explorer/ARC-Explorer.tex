@@ -27,7 +27,7 @@
 \geometry{top=0.75in,bottom=0.65in,includeheadfoot}
 \begin{document}
 \begin{abstract}
-ARC Explorer is a native macOS application that brings connection profiles, resource inspection, allocation accounting, GPU job submission, remote files, terminal sessions, web applications, and language-model assistance into one workspace for Virginia Tech Advanced Research Computing (ARC). The client combines SwiftUI, AppKit, WebKit, the system SSH client, and a small remote Python helper. Computational scripts are submitted to Slurm with explicit resource requests, while an integrated login-node terminal supports direct interactive administration. Five main sections organize the workflow: Connection, Resources, Jobs + software, Sessions, and Help. This report describes the implementation, file-editing safeguards, credential boundaries, installation workflow, and release validation. Twenty-eight Python tests and two native terminal tests pass for the release candidate. The evidence establishes functional checks of selected paths, not a performance benchmark, independent security audit, or guarantee of compatibility with every ARC service. Six application screenshots illustrate the workspace.
+ARC Explorer is a native macOS application that brings connection profiles, resource inspection, allocation accounting, GPU job submission, remote files, terminal sessions, web applications, and language-model assistance into one workspace for Virginia Tech Advanced Research Computing (ARC). The client combines SwiftUI, AppKit, WebKit, the system SSH client, and a small remote Python helper. Computational scripts are submitted to Slurm with explicit resource requests, while an integrated login-node terminal supports direct interactive administration. Five main sections organize the workflow: Connection, Resources, Jobs + software, Sessions, and Help. This report describes the implementation, file-editing safeguards, credential boundaries, installation workflow, and release validation. Twenty-eight Python tests and two native terminal tests pass for the release candidate. The evidence establishes functional checks of selected paths, not a performance benchmark, independent security audit, or guarantee of compatibility with every ARC service. Five application screenshots illustrate the workspace.
 \end{abstract}
 \keywords{high-performance computing, Slurm, SSH, macOS, scientific gateways, remote development}
 \maketitle
@@ -64,7 +64,7 @@ Light mode is the default, with an explicit dark-mode option. The header uses a 
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=\textwidth,height=0.62\textheight,keepaspectratio]{figures/01-connection.png}
+\includegraphics[width=0.90\textwidth,height=0.62\textheight,keepaspectratio]{figures/01-connection.png}
 \caption{Connection section showing the saved profile and SSH form. Offline capture of the signed v0.1 build; no password, API key, or private-key contents are shown.}
 \Description{Connection section showing the saved profile and SSH form. Offline capture of the signed v0.1 build; no password, API key, or private-key contents are shown.}
 \end{figure}
@@ -81,16 +81,11 @@ The lightweight editor opens UTF-8 text files up to 1 MiB, supports new files an
 
 An opened file is associated with a revision derived from its content hash, device, inode, and modification time. Before replacement, the helper compares the current revision with the expected revision, writes a temporary file in the destination directory, preserves supported permissions and group metadata, flushes it, checks again, and replaces the destination. A detected conflict preserves the remote version. This is optimistic conflict detection; it is not a server-side lock or a proof that all concurrent-writer races are impossible.
 
-\begin{figure}[!htb]
-\centering
-\includegraphics[width=\textwidth,height=0.62\textheight,keepaspectratio]{figures/02-resources.png}
-\caption{Cropped Resources detail with allocation and date controls. The offline view contains no account balance or fabricated usage results.}
-\Description{Cropped Resources detail with allocation and date controls. The offline view contains no account balance or fabricated usage results.}
-\end{figure}
+
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=\textwidth,height=0.62\textheight,keepaspectratio]{figures/06-file-editor.png}
+\includegraphics[width=0.90\textwidth,height=0.62\textheight,keepaspectratio]{figures/06-file-editor.png}
 \caption{Cropped detail of the remote file browser and lightweight text editor. This offline view illustrates the editing controls, not an active file transaction.}
 \Description{Cropped detail of the remote file browser and lightweight text editor. This offline view illustrates the editing controls, not an active file transaction.}
 \end{figure}
@@ -111,7 +106,7 @@ Repository retrieval does not automatically run arbitrary setup instructions. Th
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=\textwidth,height=0.62\textheight,keepaspectratio]{figures/03-jobs-software.png}
+\includegraphics[width=0.90\textwidth,height=0.62\textheight,keepaspectratio]{figures/03-jobs-software.png}
 \caption{Jobs + software showing explicit GPU resources and the editable script. The example script has not been submitted in this offline screenshot.}
 \Description{Jobs + software showing explicit GPU resources and the editable script. The example script has not been submitted in this offline screenshot.}
 \end{figure}
@@ -130,7 +125,7 @@ For an existing service on an allocated compute node, a tunnel maps a local loop
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=\textwidth,height=0.62\textheight,keepaspectratio]{figures/04-sessions.png}
+\includegraphics[width=0.90\textwidth,height=0.62\textheight,keepaspectratio]{figures/04-sessions.png}
 \caption{Sessions with the full-width Login Node Terminal controls, upper terminal pane, and red compute warning. The terminal is disconnected in this capture.}
 \Description{Sessions with the full-width Login Node Terminal controls, upper terminal pane, and red compute warning. The terminal is disconnected in this capture.}
 \end{figure}
@@ -147,7 +142,7 @@ The transport requires HTTPS and refuses HTTP redirects, preventing automatic fo
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=\textwidth,height=0.62\textheight,keepaspectratio]{figures/05-help.png}
+\includegraphics[width=0.90\textwidth,height=0.62\textheight,keepaspectratio]{figures/05-help.png}
 \caption{Help section with the ARC API configuration, model field, and question editor. The API key is empty; no live response is claimed.}
 \Description{Help section with the ARC API configuration, model field, and question editor. The API key is empty; no live response is claimed.}
 \end{figure}
@@ -158,7 +153,7 @@ The v0.1 release build passes 28 Python tests and two Swift terminal tests. Pyth
 
 The native tests verify login-terminal request construction without an allocation requirement and exercise a real local pseudo-terminal: interactive input, a requested terminal size of 42 rows by 140 columns, and process exit. These are targeted regression checks. They do not prove all escape-sequence behavior, SSH authentication combinations, remote policy compliance, or embedded-browser compatibility.
 
-The six figures are captures of the application interface, all captured from the signed release build. The images are cropped to remove unused space and pointer/hover overlays. They deliberately show offline states and omit live account results and credentials. Screenshots document layout and available controls; they are not measurements of scheduler or API success. Earlier development included remote smoke checks, but this report's quantified release evidence is limited to the test suite stated above.
+The five figures are captures of the application interface, all captured from the signed release build. The images are cropped to remove unused space and pointer/hover overlays. They deliberately show offline states and omit live account results and credentials. Screenshots document layout and available controls; they are not measurements of scheduler or API success. Earlier development included remote smoke checks, but this report's quantified release evidence is limited to the test suite stated above.
 
 The source distribution includes the Swift application, remote helper, native askpass helper, icon generator, tests, build script, vendored terminal source and license, and this report in Markdown, LaTeX, and PDF. SwiftTerm is pinned to v1.20.0 with the documented clipboard-read change. The build targets arm64 and macOS 15.0; the release was built and tested on a newer macOS host, not separately runtime-qualified on every supported OS release.
 
