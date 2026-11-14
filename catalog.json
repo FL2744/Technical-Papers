@@ -18,10 +18,10 @@
     "repo": "FL2744/AFFECTOR-ARC",
     "hf": "will-taggart/AFFECTOR-ARC",
     "folder": "paper",
-    "pdf": "AFFECTOR-ARC-ACM.pdf",
-    "tex": "AFFECTOR-ARC-ACM.tex",
+    "pdf": "AFFECTOR-ARC.pdf",
+    "tex": "AFFECTOR-ARC.tex",
     "title": "AFFECTOR-ARC: Emotional Trajectory Control through Transformer Activation Steering",
-    "commit": "f0877fb84b61c7420e4dd879852f2363fa34ca80",
+    "commit": "c8134d693b01b3e57367cdf8a609990ac1372532",
     "sha256": "faf072babff6b3f33eb7160e0c03b6b7bc4316ec8844aa0230785c0f9e8f4343",
     "root_pdf": "AFFECTOR-ARC.pdf"
   },
@@ -47,7 +47,7 @@
     "pdf": "Emotional-Atlas.pdf",
     "tex": "main.tex",
     "title": "Emotional Atlas: Emotional Geometry, Textual Evolution, and Shape-Guided Revision",
-    "commit": "f847e74c7331271c2bdcb52e08d5180d59cf6c6e",
+    "commit": "3aef379d855853e65994dbbc95d80d547f01373e",
     "sha256": "6421197b6888f7981a9b4db62d894bb905c8e7ce33aa0dc42dc3084215ca388e",
     "root_pdf": "Emotional-Atlas.pdf"
   },
@@ -99,7 +99,7 @@
     "pdf": "main.pdf",
     "tex": "main.tex",
     "title": "LAMP: Latent Associative Memory Programming in a Frozen Toy Transformer",
-    "commit": "99d23016427cf5094eabc1a4196585bd9c2ee53b",
+    "commit": "3a68a4231375095c183f48f961cf206d884c7ddf",
     "sha256": "e752444e86fe820f92ba6217b72eb380e9b5d344d619e6832315532259bda64c",
     "root_pdf": "LAMP.pdf"
   },
@@ -112,7 +112,7 @@
     "pdf": "LAMP-Qwen.pdf",
     "tex": "main.tex",
     "title": "LAMP-Qwen: Forward-Only Associative Memory for a Frozen Small Language Model",
-    "commit": "b29b63b1d0413a0a37878fbb1d82a105ae04d03a",
+    "commit": "79b0214013f26f59297aa0118be5ab18785347e4",
     "sha256": "ccdcc0de59161bae422d7beb27da4f2fe8ce959e87a9f9d14cdcef6d6f72f802",
     "root_pdf": "LAMP-Qwen.pdf"
   },
@@ -138,7 +138,7 @@
     "pdf": "TURTLE.pdf",
     "tex": "main.tex",
     "title": "TURTLE: Trajectory-based Understanding and Rendering of Transformations in Latent Embeddings",
-    "commit": "5ccf797b18abc89ba8bff29ab1dc6df3258d2b2f",
+    "commit": "3e439375614e394eb11a3b23e6af8449334e0ff8",
     "sha256": "b3e9b804863e58a1d687c866050b1cb484396223af480bb110bdfef506bdc255",
     "root_pdf": "TURTLE.pdf"
   }
