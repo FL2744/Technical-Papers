@@ -35,34 +35,19 @@ Activation Steering}
 \affiliation{\department{Modern and Classical Languages and Literatures}
 \institution{Virginia Tech}\city{Blacksburg}\state{Virginia}\country{USA}}
 \email{wtaggart@vt.edu}
-\subtitle{Technical Report: November 13, 2026}
+\subtitle{Technical Report: November 14, 2026}
 \begin{abstract}
-AFFECTOR-ARC is an experimental command-line system for rewriting text
-under a user-defined emotional trajectory. It runs a frozen Qwen3.5-0.8B
-model on an NVIDIA GPU and changes selected internal activations during
-generation. A trajectory specifies valence, inward/outward emotional
-orientation, and intensity across normalized document position. Small
-sets of contrasting English passages establish three activation
-directions at each selected transformer layer. At inference time, the
-requested coordinates determine a weighted displacement, scaled relative
-to the current hidden-state magnitude, smoothed across decoding steps,
-and constrained by an RMS budget. Paired hooks apply this displacement
-to both the feed-forward input and its residual path. Document rewriting
-combines these interventions with four editing styles, sentence-aware
-segmentation, bounded generation, and incremental reporting. This report
-derives the mechanism from its implemented operations and distinguishes
-numerical controls from emotional outcomes. CPU policy tests pass; the
-current revision still requires CUDA validation. No measured claim of
-emotional accuracy, semantic preservation, or multilingual effectiveness
-is made.
+AFFECTOR-ARC is an experimental text-rewriting system with a native macOS application and a command-line CUDA runner. The desktop application manages documents, emotional geometries, SSH connections, Slurm GPU jobs, and downloaded results; the runner executes a frozen Qwen3.5-0.8B model on an allocated ARC GPU. A trajectory specifies valence, inward/outward emotional orientation, and intensity across normalized document position. Contrasting English passages establish three activation directions at each selected transformer layer. During generation, trajectory coordinates determine a displacement scaled to the hidden-state magnitude, smoothed across decoding steps, and constrained by an RMS budget. Paired hooks apply it to the feed-forward input and residual path. Four editing styles, sentence-aware segmentation, bounded generation, and incremental reports make the intervention available within a document workflow. This report describes both interfaces and derives the steering mechanism, while distinguishing implementation checks from evidence of emotional effectiveness. Earlier desktop GPU runs and CPU policy tests are documented separately; they do not validate every subsequent runner revision or establish emotional accuracy, semantic preservation, or multilingual effectiveness.
 \end{abstract}
 \keywords{activation steering, emotional text generation, transformer models, controllable generation}
 \maketitle
 \section{Purpose and Research Context}\label{literature-review-activation-steering-and-emotion}\label{problem-and-operating-principle}
 
-AFFECTOR-ARC investigates how a prescribed emotional progression can influence a document rewrite on an allocated GPU. A user supplies a UTF-8 text and an ordered sequence of valence, inward/outward emotional orientation, and intensity coordinates. The runner maps document positions to that sequence and converts the sampled coordinates into activation displacements during generation. Here, geometry means a path through a three-dimensional coordinate space, with layer settings and optional calibration matrices. It expresses a desired progression rather than a surface reconstructed from text or a constraint applied directly to individual words.
+AFFECTOR-ARC investigates whether a writer can guide the emotional progression of a document by specifying a trajectory and intervening in a language model's internal computation. The practical aim is to make that experiment usable across a complete rewrite: the writer selects a text, supplies an emotional geometry, adjusts the intervention, and inspects the resulting passages and diagnostics. A native macOS application brings these activities into a workspace, while SSH and Slurm connect that workspace to a GPU allocation on Virginia Tech ARC. A command-line runner exposes the computation separately for scripted experiments and reproducible execution.
 
-The intervention acts on the numerical hidden states used to predict successive tokens while the model's stored parameters remain fixed. This approach builds on contrastive activation steering: Turner and colleagues derive directions from contrasting prompts, and Panickssery and colleagues average differences between positive and negative behavioral examples \cite{turner2023actadd,panickssery2024caa}. AFFECTOR-ARC uses small sets of contrasting passages to establish emotional directions at selected layers, then applies coordinate-dependent displacements as each passage is rewritten. The contribution is an inspectable implementation of this mapping and its operational controls, not a claim that the emotional coordinates uniquely determine a continuation.
+The geometry gives this workflow a common representation. It is an ordered path through valence, inward/outward emotional orientation, and intensity, accompanied by layer settings and optional calibration matrices. Sampling the path at successive document positions supplies the coordinates used during rewriting. Those coordinates become displacements of the model's hidden states, so the desired progression acts on the computation that produces tokens rather than prescribing particular words. The model's stored parameters remain fixed throughout.
+
+This mechanism builds on contrastive activation steering. Turner and colleagues derive directions from contrasting prompts, and Panickssery and colleagues average differences between positive and negative behavioral examples \cite{turner2023actadd,panickssery2024caa}. AFFECTOR-ARC applies the same broad principle to small sets of emotionally contrasting passages, then mixes the resulting directions according to the requested trajectory. The central research question is how reliably this mapping can influence a sustained rewrite, given that a numerical displacement need not produce a unique or consistent emotional interpretation.
 
 \begin{figure}[!htb]
 \centering
@@ -72,15 +57,23 @@ The intervention acts on the numerical hidden states used to predict successive 
 \label{fig:app-screen-2}
 \end{figure}
 
-Research connecting model emotion spaces with human valence/arousal judgments provides motivation for coordinate-based experimentation. Wu and colleagues report concept-based steering across linguistic-cultural settings \cite{wu2025emotion}, while Diallo and colleagues use human ratings to examine perceived emotional intensity and text quality \cite{diallo2026style}. Their findings make human interpretation central to evaluation, but they do not calibrate the present inward/outward axis or RMS-scaled settings. A text's emotional reading, its requested coordinates, and the model's hidden states remain distinct objects linked by an experimental calibration.
+That question connects the implementation to research on the relation between model representations and human judgments. Wu and colleagues study concept-based emotional steering across linguistic-cultural settings, while Diallo and colleagues use human ratings to examine perceived emotional intensity and text quality \cite{wu2025emotion,diallo2026style}. These studies motivate coordinate-based experiments whose outcomes are judged through readers' interpretations. They do not, however, establish the validity of this system's inward/outward axis or calibrate its RMS-scaled controls. The requested trajectory, the activation displacement, and the emotion perceived in the output must therefore be evaluated as related but distinct quantities.
 
-That distinction matters when selecting layers and combining axes. Shu and colleagues find uneven causal organization across emotion categories in sparse-feature interventions for recognition \cite{shu2026emotion}; Wang and colleagues show that strong probing accuracy need not identify the most effective intervention layers \cite{wang2026readbest}. Ha and colleagues likewise find that supportive-empathy directions are only partially separable \cite{ha2026empathy}. Automated vector extraction and context-dependent strength offer further approaches to calibration and control \cite{cui2025pas,ferrando2025dsas}. These studies motivate layer sweeps, cross-axis tests, and adaptive controls, while the present runner uses an explicit coordinate mixture with user-selected settings.
+The reliability of that relationship also depends on where and how the intervention is applied. Shu and colleagues find uneven causal organization across emotion categories, and Wang and colleagues show that strong probing accuracy need not identify the most effective intervention layers \cite{shu2026emotion,wang2026readbest}. Ha and colleagues' finding that supportive-empathy directions are only partially separable further cautions against treating emotional axes as independent controls \cite{ha2026empathy}. Automated vector extraction and context-dependent strength offer approaches to these calibration problems \cite{cui2025pas,ferrando2025dsas}. AFFECTOR-ARC makes layer weights and axis mixtures explicit so that such questions can be investigated, although its current runner uses user-selected settings rather than an adaptive emotional-feedback controller.
 
-Generation limits and failure reporting are part of the same research problem. E-STEER reports non-monotonic effects of emotional interventions across several tasks \cite{sun2026emotion}, and Jeong observes both emotional changes and degeneration in small models \cite{jeong2026emotion}. Stronger settings therefore cannot be assumed to improve transfer. The runner offers a rewrite mode that processes a document in chunks and records attempts and failures, and a smoke mode with five controlled generation conditions for checking intervention and cleanup behavior. Its scope is the command-line CUDA computation illustrated alongside the desktop client's workspaces; the runner itself supplies neither a hosted service, conversational history, nor automatic emotional scoring.
+Applying those settings across a document makes generation stability part of the same problem. E-STEER reports non-monotonic effects of emotional interventions, and Jeong observes both emotional changes and degeneration in small models \cite{sun2026emotion,jeong2026emotion}. A stronger displacement can thus disrupt a rewrite without bringing it closer to the intended trajectory. The system addresses the operational consequences through bounded generation, repetition checks, passage-level failure records, and a desktop workflow for reviewing jobs and results. These safeguards preserve an inspectable experiment; they do not establish that a completed rewrite meets its emotional target.
 
-This operational scope determines the evidence needed to assess the system. SteerScope evaluates efficacy together with side effects, generalization, and dependence on steering data, and finds no general advantage of activation methods over prompt steering in its tested trade-offs \cite{yang2026steerscope}. AFFECTOR-ARC therefore requires prompt-only and unsteered baselines, blinded emotional and quality ratings, content-change assessment, and complete reporting of repetition and truncation. The report documents the implemented mechanism and engineering checks; these broader comparisons and an empirically established operating range remain future work.
+Evaluation must consequently consider emotional alignment together with fluency, content change, and failure rates. SteerScope examines efficacy, side effects, generalization, and dependence on steering data, finding no general advantage over prompt steering in its tested trade-offs \cite{yang2026steerscope}. For AFFECTOR-ARC, this motivates comparisons with prompt-only and unsteered rewriting, blinded emotional and quality ratings, and complete reporting of retained originals, repetition, and truncation. The scope of this report is the desktop-to-cluster workflow and the implemented steering procedure, including their engineering checks. Establishing emotional effectiveness and a reliable operating range remains an empirical task.
 
 \section{Runtime and data flow}\label{runtime-and-data-flow}
+
+\subsection{Native macOS client and remote execution}
+
+The native SwiftUI application is distributed on Hugging Face for Apple Silicon Macs running macOS 15 or later. Its connection workspace configures SSH access and the Slurm resource request. The document workspace holds the input and generated text; the shape and weights workspace supports importing, converting, and editing geometries and intervention settings. Jobs and results controls expose remote progress, diagnostics, and output downloads. The application also manages Hugging Face source updates and submits GPU-environment setup through Slurm.
+
+The Mac serves as the client: lightweight SSH requests manage files and jobs, while model setup and execution run in requested GPU allocations. The bundled Python remote agent handles requests over SSH without a persistent listening server. The desktop interface and the command-line runner are separately versioned components, so a recorded application version alone does not identify the remote engine revision. Both should be recorded when reporting a run.
+
+\subsection{CUDA runner}
 
 
 \begin{figure}[!htb]
@@ -527,6 +520,8 @@ distinct output filename for each experiment. Reports contain the input
 text and should be treated as document-bearing artifacts.
 
 
+The desktop document view is a presentation layer over these artifacts. The published client displays generated passages separately from source text and diagnostics; its text exports can therefore differ from the runner's assembled file, which includes retained originals. The downloadable report is needed to distinguish generated, retained, failed, and unprocessed passages. Reconnecting can recover an existing job and its outputs, but this client recovery does not make the runner's incremental report a resumable generation checkpoint.
+
 \section{Engineering checks and
 evidence}\label{engineering-checks-and-evidence}
 
@@ -564,9 +559,13 @@ has not yet been run on an ARC GPU. A successful GPU run was reported
 for an earlier revision on November 12; it is historical evidence, not
 validation of the current code.
 
+The desktop release also has its own validation record. Its published version 1.0.4 documentation reports native Swift tests, 14 remote-agent tests, a completed sample rewrite, and an earlier GPU setup on an NVIDIA A100-SXM4-80GB. These are release-specific engineering observations, not measurements of emotional accuracy or validation of later changes to the remote runner. The screenshots show the native application's workspaces, including offline states where indicated.
+
 \section{Reproduction}\label{reproduction}
 
-Inside a suitable ARC GPU allocation, from a fresh repository copy:
+For the desktop workflow, download the native macOS application from the repository's macos directory on Hugging Face, unpack it, and open AFFECTOR ARC.app. Configure the connection profile for the user's own ARC login, SSH authentication, and Slurm allocation. After connecting, install or update the remote source and prepare the GPU environment as needed. Import a document and geometry, adjust the settings, and choose Transform on ARC. Monitor the submitted job in Jobs + results and download its input, output, report, geometry, and logs. The published desktop README identifies the application as version 1.0.4 and describes its build as ad-hoc signed.
+
+The following commands provide the separate command-line workflow. They run inside a suitable ARC GPU allocation from a fresh repository copy:
 
 \begin{verbatim}
 bash setup.sh
@@ -641,11 +640,12 @@ prompt wording alone does not establish it.
 
 \section{Implementation sources}\label{implementation-sources}
 
-This report describes the repository's executable operations rather than
-relying on another application's interface or documentation.
+This report covers the native macOS client, its SSH request agent, and the CUDA runner. The desktop release and its source are available alongside the remote engine:
 
 \begin{itemize}
 \tightlist
+\item
+  \href{https://huggingface.co/will-taggart/AFFECTOR-ARC/tree/main/macos}{Native macOS application, Swift source, and release documentation}
 \item
   \href{https://huggingface.co/will-taggart/AFFECTOR-ARC/blob/main/run_arc.py}{CUDA
   runner and smoke protocol}
@@ -692,7 +692,7 @@ and limitations are stated separately in this report.
 \section*{Suggested citation}
 William Taggart. 2026. AFFECTOR-ARC: Emotional Trajectory Control
 through Transformer Activation Steering. Technical report. Modern and
-Classical Languages and Literatures, Virginia Tech. November 13, 2026.
+Classical Languages and Literatures, Virginia Tech. November 14, 2026.
 \url{https://huggingface.co/will-taggart/AFFECTOR-ARC/blob/main/TECHNICAL_REPORT.md}
 
 \end{document}
