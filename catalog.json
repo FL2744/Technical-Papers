@@ -86,8 +86,8 @@
     "pdf": "Technical-Paper.pdf",
     "tex": "main.tex",
     "title": "L1001: Stateful Long-Document Translation in a Browser and Command Line",
-    "commit": "12582161287dae3b7e02237abe7c9ebec882ab81",
-    "sha256": "a18bd7c92dd0138c32a4bab230a512c8579b14fe17f1d8e23eebc93d99e4ac5d",
+    "commit": "55d45e1a8ab4888838bc99408dd3494273aa9a30",
+    "sha256": "7e35205ceb17fa26d3b62ae00c91dd25f82f883c23db037da21bc459402f3f19",
     "root_pdf": "L1001.pdf"
   },
   {
