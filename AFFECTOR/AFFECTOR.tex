@@ -23,8 +23,19 @@
 \setcounter{topnumber}{3}
 \setcounter{bottomnumber}{3}
 \setcounter{totalnumber}{5}
-\setlength{\textfloatsep}{12pt plus 2pt minus 3pt}
-\setlength{\intextsep}{12pt plus 2pt minus 3pt}
+\setlength{\textfloatsep}{12pt}
+\setlength{\intextsep}{12pt}
+\setlength{\floatsep}{12pt}
+\captionsetup[figure]{skip=6pt}
+% Keep display spacing equal, including after short introductory lines.
+\makeatletter
+\g@addto@macro\normalsize{%
+  \setlength{\abovedisplayskip}{7pt}%
+  \setlength{\belowdisplayskip}{7pt}%
+  \setlength{\abovedisplayshortskip}{7pt}%
+  \setlength{\belowdisplayshortskip}{7pt}%
+}
+\makeatother
 \raggedbottom
 
 \geometry{top=0.75in,bottom=0.65in,includeheadfoot}
@@ -98,9 +109,7 @@ can be inward and sadness for another person outward. Intensity
 describes strength of affect, not pleasantness.
 
 For intervention, intensity is centered:
-
 \[c(t)=(v(t),d(t),2i(t)-1).\]
-
 Coordinates are linearly interpolated between points, with endpoint
 clamping outside the stored range. Geometry imports that lack a
 supported direction omit that point; interpolating across the resulting
@@ -162,14 +171,10 @@ The capture site is the final chat-formatted prompt position immediately
 before the post-attention normalization that feeds the feed-forward
 sublayer. It is not a mean over all content tokens. For layer \nolinkurl{l}
 and axis \nolinkurl{j}, the mean contrast is:
-
 \[u_{\ell,j}=\frac14\sum_k(h^+_{\ell,j,k}-h^-_{\ell,j,k}).\]
-
 With \texttt{RMS(x)\ =\ sqrt(mean\_r(x{[}r{]}\^{}2))}, normalization
 gives:
-
 \[B_{\ell,j}=\frac{u_{\ell,j}}{\max(\operatorname{RMS}(u_{\ell,j}),10^{-8})}.\]
-
 The resulting \texttt{B{[}l{]}} is a 3 by 1,024 matrix. These are the
 editable steering-module weights. Defaults select layers 8, 16, and 23,
 with weights 1, 1, and 0.5. Geometry files retain the calibration
@@ -197,9 +202,7 @@ computation}\label{coordinate-to-activation-computation}
 \end{figure}
 Axis temperature \nolinkurl{T} transforms each coordinate magnitude while
 retaining its sign:
-
 \[q_j=\operatorname{sign}(c_j)|c_j|^{1/T}.\]
-
 The implementation ranks axes by magnitude, retains at most axis top-k,
 and stops adding axes once cumulative magnitude reaches the configured
 mass fraction. Surviving coefficients are not renormalized. These
@@ -208,19 +211,13 @@ vocabulary distribution.
 
 For current final-token hidden state \nolinkurl{h}, strength \nolinkurl{s},
 and layer weight \texttt{w{[}l{]}}, the proposed perturbation is:
-
 \[\delta_{\mathrm{raw}}=(q B_\ell)\operatorname{RMS}(h)s w_\ell.\]
-
 Inertia \nolinkurl{rho} combines this proposal with the previous applied
 perturbation within the same chunk:
-
 \[\delta_{\mathrm{mix}}=\rho\delta_{\mathrm{previous}}+(1-\rho)\delta_{\mathrm{raw}}.\]
-
 The first step uses the raw proposal directly. A relative RMS budget
 \nolinkurl{beta} then bounds the perturbation:
-
 \[\delta=\delta_{\mathrm{mix}}\min\left(1,\frac{\beta\operatorname{RMS}(h)}{\max(\operatorname{RMS}(\delta_{\mathrm{mix}}),10^{-12})}\right).\]
-
 Zero strength, budget, or layer weight gives an exact zero perturbation.
 Each chunk resets inertia history. The settings are applied as
 requested; the release does not automatically lower them after poor
@@ -239,13 +236,9 @@ transformer}\label{intervention-within-the-transformer}
 Let \nolinkurl{h} denote a block's residual state after its attention or
 sequence-mixing stage. A conventional feed-forward residual update has
 the form:
-
 \[y=h+\operatorname{FFN}(\operatorname{Norm}(h)).\]
-
 AFFECTOR implements:
-
 \[y=(h+\delta)+\operatorname{FFN}(\operatorname{Norm}(h+\delta)).\]
-
 A pre-hook on the feed-forward normalization adds \nolinkurl{delta} to its
 input, and a post-hook on the block output adds the same \nolinkurl{delta}
 to the residual branch. This is a forward-pass intervention, not a
@@ -326,9 +319,7 @@ estimates, not psychometric measurements.
 
 For assessed coordinate \nolinkurl{p=(v,d,2i-1)} and target \nolinkurl{c}, the
 reported similarity is:
-
 \[\operatorname{similarity}=1-\frac{\lVert p-c\rVert_2}{2\sqrt3}.\]
-
 The denominator is the maximum distance across the three-dimensional
 \texttt{{[}-1,1{]}} cube. Similarity is not a probability. Axis errors
 are also reported. Unknown direction makes the three-axis distance
