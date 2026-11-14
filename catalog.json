@@ -60,8 +60,8 @@
     "pdf": "Technical-Paper.pdf",
     "tex": "main.tex",
     "title": "FENNEC: A Browser-Based Conversational and Research Companion",
-    "commit": "a0858a2d730a00d1b49f5a42b97e9a0fea6f0c07",
-    "sha256": "c5f0542308050f027be98162026bf6be89c939ccd9f0077c2afa6cf0ae84dbc6",
+    "commit": "5aa298a5f4e8703a742d616fca62c54358a462e9",
+    "sha256": "106424b4c73ec081f1ec2dc91935312e4f5cfa10c97dccfc9c4c164546aa7d83",
     "root_pdf": "FENNEC.pdf"
   },
   {
