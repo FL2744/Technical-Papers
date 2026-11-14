@@ -80,8 +80,8 @@
     "pdf": "Technical-Paper.pdf",
     "tex": "main.tex",
     "title": "L1001: Stateful Long-Document Translation in a Browser and Command Line",
-    "commit": "b38ca26037d4b71cce1c1ec565e0a145d9669644",
-    "sha256": "0e045ac848fbebebfd0ed564b1fd771b6af031492e051e40673113f69b1e865d"
+    "commit": "fbe9486306a3da12de7ccf8ebca665bb3075e4e2",
+    "sha256": "e5faefe048945d5d1cc56c04c6524331113cecdeb916e734122f8093def15a9a"
   },
   {
     "name": "LAMP",

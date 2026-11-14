@@ -1,0 +1,27 @@
+{
+  "screenshots": [
+    {
+      "file": "figures/screenshot-01.png",
+      "capture": "l1001-01.jpg",
+      "crop": [
+        20,
+        20,
+        1240,
+        1015
+      ],
+      "caption": "The browser workspace before translation: provider, source document, language, style, preview, and download controls."
+    },
+    {
+      "file": "figures/screenshot-05.png",
+      "capture": "l1001-05.jpg",
+      "crop": [
+        20,
+        2540,
+        1240,
+        3240
+      ],
+      "caption": "The embedded JupyterLite workspace runs browser-side Python in a temporary kernel."
+    }
+  ],
+  "retained_diagrams": []
+}
