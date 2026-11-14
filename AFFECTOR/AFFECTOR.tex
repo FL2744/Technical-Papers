@@ -54,83 +54,11 @@ or controller of human emotion.
 \end{abstract}
 \keywords{activation steering, emotional text generation, transformer models, controllable generation}
 \maketitle
-\section{Literature review: activation steering and
-emotion}\label{literature-review-activation-steering-and-emotion}
+\section{Purpose and Research Context}\label{literature-review-activation-steering-and-emotion}\label{problem-formulation}
 
-This focused review covers twelve papers, emphasizing 2025-2026 research
-and retaining two methodological foundations. Titles, author lists,
-version histories, and the claims summarized here were checked against
-arXiv records and the corresponding paper text on November 13, 2026. The
-cited versions are fixed below; availability on arXiv alone does not
-establish peer review. The implications for this project are research
-motivations, not evidence that its implementation reproduces these
-results.
+A document conveys more than propositions: lexical choice, rhythm, imagery, focus, and narrative stance contribute to its emotional character. AFFECTOR investigates whether a user-defined emotional progression can guide a rewrite while leaving room to choose how much of the original content to preserve. It represents that progression as an ordered curve of valence, inward/outward emotional direction, and intensity across the document. Such a curve specifies a coarse target rather than a unique text, so emotional fit must be considered alongside readability, content change, and output length.
 
-\textbf{From activation differences to behavioral control.} Activation
-steering changes internal model states during inference while leaving
-the backbone weights fixed. Turner et al.~derive intervention vectors
-from contrasting prompts; Panickssery et al.~average differences across
-positive and negative behavioral examples. These provide the
-methodological basis for contrastive calibration, but do not validate a
-particular emotional coordinate system or insertion site.
-\citep{turner2023actadd}; \citep{panickssery2024caa}.
-
-\textbf{Emotional expression and human judgment.} Wu et al.~relate model
-emotion spaces to human valence/arousal judgments and report
-concept-based steering across linguistic-cultural settings. Diallo et
-al.~evaluate perceived emotional intensity and text quality with human
-raters, finding that effects depend on emotion and steering strength.
-Together they motivate separate measures of emotional movement and
-readability. Their axes and numerical strengths cannot be assumed
-equivalent to this project's inward/outward direction or RMS-scaled
-controls. \citep{wu2025emotion}; \citep{diallo2026style}.
-
-\textbf{Emotion can affect more than tone.} Sun et al.'s E-STEER uses
-valence-arousal-dominance interventions to study reasoning, generation,
-safety, and agent behavior, reporting non-monotonic relationships.
-Jeong's small-model comparison reports both coherent emotional changes
-and degeneration, including repetition, depending on extraction method
-and architecture. These findings motivate reporting failed generations
-alongside successes and testing strength sweeps rather than assuming
-that larger perturbations improve emotional fit. Neither study
-establishes an operating range for this implementation.
-\citep{sun2026emotion}; \citep{jeong2026emotion}.
-
-\textbf{Reading an emotion is different from controlling it.} Shu et
-al.'s revised study identifies uneven causal organization of sparse
-features across emotion categories and tests interventions for emotion
-recognition. Wang et al.~show, in omni-modal models, that layers with
-strong emotion-probing accuracy need not be the best intervention
-layers. Recognition results therefore inform evaluator design, while
-layer selection for rewriting still requires causal tests on generated
-text. Neither finding licenses importing layer indices across
-architectures. \citep{shu2026emotion}; \citep{wang2026readbest}.
-
-\textbf{Multiple axes and adaptive control.} Ha et al.~find that
-supportive-empathy directions are only partially separable: intervening
-on one can shift other EPITOME proxy scores. Cui and Chen automate
-vector extraction from labeled data, with task-dependent benefits.
-Ferrando et al.~adapt intervention strength to context, studying the
-balance between toxicity mitigation and retained utility. These
-approaches motivate broader calibration, cross-axis tests, and future
-adaptive control. The present coordinate mixture is not an
-implementation of their learned selectors or context-dependent gates.
-\citep{ha2026empathy}; \citep{cui2025pas}; \citep{ferrando2025dsas}.
-
-\textbf{Evaluation must include costs as well as target effects.} Yang
-et al.'s SteerScope evaluates steering efficacy jointly with side
-effects, generalization, and data dependence. In its tested settings,
-activation methods do not dominate prompt steering on the
-efficacy/side-effect trade-off. For this project, the resulting
-evaluation priorities are prompt-only and unsteered baselines, blinded
-emotional and quality ratings, content-change assessment appropriate to
-the rewrite style, and complete accounting of repetition, truncation,
-and original-text fallbacks. This is an evaluation agenda, not a
-completed benchmark. \citep{yang2026steerscope}.
-
-
-\section{Problem formulation}\label{problem-formulation}
-
+Activation steering provides one mechanism for pursuing this target. Turner and colleagues construct intervention vectors from contrasting prompts, while Panickssery and colleagues average activation differences across positive and negative behavioral examples \cite{turner2023actadd,panickssery2024caa}. AFFECTOR uses contrastive calibration to map emotional coordinates into changes to a frozen model's internal states during local inference. Its API backend instead describes the coordinates in instructions to a hosted model. These two routes support comparison between numerical intervention and prompt-based control, but their strengths and outcomes cannot be treated as equivalent.
 
 \begin{figure}[!htb]
 \centering
@@ -139,26 +67,14 @@ completed benchmark. \citep{yang2026steerscope}.
 \Description{Document workspace with an example input, rewrite controls, and an empty output pane before generation.}
 \label{fig:app-screen-1}
 \end{figure}
-A document conveys more than propositions: lexical choice, focus,
-rhythm, imagery, and narrative stance can contribute to an emotional
-reading. Rewriting a document to follow a desired emotional progression
-is consequently a multi-objective problem. The output should express the
-requested affect, remain readable, retain whatever content its rewrite
-style requires, and have a manageable length. These objectives can
-conflict.
 
-AFFECTOR represents the desired affect as an ordered curve, not a
-vocabulary list. A curve does not uniquely determine a text: countless
-passages can share the same coarse coordinates. The application offers
-two mechanisms to bias generation toward that curve. Local activation
-intervention changes numerical states during inference. API prompting
-describes the desired coordinates to a remote model. These mechanisms
-are not equivalent, and their results should be evaluated separately.
+The choice to expose emotional coordinates is informed by work connecting model representations with human judgments. Wu and colleagues relate model emotion spaces to human valence/arousal ratings and report concept-based steering across linguistic-cultural settings \cite{wu2025emotion}. Diallo and colleagues assess emotional intensity and text quality with human raters, finding effects that depend on the emotion and steering strength \cite{diallo2026style}. These studies motivate separate assessments of emotional movement and readable expression. They do not validate AFFECTOR's inward/outward axis or establish a correspondence between their intervention scales and its RMS-scaled controls.
 
-The current system does not solve a constrained optimization problem
-over complete texts. In particular, it does not automatically measure a
-generated passage and iteratively minimize its emotional distance.
-Verification is an explicit later operation.
+The practical need for bounded generation follows from evidence that emotional intervention can change more than tone. E-STEER studies effects on reasoning, generation, safety, and agent behavior and reports non-monotonic relationships \cite{sun2026emotion}. Jeong's small-model comparison finds both coherent emotional changes and degeneration, including repetition, depending on architecture and extraction method \cite{jeong2026emotion}. AFFECTOR therefore treats repetition, truncation, and failed generations as outcomes to record, rather than assuming that stronger intervention produces a closer emotional match. Its rewrite styles make the competing requirements of emotional transformation and content preservation explicit.
+
+Choosing an evaluator and choosing an intervention site are also separate research problems. Shu and colleagues find uneven causal organization across emotion categories in a study of sparse features and emotion recognition \cite{shu2026emotion}. Wang and colleagues show that strong emotion-probing accuracy need not identify the best intervention layers in omni-modal models \cite{wang2026readbest}. Meanwhile, Ha and colleagues find partially coupled supportive-empathy directions \cite{ha2026empathy}, Cui and Chen automate vector extraction with task-dependent benefits \cite{cui2025pas}, and Ferrando and colleagues study context-dependent strength to balance toxicity mitigation and utility \cite{ferrando2025dsas}. Together, this work motivates testing layer choice, cross-axis interference, and adaptation. The current coordinate mixture is a simpler experimental control, rather than an implementation of those learned selectors or gates.
+
+The report consequently focuses on the implemented transformation pipeline and its observable limits. The application does not automatically score each generated passage and iteratively minimize its emotional distance; verification is a separate user-invoked operation. SteerScope's joint evaluation of efficacy, side effects, generalization, and data dependence supplies an appropriate broader evaluation agenda \cite{yang2026steerscope}. Its finding that activation methods do not dominate prompt steering in the tested trade-offs reinforces the need for prompt-only and unsteered baselines, blinded emotional and quality ratings, and complete failure accounting. Those comparisons remain research requirements, not completed evidence of AFFECTOR's effectiveness.
 
 \section{Representation and
 alignment}\label{representation-and-alignment}

@@ -9,41 +9,25 @@ Email: wtaggart@vt.edu
 
 AFFECTOR-ARC is an experimental command-line system for rewriting text under a user-defined emotional trajectory. It runs a frozen Qwen3.5-0.8B model on an NVIDIA GPU and changes selected internal activations during generation. A trajectory specifies valence, inward/outward emotional orientation, and intensity across normalized document position. Small sets of contrasting English passages establish three activation directions at each selected transformer layer. At inference time, the requested coordinates determine a weighted displacement, scaled relative to the current hidden-state magnitude, smoothed across decoding steps, and constrained by an RMS budget. Paired hooks apply this displacement to both the feed-forward input and its residual path. Document rewriting combines these interventions with four editing styles, sentence-aware segmentation, bounded generation, and incremental reporting. This report derives the mechanism from its implemented operations and distinguishes numerical controls from emotional outcomes. CPU policy tests pass; the current revision still requires CUDA validation. No measured claim of emotional accuracy, semantic preservation, or multilingual effectiveness is made.
 
-## Literature review: activation steering and emotion
+## Purpose and Research Context
 
-This focused review covers twelve papers, emphasizing 2025-2026 research and retaining two methodological foundations. Titles, author lists, version histories, and the claims summarized here were checked against arXiv records and the corresponding paper text on November 13, 2026. The cited versions are fixed below; availability on arXiv alone does not establish peer review. The implications for this project are research motivations, not evidence that its implementation reproduces these results.
+AFFECTOR-ARC investigates how a prescribed emotional progression can influence a document rewrite on an allocated GPU. A user supplies a UTF-8 text and an ordered sequence of valence, inward/outward emotional orientation, and intensity coordinates. The runner maps document positions to that sequence and converts the sampled coordinates into activation displacements during generation. Here, geometry means a path through a three-dimensional coordinate space, with layer settings and optional calibration matrices. It expresses a desired progression rather than a surface reconstructed from text or a constraint applied directly to individual words.
 
-**From activation differences to behavioral control.** Activation steering changes internal model states during inference while leaving the backbone weights fixed. Turner et al. derive intervention vectors from contrasting prompts; Panickssery et al. average differences across positive and negative behavioral examples. These provide the methodological basis for contrastive calibration, but do not validate a particular emotional coordinate system or insertion site. [Turner et al., 2023 (R1)](https://arxiv.org/abs/2308.10248v1); [Panickssery et al., 2024 (R2)](https://arxiv.org/abs/2312.06681v4).
-
-**Emotional expression and human judgment.** Wu et al. relate model emotion spaces to human valence/arousal judgments and report concept-based steering across linguistic-cultural settings. Diallo et al. evaluate perceived emotional intensity and text quality with human raters, finding that effects depend on emotion and steering strength. Together they motivate separate measures of emotional movement and readability. Their axes and numerical strengths cannot be assumed equivalent to this project's inward/outward direction or RMS-scaled controls. [Wu et al., 2025 (R3)](https://arxiv.org/abs/2506.13978v1); [Diallo et al., 2026 arXiv version (R4)](https://arxiv.org/abs/2601.21505v1).
-
-**Emotion can affect more than tone.** Sun et al.'s E-STEER uses valence-arousal-dominance interventions to study reasoning, generation, safety, and agent behavior, reporting non-monotonic relationships. Jeong's small-model comparison reports both coherent emotional changes and degeneration, including repetition, depending on extraction method and architecture. These findings motivate reporting failed generations alongside successes and testing strength sweeps rather than assuming that larger perturbations improve emotional fit. Neither study establishes an operating range for this implementation. [Sun et al., 2026 (R5)](https://arxiv.org/abs/2604.00005v1); [Jeong, 2026 (R6)](https://arxiv.org/abs/2604.04064v1).
-
-**Reading an emotion is different from controlling it.** Shu et al.'s revised study identifies uneven causal organization of sparse features across emotion categories and tests interventions for emotion recognition. Wang et al. show, in omni-modal models, that layers with strong emotion-probing accuracy need not be the best intervention layers. Recognition results therefore inform evaluator design, while layer selection for rewriting still requires causal tests on generated text. Neither finding licenses importing layer indices across architectures. [Shu et al., 2026, v3 (R7)](https://arxiv.org/abs/2604.25866v3); [Wang et al., 2026 (R8)](https://arxiv.org/abs/2609.22135v1).
-
-**Multiple axes and adaptive control.** Ha et al. find that supportive-empathy directions are only partially separable: intervening on one can shift other EPITOME proxy scores. Cui and Chen automate vector extraction from labeled data, with task-dependent benefits. Ferrando et al. adapt intervention strength to context, studying the balance between toxicity mitigation and retained utility. These approaches motivate broader calibration, cross-axis tests, and future adaptive control. The present coordinate mixture is not an implementation of their learned selectors or context-dependent gates. [Ha et al., 2026 (R9)](https://arxiv.org/abs/2609.15654v1); [Cui and Chen, 2025, revised 2026 (R10)](https://arxiv.org/abs/2509.22739v3); [Ferrando et al., 2025, revised 2026 (R11)](https://arxiv.org/abs/2512.03661v2).
-
-**Evaluation must include costs as well as target effects.** Yang et al.'s SteerScope evaluates steering efficacy jointly with side effects, generalization, and data dependence. In its tested settings, activation methods do not dominate prompt steering on the efficacy/side-effect trade-off. For this project, the resulting evaluation priorities are prompt-only and unsteered baselines, blinded emotional and quality ratings, content-change assessment appropriate to the rewrite style, and complete accounting of repetition, truncation, and original-text fallbacks. This is an evaluation agenda, not a completed benchmark. [Yang et al., 2026 (R12)](https://arxiv.org/abs/2610.07722v1).
-
-## 1. Problem and operating principle
-
-A language model generates text by repeatedly estimating a distribution over the next token. Its intermediate hidden states are numerical vectors that contribute to those estimates. Changing a hidden state can change the continuation even when the input text and the model's stored parameters remain fixed.
+The intervention acts on the numerical hidden states used to predict successive tokens while the model's stored parameters remain fixed. This approach builds on contrastive activation steering: Turner and colleagues derive directions from contrasting prompts, and Panickssery and colleagues average differences between positive and negative behavioral examples ([Turner et al., 2023](https://arxiv.org/abs/2308.10248v1); [Panickssery et al., 2024](https://arxiv.org/abs/2312.06681v4)). AFFECTOR-ARC uses small sets of contrasting passages to establish emotional directions at selected layers, then applies coordinate-dependent displacements as each passage is rewritten. The contribution is an inspectable implementation of this mapping and its operational controls, not a claim that the emotional coordinates uniquely determine a continuation.
 
 ![Document workspace displaying an existing Little Red Riding Hood input and rewrite.](figures/screenshot-02.png)
 
 *Document workspace displaying an existing Little Red Riding Hood input and rewrite.*
-AFFECTOR-ARC uses this property to influence the emotional expression of a rewrite. The user supplies an input document and a sequence of emotional coordinates. The software maps positions in the input to positions on that sequence, converts the coordinates into activation displacements, and applies the displacements while generating each rewritten passage.
 
-The term **geometry** means an ordered path through a three-dimensional coordinate space, together with layer settings and optional calibration matrices. It does not mean that the software reconstructs a solid surface or applies geometric constraints directly to words. A text's emotional interpretation, a numerical target, and a model's hidden states are distinct objects. The calibration is an experimental mapping between them.
+Research connecting model emotion spaces with human valence/arousal judgments provides motivation for coordinate-based experimentation. Wu and colleagues report concept-based steering across linguistic-cultural settings ([Wu et al., 2025](https://arxiv.org/abs/2506.13978v1)), while Diallo and colleagues use human ratings to examine perceived emotional intensity and text quality ([Diallo et al., 2026](https://arxiv.org/abs/2601.21505v1)). Their findings make human interpretation central to evaluation, but they do not calibrate the present inward/outward axis or RMS-scaled settings. A text's emotional reading, its requested coordinates, and the model's hidden states remain distinct objects linked by an experimental calibration.
 
-Two execution modes are available:
+That distinction matters when selecting layers and combining axes. Shu and colleagues find uneven causal organization across emotion categories in sparse-feature interventions for recognition ([Shu et al., 2026](https://arxiv.org/abs/2604.25866v3)); Wang and colleagues show that strong probing accuracy need not identify the most effective intervention layers ([Wang et al., 2026](https://arxiv.org/abs/2609.22135v1)). Ha and colleagues likewise find that supportive-empathy directions are only partially separable ([Ha et al., 2026](https://arxiv.org/abs/2609.15654v1)). Automated vector extraction and context-dependent strength offer further approaches to calibration and control ([Cui et al., 2025](https://arxiv.org/abs/2509.22739v3); [Ferrando et al., 2025](https://arxiv.org/abs/2512.03661v2)). These studies motivate layer sweeps, cross-axis tests, and adaptive controls, while the present runner uses an explicit coordinate mixture with user-selected settings.
 
-- **Rewrite:** process an entire UTF-8 text document in chunks, write the transformed text, and record attempts and failures.
-- **Smoke:** run five controlled generation conditions to check basic intervention and cleanup behavior.
+Generation limits and failure reporting are part of the same research problem. E-STEER reports non-monotonic effects of emotional interventions across several tasks ([Sun et al., 2026](https://arxiv.org/abs/2604.00005v1)), and Jeong observes both emotional changes and degeneration in small models ([Jeong, 2026](https://arxiv.org/abs/2604.04064v1)). Stronger settings therefore cannot be assumed to improve transfer. The runner offers a rewrite mode that processes a document in chunks and records attempts and failures, and a smoke mode with five controlled generation conditions for checking intervention and cleanup behavior. Its scope is the command-line CUDA computation illustrated alongside the desktop client's workspaces; the runner itself supplies neither a hosted service, conversational history, nor automatic emotional scoring.
 
-The interface is a command-line runner for a CUDA allocation. It does not provide a desktop interface, a hosted API service, automatic emotional scoring, or conversational history.
+This operational scope determines the evidence needed to assess the system. SteerScope evaluates efficacy together with side effects, generalization, and dependence on steering data, and finds no general advantage of activation methods over prompt steering in its tested trade-offs ([Yang et al., 2026](https://arxiv.org/abs/2610.07722v1)). AFFECTOR-ARC therefore requires prompt-only and unsteered baselines, blinded emotional and quality ratings, content-change assessment, and complete reporting of repetition and truncation. The report documents the implemented mechanism and engineering checks; these broader comparisons and an empirically established operating range remain future work.
 
-## 2. Runtime and data flow
+## Runtime and data flow
 
 The runner loads `Qwen/Qwen3.5-0.8B` at revision `2fc06364715b967f1860aea9cf38778875588b17`. The implementation uses `Qwen3_5ForConditionalGeneration`, its text decoder layers, float32 computation, eager attention, and the first process-visible CUDA device. It checks for 24 decoder layers; the geometry and calibration code assume hidden width 1,024. The backbone is in evaluation mode, its parameters have gradients disabled, and calibration and generation run without gradient tracking.
 
@@ -70,7 +54,7 @@ The example Slurm script requests one GPU, eight CPU cores, 64 GB of host memory
 
 *Illustration 1. Execution schematic. The compute workload belongs to the allocated GPU node. Resource requests describe scheduling needs and do not establish measured minimum requirements.*
 
-## 3. Emotional coordinates and trajectory interpolation
+## Emotional coordinates and trajectory interpolation
 
 A trajectory point is
 
@@ -98,7 +82,7 @@ That target remains constant throughout generation of the chunk. A long trajecto
 
 The runner accepts a native geometry JSON file and supported analysis JSON structures containing emotional coordinates. It recalibrates the basis on the current CUDA runtime even when the imported geometry includes one. With no geometry argument, it uses a demonstration path with three points; this path is not inferred from the input document.
 
-## 4. Estimating activation directions
+## Estimating activation directions
 
 A hidden state at a selected layer is a vector in $\mathbb{R}^{1024}$. To estimate a direction associated with one emotional contrast, the system compares the model's states for paired passages that differ in the desired property.
 
@@ -126,9 +110,9 @@ The three directions form the rows of a matrix $B_\ell\in\mathbb{R}^{3\times1024
 
 Default layers are 8, 16, and 23, using zero-based indexing, with weights 1, 1, and 0.5. This is subtraction, averaging, and normalization; there is no training optimizer, backbone fine-tuning, orthogonalization, or outcome-based fitting. The small calibration set may encode vocabulary, topic, or perspective along with emotion. Normalizing the vectors does not establish that the axes are independent or valid across languages.
 
-## 5. From coordinates to bounded displacements
+## From coordinates to bounded displacements
 
-### 5.1 Selecting and weighting axes
+### Selecting and weighting axes
 
 ![Geometry and weights editor with the trajectory and activation-steering controls.](figures/screenshot-03.png)
 
@@ -147,7 +131,7 @@ $$
 
 where $m_j$ is one for a retained axis and zero otherwise. Coefficients are not renormalized after selection. For coordinate magnitudes below one, $T<1$ reduces their magnitudes and emphasizes relative differences; $T>1$ increases them and makes those differences less pronounced. These operations affect three activation coefficients, not token probabilities.
 
-### 5.2 Strength, inertia, and budget
+### Strength, inertia, and budget
 
 For the current final-token state $h_{\ell,n}$, strength $s$, and layer weight $w_\ell$, the raw displacement is
 
@@ -175,7 +159,7 @@ $$
 
 Strength determines the proposed displacement; budget supplies its ceiling. Raising the budget has no effect when the proposed displacement already fits below it. Budget 1 permits a displacement as large in RMS as the hidden state itself. It is not a token allowance, a semantic-change quota, or a guarantee of stronger emotional accuracy. Inertia uses the previous already-capped displacement and resets with each new generation call.
 
-### 5.3 Intervention site
+### Intervention site
 
 Let $h$ denote the state entering the feed-forward portion of a decoder block. Without intervention, that portion computes
 
@@ -193,7 +177,7 @@ A pre-hook adds $\delta$ to the normalization input; a block-output hook adds th
 
 This is an open-loop intervention. Coefficients come from the requested absolute coordinates, not the difference between a measured output emotion and the target. A zero coefficient adds no intervention on that axis; it does not actively neutralize emotion already expressed by the model.
 
-## 6. User controls and rewrite instructions
+## User controls and rewrite instructions
 
 | Control | Default without an imported override | Function |
 |---|---:|---|
@@ -222,7 +206,7 @@ Four system-prompt styles provide separate editing constraints:
 
 Restrained is the default in rewrite mode. Smoke mode retains its original general rewriting instruction unless a style is explicitly selected. Each prompt requests complete sentences and treats supplied text as material rather than instructions. A per-chunk suffix specifies the original character count and hard character allowance. Numerical emotional coordinates are not inserted into these prompts; the coordinates act through hidden states. Prompt instructions influence generation but are not formal semantic guarantees. The runner has no semantic-equivalence rejection filter and does not lower steering settings automatically.
 
-## 7. Segmentation, length control, and repetition
+## Segmentation, length control, and repetition
 
 The runner reads and trims the outer whitespace of a UTF-8 text file. Blank lines define paragraphs. Long paragraphs are split using a 700-character ceiling, preferring sentence punctuation when a suitable boundary exists, then whitespace, and finally a hard split. This is a punctuation heuristic, not a linguistic sentence parser. Original whitespace between chunks is preserved during output assembly.
 
@@ -248,7 +232,7 @@ After a generation attempt, the runner checks for repetition, empty output, exce
 
 Sentence cleanup prevents chopped words from being joined directly to the next passage, but it may omit ideas from the tail of a draft. Neither punctuation recognition nor output-size compliance establishes completeness of meaning.
 
-## 8. Failure handling and output artifacts
+## Failure handling and output artifacts
 
 Each chunk receives one generation attempt at the requested activation settings. A caught generation exception is recorded; the original chunk remains in the assembled text and processing continues. Calibration failures, invalid inputs, filesystem failures, and process termination are outside this per-chunk recovery mechanism and can stop a run. A persistent device failure may cause subsequent chunks to fail as well.
 
@@ -264,7 +248,7 @@ Successful generation records include stopping reason, token count, elapsed time
 
 JSON writes use temporary-file replacement. The companion text file is written normally and may be incomplete if interrupted during that write. Reports are incremental records, not automatic resume checkpoints: rerunning starts over and overwrites the selected output paths. Use a distinct output filename for each experiment. Reports contain the input text and should be treated as document-bearing artifacts.
 
-## 9. Engineering checks and evidence
+## Engineering checks and evidence
 
 Smoke mode is the default and operates on one supplied passage. It runs baseline, zero-strength, positive-valence, negative-valence, and restored-baseline conditions. Positive and negative conditions use coefficient vectors $(0.8,0,0)$ and $(-0.8,0,0)$. The third coordinate zero corresponds to intensity 0.5.
 
@@ -274,7 +258,7 @@ Smoke mode defaults to the original 128-token allowance and 600-second time thre
 
 For the November 13 revision, seven CPU policy tests passed, Python and shell syntax were checked, and CLI loading was verified. Tests cover such behavior as unchanged requested controls, paragraph allowance accounting, draft retention, sentence cleanup, and continuing after a failed chunk. They do not execute the CUDA model. The current revision has not yet been run on an ARC GPU. A successful GPU run was reported for an earlier revision on November 12; it is historical evidence, not validation of the current code.
 
-## 10. Reproduction
+## Reproduction
 
 Inside a suitable ARC GPU allocation, from a fresh repository copy:
 
@@ -302,7 +286,7 @@ These strength and budget values illustrate explicit configuration; they are not
 
 Archive the repository revision, engine manifest, resolved dependencies, GPU and driver information, command-line arguments, input, geometry, and report. The engine identity's `source_commit` field currently contains a snapshot label rather than a Git commit hash, so the repository revision should be recorded separately. The default seed is zero and TF32 matrix multiplication is disabled, but identical results across hardware and library versions are not guaranteed.
 
-## 11. Scientific limits and evaluation requirements
+## Scientific limits and evaluation requirements
 
 The system offers a direct, inspectable intervention, not a demonstrated emotional matching algorithm. Its main limitations are the small English calibration set, untested interactions between axes and layers, open-loop use of absolute targets, and lack of independent output assessment. The model can change subject matter or factual claims, especially under Creative instructions or strong perturbations. Stronger displacement can degrade fluency without improving emotional alignment.
 

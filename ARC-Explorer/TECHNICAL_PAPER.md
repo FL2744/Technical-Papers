@@ -10,21 +10,17 @@ Technical report · ARC Explorer v0.1 · November 13, 2026
 
 ARC Explorer is a native macOS application that brings connection profiles, resource inspection, allocation accounting, GPU job submission, remote files, terminal sessions, web applications, and language-model assistance into one workspace for Virginia Tech Advanced Research Computing (ARC). The client combines SwiftUI, AppKit, WebKit, the system SSH client, and a small remote Python helper. Computational scripts are submitted to Slurm with explicit resource requests, while an integrated login-node terminal supports direct interactive administration. Five main sections organize the workflow: Connection, Resources, Jobs + software, Sessions, and Help. This report describes the implementation, file-editing safeguards, credential boundaries, installation workflow, and release validation. Twenty-eight Python tests and two native terminal tests pass for the release candidate. The evidence establishes functional checks of selected paths, not a performance benchmark, independent security audit, or guarantee of compatibility with every ARC service. Five application screenshots illustrate the workspace.
 
-## 1. Motivation and context
+## Purpose and Research Context
 
-Researchers using a shared cluster must coordinate several interfaces: SSH authentication, scheduler commands, allocation and storage reports, source repositories, text editors, interactive notebooks, and service documentation. ARC Explorer groups these operations around a saved cluster profile and an explicit resource request. The goal is to reduce interface switching while keeping the underlying commands, execution locations, and resource decisions visible.
+Working on a shared cluster requires coordination across authentication, scheduler commands, allocation and storage reports, source repositories, editors, notebooks, and service documentation. ARC Explorer brings these activities into a native macOS workspace organized around a saved cluster profile and an explicit resource request. Its purpose is to reduce interface switching while keeping commands, execution locations, and resource decisions visible to the researcher.
 
-Web gateways already provide broad access to high-performance computing. Open OnDemand is an established portal architecture for HPC centers [@hudak2018], and ARC documents its deployment for files, jobs, shells, and interactive applications [@arcood]. ARC Explorer complements that infrastructure with a native desktop workspace, an embedded browser, a terminal, and local document dialogs. It does not replace the scheduler, identity provider, allocation service, or Open OnDemand deployment. No comparative usability advantage is asserted.
+This design extends an established ecosystem of HPC access tools. Open OnDemand provides a web-based portal architecture for HPC centers ([Hudak et al., 2018](https://doi.org/10.21105/joss.00622)), and ARC documents its deployment for files, jobs, shells, and interactive applications ([Computing, n.d.](https://www.docs.arc.vt.edu/resources/ood.html)). ARC Explorer combines an embedded browser, terminal, and local document dialogs with that infrastructure. Its desktop workflow complements the portal while continuing to rely on the cluster's identity, allocation, scheduling, and interactive-service mechanisms; comparative usability benefits remain to be evaluated.
 
-The scheduler remains the authority on resource allocation. Slurm exposes submission, queue inspection, accounting, and cancellation through established commands [@slurm]. The application translates form values into explicit scheduler arguments rather than implementing its own queue. ARC's login-node guidance constrains the intended use of interactive commands [@arcpolicy]. The distinction between management and compute is therefore part of both the interface and the implementation, although the general terminal cannot enforce that distinction.
+The boundary between requesting resources and receiving an allocation is fundamental to this workflow. The original Slurm paper describes scheduling and resource management as cluster services ([Yoo et al., 2003](https://doi.org/10.1007/10968987_3)), and Slurm's command interface exposes submission, queue inspection, accounting, and cancellation ([SchedMD, n.d.](https://slurm.schedmd.com/documentation.html)). ARC Explorer translates form values into explicit scheduler arguments so a request can be inspected and saved. The scheduler determines whether and when those resources become available. ARC's login-node guidance also shapes the interface's distinction between management commands and compute jobs ([Computing, n.d.](https://www.docs.arc.vt.edu/usage/abuse.html)), although a general-purpose terminal cannot enforce that policy by itself.
 
-### Research context
+A unified workspace is useful only if it also helps users retain the context of their computation. Jupyter notebooks connect executable code, results, and explanatory prose in a shared artifact ([Kluyver et al., 2016](https://doi.org/10.3233/978-1-61499-649-1-87)); ARC Explorer supports access to that workflow while notebook servers and compute allocations retain separate lifecycles. Peng's account of reproducible computational research emphasizes making computational artifacts available for inspection ([Peng, 2011](https://doi.org/10.1126/science.1213847)), and the FAIR principles distinguish findability, accessibility, interoperability, and reuse ([Wilkinson et al., 2016](https://doi.org/10.1038/sdata.2016.18)). These perspectives motivate keeping scripts, resource settings, environments, and outputs together. The report describes how the application supports those practices without treating the GUI or any individual saved artifact as sufficient evidence of reproducibility or FAIR compliance.
 
-The original Slurm paper describes resource management and scheduling as services of the cluster infrastructure [SLURM: Simple Linux Utility for Resource Management](https://doi.org/10.1007/10968987_3). This provides the architectural basis for keeping a desktop client's resource form separate from the scheduler that grants and enforces an allocation. A submitted request is therefore an auditable specification of desired resources, not proof of their availability.
-
-Research on Jupyter notebooks treats executable code, results, and explanatory prose as a shared publication artifact [Jupyter Notebooks—a publishing format for reproducible computational workflows](https://doi.org/10.3233/978-1-61499-649-1-87). ARC Explorer's embedded notebook access supports that workflow, while the notebook server and compute allocation retain their own lifecycles. Peng's account of reproducible computational research emphasizes access to the computational artifacts needed to inspect a result [Reproducible Research in Computational Science](https://doi.org/10.1126/science.1213847). The FAIR principles additionally distinguish findability, accessibility, interoperability, and reuse [The FAIR Guiding Principles for scientific data management and stewardship](https://doi.org/10.1038/sdata.2016.18). These perspectives motivate saving scripts, resource settings, environment information, and outputs together. They do not establish that a GUI, a saved script, or an exported log by itself makes an experiment reproducible or FAIR-compliant.
-
-## 2. Architecture and execution boundaries
+## Architecture and execution boundaries
 
 The desktop application targets Apple Silicon Macs running macOS 15 or later. SwiftUI provides the workspace and forms; AppKit supplies native dialogs and terminal integration; WebKit renders web services. The application calls the macOS system SSH executable. It does not require a separately installed local Python interpreter, browser engine, or model weights. A system browser remains available as an alternative for web authentication and applications.
 
@@ -36,7 +32,7 @@ The remote helper is itself a Python process on the login node. ARC's published 
 
 Nonsecret connection preferences, appearance, bookmarks, and workspace state are stored locally. Profiles contain connection and resource settings, not SSH passwords or private-key material. The local workspace preserves drafts for convenience; it is not a transaction log or a substitute for saving important scripts and files.
 
-## 3. Connection: profiles and authentication
+## Connection: profiles and authentication
 
 The Connection section presents saved profiles, host and port fields, a Virginia Tech PID, authentication mode, private-key path, and remote workspace location. Presets cover TinkerCliffs, Falcon, and Owl; a custom host can be entered. The selected profile also carries the account and resource preferences used by subsequent jobs. A preset is a convenience, not evidence that the host or a GPU partition is currently available.
 
@@ -48,7 +44,7 @@ Light mode is the default, with an explicit dark-mode option. The header uses a 
 
 ![Connection section showing the saved profile and SSH form. Offline capture of the signed v0.1 build; no password, API key, or private-key contents are shown.](figures/01-connection.png)
 
-## 4. Resources: availability, accounting, and remote files
+## Resources: availability, accounting, and remote files
 
 Availability queries inspect cluster partitions, user associations, and storage information through the connected host. The application also opens ARC's all-cluster dashboards at the kiosk dashboard URL. These observations describe current or reported state; they neither reserve capacity nor predict queue time.
 
@@ -62,7 +58,7 @@ An opened file is associated with a revision derived from its content hash, devi
 
 ![Cropped detail of the remote file browser and lightweight text editor. This offline view illustrates the editing controls, not an active file transaction.](figures/06-file-editor.png)
 
-## 5. Jobs + software: resource requests and reproducible scripts
+## Jobs + software: resource requests and reproducible scripts
 
 The GPU request form exposes allocation, partition, wall time, GPU count, CPU count, memory, and working directory. Version 0.1 accepts one to eight GPUs, one to 256 CPUs, and one to 2,048 GiB-equivalent Slurm memory units expressed with the G suffix. These are client validation bounds, not promises that a partition supports every combination. Users must choose values allowed by their account and the selected partition.
 
@@ -78,7 +74,7 @@ Repository retrieval does not automatically run arbitrary setup instructions. Th
 
 ![Jobs + software showing explicit GPU resources and the editable script. The example script has not been submitted in this offline screenshot.](figures/03-jobs-software.png)
 
-## 6. Sessions: terminal, web applications, and tunnels
+## Sessions: terminal, web applications, and tunnels
 
 Sessions opens to the Login Node Terminal by default. The terminal occupies the available workspace width and accepts input directly at the shell prompt. SwiftTerm supplies terminal emulation [@swiftterm], connected to a local pseudo-terminal and the system SSH client, which requests a remote pseudo-terminal and an interactive login shell. Input, ANSI output, history keys, tab completion, interrupts, copying, pasting, and window-size changes follow the terminal session rather than a separate command-entry field. The scrollback limit is 5,000 lines.
 
@@ -92,7 +88,7 @@ For an existing service on an allocated compute node, a tunnel maps a local loop
 
 ![Sessions with the full-width Login Node Terminal controls, upper terminal pane, and red compute warning. The terminal is disconnected in this capture.](figures/04-sessions.png)
 
-## 7. Help: command reference and ARC-hosted language models
+## Help: command reference and ARC-hosted language models
 
 The Help section combines a fixed command reference with an optional ARC-hosted LLM assistant. The command reference includes partition inspection, queue and history queries, account associations, module discovery, and storage commands. A command can be copied or placed into the GPU script editor for review. This exposes the actual command syntax and keeps execution separate from explanation.
 
@@ -104,7 +100,7 @@ The transport requires HTTPS and refuses HTTP redirects, preventing automatic fo
 
 ![Help section with the ARC API configuration, model field, and question editor. The API key is empty; no live response is claimed.](figures/05-help.png)
 
-## 8. Verification, distribution, and reproducibility
+## Verification, distribution, and reproducibility
 
 The v0.1 release build passes 28 Python tests and two Swift terminal tests. Python coverage includes resource validation, rejection of malformed identifiers, submission through sbatch rather than login-shell script execution, ownership checks for cancellation, independent report failures, repository-update guards, transfer bounds, and remote editor conflicts. File tests exercise Unicode, byte-order marks, CRLF preservation, permission preservation, binary rejection, link rejection, exclusive creation, and cleanup after a detected save conflict.
 
@@ -116,7 +112,7 @@ The source distribution includes the Swift application, remote helper, native as
 
 The application and its helper are signed with a Developer ID Application identity and hardened runtime. The release workflow submits an archive to Apple's notarization service, staples an accepted ticket to the app, and verifies the resulting bundle before creating the downloadable ZIP. Notarization is a distribution check rather than a certification of the scientific workflow or a functional test. The release manifest records the actual notarization state and artifact checksums; source rebuilds require the builder's own signing identity and credentials for a separately notarized distribution.
 
-## 9. Limitations and future work
+## Limitations and future work
 
 ARC Explorer is experimental research software and an independent client, not an official replacement for ARC documentation or support. Partition names, command availability, API models, quotas, and site policies change. Query results depend on user permissions and may be incomplete. The interface can connect to a custom host, but the management helper assumes a compatible shell, Python 3, and Slurm environment.
 

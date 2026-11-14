@@ -8,8 +8,8 @@
     "pdf": "AFFECTOR.pdf",
     "tex": "AFFECTOR.tex",
     "title": "AFFECTOR: Coordinate-Guided Text Rewriting through Transformer Activation Interventions",
-    "commit": "be9f0ea1d65d25dca6bff77e4c2dc96c4476eb97",
-    "sha256": "d7b7e0a6f4b72c7977f1057accfe011d99c49c39dd70f3ce8d197a11b7efba36",
+    "commit": "cffa440eceba554689b2c8465bb69d28f4958642",
+    "sha256": "c8f7bbc77f3fc600efd5075b9a9230e29cae4f46d0b850721a0f26dc9651c977",
     "root_pdf": "AFFECTOR.pdf"
   },
   {
@@ -21,8 +21,8 @@
     "pdf": "AFFECTOR-ARC-ACM.pdf",
     "tex": "AFFECTOR-ARC-ACM.tex",
     "title": "AFFECTOR-ARC: Emotional Trajectory Control through Transformer Activation Steering",
-    "commit": "97982c9f205815e8cf037e3bd370461a09553fdd",
-    "sha256": "10a9d5191879f7f6103efe1b5c6e36c2c124d6024b4c7de0653f1e1ddec7a2f4",
+    "commit": "2abc7e3c51c77415a797c904b87ea719aa386a9e",
+    "sha256": "896af1e0e290fa6f5af60068713212c70cae9a339335322e82f090cf8392ef4d",
     "root_pdf": "AFFECTOR-ARC.pdf"
   },
   {
@@ -34,8 +34,8 @@
     "pdf": "ARC-Explorer.pdf",
     "tex": "ARC-Explorer.tex",
     "title": "ARC Explorer: A Native macOS Workspace for Remote High-Performance Computing",
-    "commit": "6b49671465a24d29f6a5a31a09db55453473706e",
-    "sha256": "1ea2891a8ec083b16288d3bbee0ae8cae7dfa03f4d981f28cd4ca2a3fe6c34a0",
+    "commit": "d87bd8e596121ceeeab02f1d2838cc1ad61da45f",
+    "sha256": "be6453bac972eb260c9b91b247714b83b70b2826017007e3b8453d98f3e4be7f",
     "root_pdf": "ARC-Explorer.pdf"
   },
   {
@@ -47,8 +47,8 @@
     "pdf": "Emotional-Atlas.pdf",
     "tex": "main.tex",
     "title": "Emotional Atlas: Emotional Geometry, Textual Evolution, and Shape-Guided Revision",
-    "commit": "7f133f4b288ed12f8a6acf39b20ae7aaf02a0d03",
-    "sha256": "43d4ea0f6be9c7f3c260ab114909ada3196acda692dad3a1e6fd7de37523bbd7",
+    "commit": "b76ca63ffe73daf3630157d8a36a87bc51765c27",
+    "sha256": "6ae080b7754bd693d08127dbbfdf4555e1881b3a3f5eab82ce81e5ee925acc0e",
     "root_pdf": "Emotional-Atlas.pdf"
   },
   {
@@ -60,8 +60,8 @@
     "pdf": "Technical-Paper.pdf",
     "tex": "main.tex",
     "title": "FENNEC: A Browser-Based Conversational and Research Companion",
-    "commit": "28f0ec6e9341bccc249500297d42a46ea4e6e3c0",
-    "sha256": "2b2bf48ee2ecf30a07c545dfa3f03a01843009581c240c578fc38486888a437a",
+    "commit": "a0858a2d730a00d1b49f5a42b97e9a0fea6f0c07",
+    "sha256": "c5f0542308050f027be98162026bf6be89c939ccd9f0077c2afa6cf0ae84dbc6",
     "root_pdf": "FENNEC.pdf"
   },
   {
@@ -73,8 +73,8 @@
     "pdf": "Technical-Paper.pdf",
     "tex": "main.tex",
     "title": "KOALA: An Evidence-Aware Writing Studio for Scholarly Articles and Books",
-    "commit": "ad9d3ab0697a144ecf5288e85c6a63ae4620c9cd",
-    "sha256": "5a3b5c4a77652d4d8f442f78068805d79d6c1164c85669d509f7bd594f210caf",
+    "commit": "fdc798f2cbafbfe5fd1bb456a56edb3af0fb7411",
+    "sha256": "6495c868e9ae4696356095ea5e502427ac72fd53e3fab709cc06ee5ac7bc9027",
     "root_pdf": "KOALA.pdf"
   },
   {
@@ -86,8 +86,8 @@
     "pdf": "Technical-Paper.pdf",
     "tex": "main.tex",
     "title": "L1001: Stateful Long-Document Translation in a Browser and Command Line",
-    "commit": "8899d36fa634a52984597d1ac59ed6c68bc06e70",
-    "sha256": "eab00620480c134fe1356e7cbd3beb601d70298e9652c23062c9f88efb188f25",
+    "commit": "12582161287dae3b7e02237abe7c9ebec882ab81",
+    "sha256": "a18bd7c92dd0138c32a4bab230a512c8579b14fe17f1d8e23eebc93d99e4ac5d",
     "root_pdf": "L1001.pdf"
   },
   {
@@ -99,8 +99,8 @@
     "pdf": "main.pdf",
     "tex": "main.tex",
     "title": "LAMP: Latent Associative Memory Programming in a Frozen Toy Transformer",
-    "commit": "8e201c3da306c1a7e7add12d6cd5b0988c5c318a",
-    "sha256": "243c4af5c2e1f8001e35cb93478e77db936035ad13c746441393d299e651a0b5",
+    "commit": "d52b262773cf56dd154597c9f967de6893de5293",
+    "sha256": "e752444e86fe820f92ba6217b72eb380e9b5d344d619e6832315532259bda64c",
     "root_pdf": "LAMP.pdf"
   },
   {
@@ -112,8 +112,8 @@
     "pdf": "LAMP-Qwen.pdf",
     "tex": "main.tex",
     "title": "LAMP-Qwen: Forward-Only Associative Memory for a Frozen Small Language Model",
-    "commit": "612e4482f2fcefd2b6b1e2cc0e43fe757e954e8d",
-    "sha256": "f536d452bbbc9585bf1890210de33906b8a858ad67606d5251b01be0ff0a9e27",
+    "commit": "63ec3153ed25654c143f89630a2d17a76a3ce710",
+    "sha256": "ccdcc0de59161bae422d7beb27da4f2fe8ce959e87a9f9d14cdcef6d6f72f802",
     "root_pdf": "LAMP-Qwen.pdf"
   },
   {
@@ -125,8 +125,8 @@
     "pdf": "Technical-Paper.pdf",
     "tex": "main.tex",
     "title": "Synthetic Creativity: Navigating Ordered Combinations of Disciplines",
-    "commit": "6d30bc2dece24cdbddcd6f8ef07429d92145d846",
-    "sha256": "1905d88ceb112b5db0387a84cc3851c0c654f5f5fdca9be90cbfe569982014fb",
+    "commit": "25013d3f3eedca1a3d232723ce2cd219337e4af5",
+    "sha256": "a04edbc8798c2c1589ba36538d284ae481f810ef46222cac7294f8f30ddfccca",
     "root_pdf": "synthetic-creativity.pdf"
   },
   {
@@ -138,8 +138,8 @@
     "pdf": "TURTLE.pdf",
     "tex": "main.tex",
     "title": "TURTLE: Trajectory-based Understanding and Rendering of Transformations in Latent Embeddings",
-    "commit": "474d409ca7136a4cfe06d7fc6fa416c067feb34b",
-    "sha256": "17a9090ea4c9b26c4db1b80b19806a50a5f38489f0937dfe4599c068327eefe6",
+    "commit": "2d8012a2fe8b8d02095f1f5313318cd5dd35b480",
+    "sha256": "6d1759093ce7eab98ae3c4b57e2b7352a3e595613d6d5a25747ba44e56a79706",
     "root_pdf": "TURTLE.pdf"
   }
 ]

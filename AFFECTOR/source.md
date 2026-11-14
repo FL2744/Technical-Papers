@@ -1,6 +1,6 @@
 # AFFECTOR: Coordinate-Guided Text Rewriting through Transformer Activation Interventions
 
-**Technical paper:** [PDF](AFFECTOR-ACM.pdf) · [LaTeX source](AFFECTOR-ACM.tex) · [Complete source ZIP](Source.zip)
+**Technical paper:** [PDF](AFFECTOR.pdf) · [LaTeX source](AFFECTOR.tex) · [Complete source ZIP](Source.zip)
 
 **William Taggart**  
 Modern and Classical Languages and Literatures, Virginia Tech  
@@ -11,34 +11,25 @@ November 13, 2026 · Implementation report · Desktop version 0.1.0
 
 AFFECTOR investigates whether a prescribed emotional trajectory can influence the rewriting of a document. A trajectory assigns valence, emotional direction, and intensity to normalized positions in a text. A local backend maps these coordinates into perturbations of a frozen language model's internal states, while hosted backends use coordinate-bearing instructions. The desktop application supports geometry authoring, editable numerical steering matrices, document conversion, checkpointing, and separate emotional verification. This paper derives the implemented method from first principles and distinguishes mechanical correctness from successful emotional transfer. Current controls can produce emotionally charged language but can also produce weak paraphrases, factual distortions, and repetition. The implementation is an experimental instrument, not a validated predictor or controller of human emotion.
 
-## Literature review: activation steering and emotion
+## Purpose and Research Context
 
-This focused review covers twelve papers, emphasizing 2025-2026 research and retaining two methodological foundations. Titles, author lists, version histories, and the claims summarized here were checked against arXiv records and the corresponding paper text on November 13, 2026. The cited versions are fixed below; availability on arXiv alone does not establish peer review. The implications for this project are research motivations, not evidence that its implementation reproduces these results.
+A document conveys more than propositions: lexical choice, rhythm, imagery, focus, and narrative stance contribute to its emotional character. AFFECTOR investigates whether a user-defined emotional progression can guide a rewrite while leaving room to choose how much of the original content to preserve. It represents that progression as an ordered curve of valence, inward/outward emotional direction, and intensity across the document. Such a curve specifies a coarse target rather than a unique text, so emotional fit must be considered alongside readability, content change, and output length.
 
-**From activation differences to behavioral control.** Activation steering changes internal model states during inference while leaving the backbone weights fixed. Turner et al. derive intervention vectors from contrasting prompts; Panickssery et al. average differences across positive and negative behavioral examples. These provide the methodological basis for contrastive calibration, but do not validate a particular emotional coordinate system or insertion site. [Turner et al., 2023 (R1)](https://arxiv.org/abs/2308.10248v1); [Panickssery et al., 2024 (R2)](https://arxiv.org/abs/2312.06681v4).
-
-**Emotional expression and human judgment.** Wu et al. relate model emotion spaces to human valence/arousal judgments and report concept-based steering across linguistic-cultural settings. Diallo et al. evaluate perceived emotional intensity and text quality with human raters, finding that effects depend on emotion and steering strength. Together they motivate separate measures of emotional movement and readability. Their axes and numerical strengths cannot be assumed equivalent to this project's inward/outward direction or RMS-scaled controls. [Wu et al., 2025 (R3)](https://arxiv.org/abs/2506.13978v1); [Diallo et al., 2026 arXiv version (R4)](https://arxiv.org/abs/2601.21505v1).
-
-**Emotion can affect more than tone.** Sun et al.'s E-STEER uses valence-arousal-dominance interventions to study reasoning, generation, safety, and agent behavior, reporting non-monotonic relationships. Jeong's small-model comparison reports both coherent emotional changes and degeneration, including repetition, depending on extraction method and architecture. These findings motivate reporting failed generations alongside successes and testing strength sweeps rather than assuming that larger perturbations improve emotional fit. Neither study establishes an operating range for this implementation. [Sun et al., 2026 (R5)](https://arxiv.org/abs/2604.00005v1); [Jeong, 2026 (R6)](https://arxiv.org/abs/2604.04064v1).
-
-**Reading an emotion is different from controlling it.** Shu et al.'s revised study identifies uneven causal organization of sparse features across emotion categories and tests interventions for emotion recognition. Wang et al. show, in omni-modal models, that layers with strong emotion-probing accuracy need not be the best intervention layers. Recognition results therefore inform evaluator design, while layer selection for rewriting still requires causal tests on generated text. Neither finding licenses importing layer indices across architectures. [Shu et al., 2026, v3 (R7)](https://arxiv.org/abs/2604.25866v3); [Wang et al., 2026 (R8)](https://arxiv.org/abs/2609.22135v1).
-
-**Multiple axes and adaptive control.** Ha et al. find that supportive-empathy directions are only partially separable: intervening on one can shift other EPITOME proxy scores. Cui and Chen automate vector extraction from labeled data, with task-dependent benefits. Ferrando et al. adapt intervention strength to context, studying the balance between toxicity mitigation and retained utility. These approaches motivate broader calibration, cross-axis tests, and future adaptive control. The present coordinate mixture is not an implementation of their learned selectors or context-dependent gates. [Ha et al., 2026 (R9)](https://arxiv.org/abs/2609.15654v1); [Cui and Chen, 2025, revised 2026 (R10)](https://arxiv.org/abs/2509.22739v3); [Ferrando et al., 2025, revised 2026 (R11)](https://arxiv.org/abs/2512.03661v2).
-
-**Evaluation must include costs as well as target effects.** Yang et al.'s SteerScope evaluates steering efficacy jointly with side effects, generalization, and data dependence. In its tested settings, activation methods do not dominate prompt steering on the efficacy/side-effect trade-off. For this project, the resulting evaluation priorities are prompt-only and unsteered baselines, blinded emotional and quality ratings, content-change assessment appropriate to the rewrite style, and complete accounting of repetition, truncation, and original-text fallbacks. This is an evaluation agenda, not a completed benchmark. [Yang et al., 2026 (R12)](https://arxiv.org/abs/2610.07722v1).
-
-## 1. Problem formulation
-
-A document conveys more than propositions: lexical choice, focus, rhythm, imagery, and narrative stance can contribute to an emotional reading. Rewriting a document to follow a desired emotional progression is consequently a multi-objective problem. The output should express the requested affect, remain readable, retain whatever content its rewrite style requires, and have a manageable length. These objectives can conflict.
+Activation steering provides one mechanism for pursuing this target. Turner and colleagues construct intervention vectors from contrasting prompts, while Panickssery and colleagues average activation differences across positive and negative behavioral examples ([Turner et al., 2023](https://arxiv.org/abs/2308.10248v1); [Panickssery et al., 2024](https://arxiv.org/abs/2312.06681v4)). AFFECTOR uses contrastive calibration to map emotional coordinates into changes to a frozen model's internal states during local inference. Its API backend instead describes the coordinates in instructions to a hosted model. These two routes support comparison between numerical intervention and prompt-based control, but their strengths and outcomes cannot be treated as equivalent.
 
 ![Document workspace with an example input, rewrite controls, and an empty output pane before generation.](figures/screenshot-01.png)
 
 *Document workspace with an example input, rewrite controls, and an empty output pane before generation.*
-AFFECTOR represents the desired affect as an ordered curve, not a vocabulary list. A curve does not uniquely determine a text: countless passages can share the same coarse coordinates. The application offers two mechanisms to bias generation toward that curve. Local activation intervention changes numerical states during inference. API prompting describes the desired coordinates to a remote model. These mechanisms are not equivalent, and their results should be evaluated separately.
 
-The current system does not solve a constrained optimization problem over complete texts. In particular, it does not automatically measure a generated passage and iteratively minimize its emotional distance. Verification is an explicit later operation.
+The choice to expose emotional coordinates is informed by work connecting model representations with human judgments. Wu and colleagues relate model emotion spaces to human valence/arousal ratings and report concept-based steering across linguistic-cultural settings ([Wu et al., 2025](https://arxiv.org/abs/2506.13978v1)). Diallo and colleagues assess emotional intensity and text quality with human raters, finding effects that depend on the emotion and steering strength ([Diallo et al., 2026](https://arxiv.org/abs/2601.21505v1)). These studies motivate separate assessments of emotional movement and readable expression. They do not validate AFFECTOR's inward/outward axis or establish a correspondence between their intervention scales and its RMS-scaled controls.
 
-## 2. Representation and alignment
+The practical need for bounded generation follows from evidence that emotional intervention can change more than tone. E-STEER studies effects on reasoning, generation, safety, and agent behavior and reports non-monotonic relationships ([Sun et al., 2026](https://arxiv.org/abs/2604.00005v1)). Jeong's small-model comparison finds both coherent emotional changes and degeneration, including repetition, depending on architecture and extraction method ([Jeong, 2026](https://arxiv.org/abs/2604.04064v1)). AFFECTOR therefore treats repetition, truncation, and failed generations as outcomes to record, rather than assuming that stronger intervention produces a closer emotional match. Its rewrite styles make the competing requirements of emotional transformation and content preservation explicit.
+
+Choosing an evaluator and choosing an intervention site are also separate research problems. Shu and colleagues find uneven causal organization across emotion categories in a study of sparse features and emotion recognition ([Shu et al., 2026](https://arxiv.org/abs/2604.25866v3)). Wang and colleagues show that strong emotion-probing accuracy need not identify the best intervention layers in omni-modal models ([Wang et al., 2026](https://arxiv.org/abs/2609.22135v1)). Meanwhile, Ha and colleagues find partially coupled supportive-empathy directions ([Ha et al., 2026](https://arxiv.org/abs/2609.15654v1)), Cui and Chen automate vector extraction with task-dependent benefits ([Cui et al., 2025](https://arxiv.org/abs/2509.22739v3)), and Ferrando and colleagues study context-dependent strength to balance toxicity mitigation and utility ([Ferrando et al., 2025](https://arxiv.org/abs/2512.03661v2)). Together, this work motivates testing layer choice, cross-axis interference, and adaptation. The current coordinate mixture is a simpler experimental control, rather than an implementation of those learned selectors or gates.
+
+The report consequently focuses on the implemented transformation pipeline and its observable limits. The application does not automatically score each generated passage and iteratively minimize its emotional distance; verification is a separate user-invoked operation. SteerScope's joint evaluation of efficacy, side effects, generalization, and data dependence supplies an appropriate broader evaluation agenda ([Yang et al., 2026](https://arxiv.org/abs/2610.07722v1)). Its finding that activation methods do not dominate prompt steering in the tested trade-offs reinforces the need for prompt-only and unsteered baselines, blinded emotional and quality ratings, and complete failure accounting. Those comparisons remain research requirements, not completed evidence of AFFECTOR's effectiveness.
+
+## Representation and alignment
 
 A geometry consists of ordered points `(t, v, d, i)`. Position `t` is in `[0,1]`; valence `v` and direction `d` are in `[-1,1]`; intensity `i` is in `[0,1]`. Negative valence denotes unpleasant affect and positive valence pleasant affect. Negative direction denotes self-focused or inward-directed emotion; positive direction denotes outward focus. Direction is independent of valence: anger toward oneself can be inward and sadness for another person outward. Intensity describes strength of affect, not pleasantness.
 
@@ -59,7 +50,7 @@ This normalized alignment compresses or stretches a source trajectory to the tar
 
 *Illustration 1. Normalized alignment schematic. Target chunks sample a continuous source path at original character midpoints; a short target can miss narrow changes in a long source trajectory.*
 
-## 3. Frozen model and contrastive calibration
+## Frozen model and contrastive calibration
 
 The local backend loads Qwen3.5-0.8B at revision `2fc06364715b967f1860aea9cf38778875588b17`. The implementation operates on its text stack of 24 blocks with hidden width 1,024. Base parameters are frozen; inference uses float32 and eager attention. Apple MPS is selected when available, otherwise CPU. The chat template disables thinking output. The package contains Python 3.14, PyTorch 2.15.0 and Transformers 5.22.2; exact dependency pins accompany the bundle.
 
@@ -80,7 +71,7 @@ The resulting `B[l]` is a 3 by 1,024 matrix. These are the editable steering-mod
 
 There is no gradient training, score-supervised fitting, orthogonalization, or guarantee that the three directions isolate their intended concepts. Small hand-authored pairs can confound affect with genre, topic, lexical content, and emotional categories. Calibration is exploratory and English-based; multilingual effectiveness has not been established.
 
-## 4. Coordinate-to-activation computation
+## Coordinate-to-activation computation
 
 Axis temperature `T` transforms each coordinate magnitude while retaining its sign:
 
@@ -107,7 +98,7 @@ Zero strength, budget, or layer weight gives an exact zero perturbation. Each ch
 
 Budget is not a semantic-change percentage. At budget 1, the perturbation can have RMS magnitude comparable to the original hidden state at that site. Large values can destabilize generation. Raising the budget only matters when the proposed perturbation would otherwise be clipped; it cannot correct an inaccurate direction.
 
-## 5. Intervention within the transformer
+## Intervention within the transformer
 
 Let `h` denote a block's residual state after its attention or sequence-mixing stage. A conventional feed-forward residual update has the form:
 
@@ -123,7 +114,7 @@ The module does not search for trigger phrases or recognize an idiom before acti
 
 A key limitation is that the intervention is an absolute-coordinate bias, not a measured error correction. A target valence of zero yields no direct valence-axis perturbation; it does not actively neutralize an already negative passage. Correlations between basis vectors further complicate interpretation.
 
-## 6. Prompts, sampling, and bounded output
+## Prompts, sampling, and bounded output
 
 Four rewrite styles constrain the instruction: Minimal preserves nearly all wording; Restrained asks for subtle emotional phrasing changes while preserving facts and structure; Balanced allows structural changes and modest imagery while preserving events; Creative permits changes to meaning, imagery, and events. The prompt preferences do not enforce semantic fidelity.
 
@@ -137,13 +128,11 @@ Repetition detection inspects recent word n-grams and repeated character pattern
 
 These mechanisms trade completeness for bounded readable output. Sentence punctuation is a heuristic and can misidentify abbreviations or unusual writing. Trimming can omit important content and alter emotional character. They are safeguards against specific generation failures, not a proof of success.
 
-## 7. Independent verification
+## Independent verification
 
 Verification assesses original and revised chunks separately with an unsteered evaluator or an API model. The evaluator is instructed to distinguish felt or conveyed emotion from mere emotion-word occurrence, identify experiencers and emotional targets, and supply exact quoted evidence. It returns valence, direction, intensity, emotional labels, uncertainty, and concise explanations. Scores are interpretive estimates, not psychometric measurements.
 
-![Verification controls before evaluation. No verification results have been computed in this view.](figures/screenshot-05.png)
 
-*Verification controls before evaluation. No verification results have been computed in this view.*
 For assessed coordinate `p=(v,d,2i-1)` and target `c`, the reported similarity is:
 
 `similarity = 1 - ||p-c||_2 / (2 sqrt(3))`.
@@ -152,7 +141,7 @@ The denominator is the maximum distance across the three-dimensional `[-1,1]` cu
 
 The same small model can assess its own output, but shared weaknesses make independent evaluation preferable. A high similarity can coexist with incoherence, factual errors, or undesirable content. The implementation does not optimize this score during generation and does not include a formal semantic-fidelity metric.
 
-## 8. Architecture, persistence, and privacy
+## Architecture, persistence, and privacy
 
 A native SwiftUI/AppKit interface communicates with a Python subprocess through JSON lines; no listening local web server is needed. The desktop app provides geometry management, document transformation, verification, light/dark appearance, and numeric weight editing. TXT, RTF, and DOCX handling preserves textual content rather than rich layout.
 
@@ -160,7 +149,7 @@ Atomic checkpoint writes store original input, offsets, geometry, controls, outp
 
 API keys are held in memory. Local mode processes text on the computer; API mode sends relevant passages to the selected service. Checkpoints contain potentially sensitive document text and should be treated accordingly. The distributed package excludes personal checkpoints and test documents.
 
-## 9. Evidence and limitations
+## Evidence and limitations
 
 The release's 26 automated tests cover behaviors including checkpoint handling, style persistence, failure continuation, allowance accounting, raw-draft retention, and preservation of requested controls. Earlier development smoke checks established nonzero activation interventions, zero-strength equivalence under greedy decoding, hook cleanup, and the RMS budget bound. These checks establish implementation properties, not emotional efficacy.
 
@@ -168,7 +157,7 @@ Exploratory development runs revealed three important failure modes: high interv
 
 No representative benchmark, blinded human study, multilingual evaluation, or statistically supported success rate is claimed. Controlled experiments should hold input, geometry, prompt, segmentation, and sampling constant while comparing unsteered and steered output. Report emotional distance, completion rate, repetition, length ratio, factual/content preservation, and human judgments together. Selection based on emotional distance alone can reward extreme or incoherent writing.
 
-## 10. Conclusion
+## Conclusion
 
 AFFECTOR makes a low-dimensional emotional trajectory operational through explicit transformer-state interventions and a separate prompt-based backend. Its value is as an inspectable experimental system: coordinates, editable vectors, controls, raw drafts, and verification are exposed. Reliable emotional transfer remains an empirical research problem. The current method demonstrates a controllable intervention mechanism but does not establish that a particular intervention reliably creates a specified emotional experience.
 

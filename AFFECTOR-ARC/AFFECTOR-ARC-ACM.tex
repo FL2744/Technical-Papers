@@ -27,7 +27,7 @@
 \setlength{\intextsep}{12pt plus 2pt minus 3pt}
 \raggedbottom
 
-\geometry{top=0.75in,bottom=0.65in,includeheadfoot}
+\geometry{top=0.65in,bottom=0.55in,includeheadfoot}
 \begin{document}
 \title{AFFECTOR-ARC: Emotional Trajectory Control through Transformer
 Activation Steering}
@@ -58,84 +58,11 @@ is made.
 \end{abstract}
 \keywords{activation steering, emotional text generation, transformer models, controllable generation}
 \maketitle
-\section{Literature review: activation steering and
-emotion}\label{literature-review-activation-steering-and-emotion}
+\section{Purpose and Research Context}\label{literature-review-activation-steering-and-emotion}\label{problem-and-operating-principle}
 
-This focused review covers twelve papers, emphasizing 2025-2026 research
-and retaining two methodological foundations. Titles, author lists,
-version histories, and the claims summarized here were checked against
-arXiv records and the corresponding paper text on November 13, 2026. The
-cited versions are fixed below; availability on arXiv alone does not
-establish peer review. The implications for this project are research
-motivations, not evidence that its implementation reproduces these
-results.
+AFFECTOR-ARC investigates how a prescribed emotional progression can influence a document rewrite on an allocated GPU. A user supplies a UTF-8 text and an ordered sequence of valence, inward/outward emotional orientation, and intensity coordinates. The runner maps document positions to that sequence and converts the sampled coordinates into activation displacements during generation. Here, geometry means a path through a three-dimensional coordinate space, with layer settings and optional calibration matrices. It expresses a desired progression rather than a surface reconstructed from text or a constraint applied directly to individual words.
 
-\textbf{From activation differences to behavioral control.} Activation
-steering changes internal model states during inference while leaving
-the backbone weights fixed. Turner et al.~derive intervention vectors
-from contrasting prompts; Panickssery et al.~average differences across
-positive and negative behavioral examples. These provide the
-methodological basis for contrastive calibration, but do not validate a
-particular emotional coordinate system or insertion site.
-\citep{turner2023actadd}; \citep{panickssery2024caa}.
-
-\textbf{Emotional expression and human judgment.} Wu et al.~relate model
-emotion spaces to human valence/arousal judgments and report
-concept-based steering across linguistic-cultural settings. Diallo et
-al.~evaluate perceived emotional intensity and text quality with human
-raters, finding that effects depend on emotion and steering strength.
-Together they motivate separate measures of emotional movement and
-readability. Their axes and numerical strengths cannot be assumed
-equivalent to this project's inward/outward direction or RMS-scaled
-controls. \citep{wu2025emotion}; \citep{diallo2026style}.
-
-\textbf{Emotion can affect more than tone.} Sun et al.'s E-STEER uses
-valence-arousal-dominance interventions to study reasoning, generation,
-safety, and agent behavior, reporting non-monotonic relationships.
-Jeong's small-model comparison reports both coherent emotional changes
-and degeneration, including repetition, depending on extraction method
-and architecture. These findings motivate reporting failed generations
-alongside successes and testing strength sweeps rather than assuming
-that larger perturbations improve emotional fit. Neither study
-establishes an operating range for this implementation.
-\citep{sun2026emotion}; \citep{jeong2026emotion}.
-
-\textbf{Reading an emotion is different from controlling it.} Shu et
-al.'s revised study identifies uneven causal organization of sparse
-features across emotion categories and tests interventions for emotion
-recognition. Wang et al.~show, in omni-modal models, that layers with
-strong emotion-probing accuracy need not be the best intervention
-layers. Recognition results therefore inform evaluator design, while
-layer selection for rewriting still requires causal tests on generated
-text. Neither finding licenses importing layer indices across
-architectures. \citep{shu2026emotion}; \citep{wang2026readbest}.
-
-\textbf{Multiple axes and adaptive control.} Ha et al.~find that
-supportive-empathy directions are only partially separable: intervening
-on one can shift other EPITOME proxy scores. Cui and Chen automate
-vector extraction from labeled data, with task-dependent benefits.
-Ferrando et al.~adapt intervention strength to context, studying the
-balance between toxicity mitigation and retained utility. These
-approaches motivate broader calibration, cross-axis tests, and future
-adaptive control. The present coordinate mixture is not an
-implementation of their learned selectors or context-dependent gates.
-\citep{ha2026empathy}; \citep{cui2025pas}; \citep{ferrando2025dsas}.
-
-\textbf{Evaluation must include costs as well as target effects.} Yang
-et al.'s SteerScope evaluates steering efficacy jointly with side
-effects, generalization, and data dependence. In its tested settings,
-activation methods do not dominate prompt steering on the
-efficacy/side-effect trade-off. For this project, the resulting
-evaluation priorities are prompt-only and unsteered baselines, blinded
-emotional and quality ratings, content-change assessment appropriate to
-the rewrite style, and complete accounting of repetition, truncation,
-and original-text fallbacks. This is an evaluation agenda, not a
-completed benchmark. \citep{yang2026steerscope}.
-
-
-\section{Problem and operating
-principle}\label{problem-and-operating-principle}
-
+The intervention acts on the numerical hidden states used to predict successive tokens while the model's stored parameters remain fixed. This approach builds on contrastive activation steering: Turner and colleagues derive directions from contrasting prompts, and Panickssery and colleagues average differences between positive and negative behavioral examples \cite{turner2023actadd,panickssery2024caa}. AFFECTOR-ARC uses small sets of contrasting passages to establish emotional directions at selected layers, then applies coordinate-dependent displacements as each passage is rewritten. The contribution is an inspectable implementation of this mapping and its operational controls, not a claim that the emotional coordinates uniquely determine a continuation.
 
 \begin{figure}[!htb]
 \centering
@@ -144,42 +71,14 @@ principle}\label{problem-and-operating-principle}
 \Description{Document workspace displaying an existing Little Red Riding Hood input and rewrite.}
 \label{fig:app-screen-2}
 \end{figure}
-A language model generates text by repeatedly estimating a distribution
-over the next token. Its intermediate hidden states are numerical
-vectors that contribute to those estimates. Changing a hidden state can
-change the continuation even when the input text and the model's stored
-parameters remain fixed.
 
-AFFECTOR-ARC uses this property to influence the emotional expression of
-a rewrite. The user supplies an input document and a sequence of
-emotional coordinates. The software maps positions in the input to
-positions on that sequence, converts the coordinates into activation
-displacements, and applies the displacements while generating each
-rewritten passage.
+Research connecting model emotion spaces with human valence/arousal judgments provides motivation for coordinate-based experimentation. Wu and colleagues report concept-based steering across linguistic-cultural settings \cite{wu2025emotion}, while Diallo and colleagues use human ratings to examine perceived emotional intensity and text quality \cite{diallo2026style}. Their findings make human interpretation central to evaluation, but they do not calibrate the present inward/outward axis or RMS-scaled settings. A text's emotional reading, its requested coordinates, and the model's hidden states remain distinct objects linked by an experimental calibration.
 
-The term \textbf{geometry} means an ordered path through a
-three-dimensional coordinate space, together with layer settings and
-optional calibration matrices. It does not mean that the software
-reconstructs a solid surface or applies geometric constraints directly
-to words. A text's emotional interpretation, a numerical target, and a
-model's hidden states are distinct objects. The calibration is an
-experimental mapping between them.
+That distinction matters when selecting layers and combining axes. Shu and colleagues find uneven causal organization across emotion categories in sparse-feature interventions for recognition \cite{shu2026emotion}; Wang and colleagues show that strong probing accuracy need not identify the most effective intervention layers \cite{wang2026readbest}. Ha and colleagues likewise find that supportive-empathy directions are only partially separable \cite{ha2026empathy}. Automated vector extraction and context-dependent strength offer further approaches to calibration and control \cite{cui2025pas,ferrando2025dsas}. These studies motivate layer sweeps, cross-axis tests, and adaptive controls, while the present runner uses an explicit coordinate mixture with user-selected settings.
 
-Two execution modes are available:
+Generation limits and failure reporting are part of the same research problem. E-STEER reports non-monotonic effects of emotional interventions across several tasks \cite{sun2026emotion}, and Jeong observes both emotional changes and degeneration in small models \cite{jeong2026emotion}. Stronger settings therefore cannot be assumed to improve transfer. The runner offers a rewrite mode that processes a document in chunks and records attempts and failures, and a smoke mode with five controlled generation conditions for checking intervention and cleanup behavior. Its scope is the command-line CUDA computation illustrated alongside the desktop client's workspaces; the runner itself supplies neither a hosted service, conversational history, nor automatic emotional scoring.
 
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Rewrite:} process an entire UTF-8 text document in chunks,
-  write the transformed text, and record attempts and failures.
-\item
-  \textbf{Smoke:} run five controlled generation conditions to check
-  basic intervention and cleanup behavior.
-\end{itemize}
-
-The interface is a command-line runner for a CUDA allocation. It does
-not provide a desktop interface, a hosted API service, automatic
-emotional scoring, or conversational history.
+This operational scope determines the evidence needed to assess the system. SteerScope evaluates efficacy together with side effects, generalization, and dependence on steering data, and finds no general advantage of activation methods over prompt steering in its tested trade-offs \cite{yang2026steerscope}. AFFECTOR-ARC therefore requires prompt-only and unsteered baselines, blinded emotional and quality ratings, content-change assessment, and complete reporting of repetition and truncation. The report documents the implemented mechanism and engineering checks; these broader comparisons and an empirically established operating range remain future work.
 
 \section{Runtime and data flow}\label{runtime-and-data-flow}
 
