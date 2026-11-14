@@ -73,8 +73,8 @@
     "pdf": "Technical-Paper.pdf",
     "tex": "main.tex",
     "title": "KOALA: An Evidence-Aware Writing Studio for Scholarly Articles and Books",
-    "commit": "fdc798f2cbafbfe5fd1bb456a56edb3af0fb7411",
-    "sha256": "6495c868e9ae4696356095ea5e502427ac72fd53e3fab709cc06ee5ac7bc9027",
+    "commit": "405492e43ff1af4de11dac90d4504af3c104e344",
+    "sha256": "dc96557878891348be9211a39dccea67b6dadcca219ca268e9ea3cdc9ce1bbfb",
     "root_pdf": "KOALA.pdf"
   },
   {
