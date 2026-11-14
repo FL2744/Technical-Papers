@@ -128,7 +128,7 @@
     "pdf": "TURTLE.pdf",
     "tex": "main.tex",
     "title": "TURTLE: Trajectory-based Understanding and Rendering of Transformations in Latent Embeddings",
-    "commit": "c0132e93b405f133988cc404c02143e30d484a47",
-    "sha256": "bc4f15a26275acc395f6110249fc67674b0db59b5e95a8b08150dba38d4d6bdd"
+    "commit": "88204e11885ad457beb5f6da02ae1d3fc8f86284",
+    "sha256": "470da986c613f074e51eda3a5975b24af515f0f9cb7b9a0114d309030e63d3d4"
   }
 ]
