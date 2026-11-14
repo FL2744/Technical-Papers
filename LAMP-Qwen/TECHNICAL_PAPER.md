@@ -32,9 +32,6 @@ This prototype also distinguishes numerical storage from a conventional response
 The implementation loads the official `Qwen/Qwen3.5-0.8B` checkpoint at a fixed revision:\
 `2fc06364715b967f1860aea9cf38778875588b17`. Its text decoder has 24 layers, hidden width $d=1024$, feed-forward intermediate width 3,584, and an output vocabulary dimension of 248,320 [2](#ref-qwen). Its hybrid stack alternates groups of linear-attention layers with full-attention layers; the final decoder layer uses full attention.
 
-![Numerical weight editor showing part of the initially zero recognition-key row. Editing this row changes the matching weights.](figures/screenshot-05.png)
-
-*Numerical weight editor showing part of the initially zero recognition-key row. Editing this row changes the matching weights.*
 Experiments use the text path of the conditional-generation model, float32 weights, eager attention, evaluation mode, and disabled parameter gradients. Generation is greedy, uses a cache, and disables the thinking mode through the chat template. The source prompt asks for a direct, concise answer in one or two sentences. Tests ran on an M4 Mac mini with 16 GB unified memory using PyTorch’s Metal backend. The recorded environment uses Python 3.14, PyTorch 2.15.0, and Transformers 5.22.2.
 
 Although an Ollama installation motivated the project, this implementation runs through Transformers. The ordinary Ollama chat API does not provide the internal layer hooks used here [3](#ref-ollama). The existing quantized Ollama model is left unchanged; its results and resource requirements should not be conflated with those of this float32 implementation.
@@ -70,7 +67,7 @@ K_i=\frac{h_0}{\lVert h_0\rVert_2},
 s_i=\left\langle\frac{\widetilde h_0}{\lVert\widetilde h_0\rVert_2},K_i\right\rangle .
 
 $$
-At inference, $\widetilde h_0$ is the current question state. The highest-scoring enabled slot at or above its threshold is selected, with a default threshold of 0.999. With unit keys, scores are cosine similarities, not probabilities. Direct key edits can break the unit-length assumption. Selection is made once and held for the answer. If no slot qualifies, the original computation is retained.
+At inference, $\widetilde h_0$ is the current question state. The highest-scoring enabled slot at or above its threshold is selected, with a default threshold of 0.999. With unit keys, scores are cosine similarities, not probabilities. The numerical weight editor exposes recognition-key values for direct modification. Such edits change the matching weights and can break the unit-length assumption. Selection is made once and held for the answer. If no slot qualifies, the original computation is retained.
 
 ## The forward-only writer
 
@@ -120,9 +117,6 @@ The safetensors file contains keys, adjustments, sequence trajectories, slot con
 The source catalogue was imported from the workbook\
 `chatbot-1000-questions-and-answers.xlsx`. It contains 1,000 questions in 25 categories, with 40 questions per category. It is a curated question bank, not a measured frequency ranking. Importing all entries does not establish successful writing of all entries.
 
-![Question-bank browser with example prompts available for testing memory writes.](figures/screenshot-03.png)
-
-*Question-bank browser with example prompts available for testing memory writes.*
 The sequence pilot used 12 selected questions across 12 categories. Each successful write was checked by generating from its original question. Matching collapsed whitespace and ignored case; punctuation and substantive wording still had to agree. The donor instruction was refined using development cases, so this is not a held-out evaluation.
 
 |  ID | Source question                  | Steps | Time (s) |

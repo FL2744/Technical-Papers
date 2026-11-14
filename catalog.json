@@ -104,8 +104,8 @@
     "pdf": "LAMP-Qwen.pdf",
     "tex": "main.tex",
     "title": "LAMP-Qwen: Forward-Only Associative Memory for a Frozen Small Language Model",
-    "commit": "ac81758fb4aaef6fd84a9113b2040fe53a553c51",
-    "sha256": "56c94a9c82b6a2500a376bcace8fe7d3866acf15e11d395a3b3f7e97a9215c5c"
+    "commit": "dba16d568ce287f9c5767d8f70711233575f98b7",
+    "sha256": "19326b022339ae38764d9a1f85094910230d2f40cfdd4cbe58bf87f1880a8fa9"
   },
   {
     "name": "Synthetic Creativity",
