@@ -1,6 +1,6 @@
 # AFFECTOR: Coordinate-Guided Text Rewriting through Transformer Activation Interventions
 
-**Technical paper:** [PDF](AFFECTOR-ACM.pdf) · [LaTeX source](AFFECTOR-ACM.tex) · [Complete source ZIP](Source.zip)
+**Technical paper:** [PDF](AFFECTOR.pdf) · [LaTeX source](AFFECTOR.tex) · [Complete source ZIP](Source.zip)
 
 **William Taggart**  
 Modern and Classical Languages and Literatures, Virginia Tech  
@@ -141,9 +141,7 @@ These mechanisms trade completeness for bounded readable output. Sentence punctu
 
 Verification assesses original and revised chunks separately with an unsteered evaluator or an API model. The evaluator is instructed to distinguish felt or conveyed emotion from mere emotion-word occurrence, identify experiencers and emotional targets, and supply exact quoted evidence. It returns valence, direction, intensity, emotional labels, uncertainty, and concise explanations. Scores are interpretive estimates, not psychometric measurements.
 
-![Verification controls before evaluation. No verification results have been computed in this view.](figures/screenshot-05.png)
 
-*Verification controls before evaluation. No verification results have been computed in this view.*
 For assessed coordinate `p=(v,d,2i-1)` and target `c`, the reported similarity is:
 
 `similarity = 1 - ||p-c||_2 / (2 sqrt(3))`.

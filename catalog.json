@@ -5,11 +5,11 @@
     "repo": "FL2744/AFFECTOR",
     "hf": "will-taggart/AFFECTOR",
     "folder": "paper",
-    "pdf": "AFFECTOR-ACM.pdf",
-    "tex": "AFFECTOR-ACM.tex",
+    "pdf": "AFFECTOR.pdf",
+    "tex": "AFFECTOR.tex",
     "title": "AFFECTOR: Coordinate-Guided Text Rewriting through Transformer Activation Interventions",
-    "commit": "9b20fc835e5c35e5b36ce5ea090d0e702dcd5141",
-    "sha256": "e059179343c7acd54f1d6b8da8ba36cdb0fe941aca291f9be6d9bf4aa5a9dd0b"
+    "commit": "be9f0ea1d65d25dca6bff77e4c2dc96c4476eb97",
+    "sha256": "d7b7e0a6f4b72c7977f1057accfe011d99c49c39dd70f3ce8d197a11b7efba36"
   },
   {
     "name": "AFFECTOR-ARC",

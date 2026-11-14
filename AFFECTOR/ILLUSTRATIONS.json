@@ -43,17 +43,6 @@
         1590
       ],
       "caption": "Expanded numerical weights for the selected geometry, including the local calibration metadata."
-    },
-    {
-      "file": "figures/screenshot-05.png",
-      "source": "affector-05.png",
-      "crop": [
-        450,
-        270,
-        2660,
-        850
-      ],
-      "caption": "Verification controls before evaluation. No verification results have been computed in this view."
     }
   ],
   "retained_diagrams": [
