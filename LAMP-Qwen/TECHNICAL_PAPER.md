@@ -42,18 +42,18 @@ Although an Ollama installation motivated the project, this implementation runs 
 ### Changing both the feed-forward input and its residual
 
 Let $h_t\in\mathbb{R}^{1024}$ be the final decoder layer’s state after the attention residual at decoding step $t$. Without memory, the remaining block computes
-$$
-
-u_t=h_t+\operatorname{FFN}\!\left(\operatorname{RMSNorm}(h_t)\right).
 
 $$
+u_t=h_t+\mathrm{FFN}\!\left(\mathrm{RMSNorm}(h_t)\right).
+$$
+
 Memory supplies an adjustment $\delta_t$, producing
-$$
 
+$$
 u'_t=(h_t+\delta_t)+
-\operatorname{FFN}\!\left(\operatorname{RMSNorm}(h_t+\delta_t)\right).
-
+\mathrm{FFN}\!\left(\mathrm{RMSNorm}(h_t+\delta_t)\right).
 $$
+
 The final model normalization and output head then produce vocabulary logits.
 
 A pre-hook on the layer’s post-attention normalization adds $\delta_t$ to its input. A second hook adds the same adjustment to the layer output, accounting for the residual path. Modifying the normalization input alone would not implement Equation (2). During prompt processing only the final token state is edited. Cached generation then processes the newly generated position. No subsequent attention layer consumes the edited state.
@@ -63,13 +63,13 @@ Question tokens → pretrained decoder → $h_t$; then $h_t+\delta_t$ → final 
 ### Recognition and routing
 
 The memory has $S=1000$ slots. It stores a key matrix $K\in\mathbb{R}^{S\times d}$ and an adjustment matrix $D\in\mathbb{R}^{S\times d}$, initially zero. Each slot also has an enabled flag, a threshold, and a gain. For a source state $h_0$, writing sets
-$$
 
+$$
 K_i=\frac{h_0}{\lVert h_0\rVert_2},
 \qquad
 s_i=\left\langle\frac{\widetilde h_0}{\lVert\widetilde h_0\rVert_2},K_i\right\rangle .
-
 $$
+
 At inference, $\widetilde h_0$ is the current question state. The highest-scoring enabled slot at or above its threshold is selected, with a default threshold of 0.999. With unit keys, scores are cosine similarities, not probabilities. The numerical weight editor exposes recognition-key values for direct modification. Such edits change the matching weights and can break the unit-length assumption. Selection is made once and held for the answer. If no slot qualifies, the original computation is retained.
 
 ## The forward-only writer
@@ -80,11 +80,11 @@ At inference, $\widetilde h_0$ is the current question state. The highest-scorin
 
 *Memory-writing form with a source question and desired answer entered; the write has not been submitted.*
 The original LAMP mechanism stores a source-to-donor displacement. A donor state $h^\ast_0$ is obtained from a prompt that leads toward the desired answer. The writer records
-$$
 
+$$
 K_i=h_0/\lVert h_0\rVert_2,\qquad D_i=h^\ast_0-h_0.
-
 $$
+
 For the exact source state and unit gain, $h_0+D_i=h^\ast_0$: the remaining feed-forward network and output head receive the donor’s state. This identity applies to that position. It does not imply that the same adjustment will remain correct after new answer tokens are generated.
 
 Single mode applies the same adjustment at every decoding step. In the initial two-question smoke test, it changed the generated responses but neither complete response matched its target. This motivated the sequence writer. The donor prompts also evolved during development, so these observations are not a controlled comparison isolating the effect of sequence memory.
@@ -98,11 +98,7 @@ The default writer constructs a sequence $\Delta_i=(\delta_{i,0},\ldots,\delta_{
 2.  **Align the two trajectories.** Let $y_0,\ldots,y_{L-1}$ be the donor’s generated token sequence, including the stop token. Run the source-question prompt and donor-copy prompt with the same generated prefixes, using teacher forcing. Capture the pre-FFN state at each answer-prediction position.
 
 3.  **Calculate the adjustments.** For each position, store
-    $$
-    
-    \delta_{i,t}=h^\ast_t-h_t,\qquad t=0,\ldots,L-1.
-    
-    $$
+    $\delta_{i,t}=h^\ast_t-h_t$, for $t=0,\ldots,L-1$.
     The recognition key uses the source state before the first answer token. The writer also checks that the teacher-forced donor argmax tokens reproduce the donor generation.
 
 4.  **Validate and commit.** Generate freely from the source question with the proposed memory. Save the entry only if the complete answer passes the same normalized-text comparison. Otherwise restore the previous memory.
@@ -156,11 +152,11 @@ An earlier two-entry sequence test used the paraphrase *Explain what a system pr
 ## Costs and limitations
 
 For width $d=1024$, $S=1000$ slots, and float32 storage, the fixed matrices require
-$$
 
+$$
 2Sd(4\ \text{bytes})=8{,}192{,}000\ \text{bytes}=7.8125\ \text{MiB}.
-
 $$
+
 Each sequence step adds 4 KiB. The 304-step pilot adds 1.1875 MiB; 1,000 answers averaging 30 steps would add approximately 117.19 MiB, beyond the fixed matrices and controls. The first adjustment is also retained in $D$. This is larger than storing the answer text; no storage-compression advantage is claimed.
 
 Recognition costs $O(Sd)$ per question and applying a selected adjustment costs $O(d)$ per token. Writing requires donor generation, two teacher-forced traces, consistency checks, baseline generation, and free-generation validation. Keys and single adjustments are non-trainable parameters; sequence trajectories are buffers. Both are separately persisted numerical memory, not modified base parameters.

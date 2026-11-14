@@ -21,7 +21,7 @@
     "pdf": "AFFECTOR-ARC-ACM.pdf",
     "tex": "AFFECTOR-ARC-ACM.tex",
     "title": "AFFECTOR-ARC: Emotional Trajectory Control through Transformer Activation Steering",
-    "commit": "2abc7e3c51c77415a797c904b87ea719aa386a9e",
+    "commit": "c6b932e61648926edd01fba690b9fdca30bfe43b",
     "sha256": "896af1e0e290fa6f5af60068713212c70cae9a339335322e82f090cf8392ef4d",
     "root_pdf": "AFFECTOR-ARC.pdf"
   },
@@ -34,7 +34,7 @@
     "pdf": "ARC-Explorer.pdf",
     "tex": "ARC-Explorer.tex",
     "title": "ARC Explorer: A Native macOS Workspace for Remote High-Performance Computing",
-    "commit": "d87bd8e596121ceeeab02f1d2838cc1ad61da45f",
+    "commit": "4b5fd11acec7b50b3ce54ba36000abad4b685591",
     "sha256": "be6453bac972eb260c9b91b247714b83b70b2826017007e3b8453d98f3e4be7f",
     "root_pdf": "ARC-Explorer.pdf"
   },
@@ -99,7 +99,7 @@
     "pdf": "main.pdf",
     "tex": "main.tex",
     "title": "LAMP: Latent Associative Memory Programming in a Frozen Toy Transformer",
-    "commit": "d52b262773cf56dd154597c9f967de6893de5293",
+    "commit": "99d23016427cf5094eabc1a4196585bd9c2ee53b",
     "sha256": "e752444e86fe820f92ba6217b72eb380e9b5d344d619e6832315532259bda64c",
     "root_pdf": "LAMP.pdf"
   },
@@ -112,7 +112,7 @@
     "pdf": "LAMP-Qwen.pdf",
     "tex": "main.tex",
     "title": "LAMP-Qwen: Forward-Only Associative Memory for a Frozen Small Language Model",
-    "commit": "63ec3153ed25654c143f89630a2d17a76a3ce710",
+    "commit": "b29b63b1d0413a0a37878fbb1d82a105ae04d03a",
     "sha256": "ccdcc0de59161bae422d7beb27da4f2fe8ce959e87a9f9d14cdcef6d6f72f802",
     "root_pdf": "LAMP-Qwen.pdf"
   },

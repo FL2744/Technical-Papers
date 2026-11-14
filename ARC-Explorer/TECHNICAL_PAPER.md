@@ -28,7 +28,7 @@ SSH establishes a reusable authenticated control connection. Structured manageme
 
 The implementation has three distinct execution paths. First, bounded management requests run on the login host. Second, submitted scripts run under a Slurm allocation on the assigned compute node. Third, the user-controlled terminal opens an interactive login-node shell. The ARC LLM assistant is a separate HTTPS client; it does not reuse SSH credentials. Embedded web pages have their own authentication and service lifecycle.
 
-The remote helper is itself a Python process on the login node. ARC's published guidance is restrictive about Python use there [@arcpolicy]. Its use for bounded management operations should not be interpreted as institutional approval or as an exemption from site policy. The application does not perform inference or package installation through that helper. General terminal commands remain the user's responsibility.
+The remote helper is itself a Python process on the login node. ARC's published guidance is restrictive about Python use there [Virginia Tech ARC, Inappropriate Use of Login Nodes](https://www.docs.arc.vt.edu/usage/abuse.html). Its use for bounded management operations should not be interpreted as institutional approval or as an exemption from site policy. The application does not perform inference or package installation through that helper. General terminal commands remain the user's responsibility.
 
 Nonsecret connection preferences, appearance, bookmarks, and workspace state are stored locally. Profiles contain connection and resource settings, not SSH passwords or private-key material. The local workspace preserves drafts for convenience; it is not a transaction log or a substitute for saving important scripts and files.
 
@@ -76,13 +76,13 @@ Repository retrieval does not automatically run arbitrary setup instructions. Th
 
 ## Sessions: terminal, web applications, and tunnels
 
-Sessions opens to the Login Node Terminal by default. The terminal occupies the available workspace width and accepts input directly at the shell prompt. SwiftTerm supplies terminal emulation [@swiftterm], connected to a local pseudo-terminal and the system SSH client, which requests a remote pseudo-terminal and an interactive login shell. Input, ANSI output, history keys, tab completion, interrupts, copying, pasting, and window-size changes follow the terminal session rather than a separate command-entry field. The scrollback limit is 5,000 lines.
+Sessions opens to the Login Node Terminal by default. The terminal occupies the available workspace width and accepts input directly at the shell prompt. SwiftTerm supplies terminal emulation [SwiftTerm documentation](https://github.com/migueldeicaza/SwiftTerm/tree/v1.20.0), connected to a local pseudo-terminal and the system SSH client, which requests a remote pseudo-terminal and an interactive login shell. Input, ANSI output, history keys, tab completion, interrupts, copying, pasting, and window-size changes follow the terminal session rather than a separate command-entry field. The scrollback limit is 5,000 lines.
 
 The warning “Login node is not for compute intensive jobs.” appears in red directly below the terminal heading. Starting this terminal does not request a GPU allocation. It is a real shell with the user's remote permissions, not a sandbox or a restricted command catalog. Compute-intensive work belongs in a scheduled allocation. Closing the terminal closes that shell; it does not necessarily cancel independently submitted jobs or detached remote processes.
 
 The vendored terminal implementation disables remote clipboard-read requests. Users can still deliberately paste text into the terminal. The terminal view is retained while navigating other workspace sections. Disconnecting or quitting with an active terminal requests confirmation so that an interactive shell is not discarded silently.
 
-Web / Jupyter embeds ARC web applications through WebKit. Open OnDemand provides its own authentication, resource forms, and application lifecycle [@arcood]. The desktop GPU form does not automatically provision every embedded web session. A system-browser option accommodates services whose authentication or browser features do not work well inside an embedded view. Bookmarks support additional ARC services, but compatibility with every service is not guaranteed.
+Web / Jupyter embeds ARC web applications through WebKit. Open OnDemand provides its own authentication, resource forms, and application lifecycle [Virginia Tech ARC, Open OnDemand](https://www.docs.arc.vt.edu/resources/ood.html). The desktop GPU form does not automatically provision every embedded web session. A system-browser option accommodates services whose authentication or browser features do not work well inside an embedded view. Bookmarks support additional ARC services, but compatibility with every service is not guaranteed.
 
 For an existing service on an allocated compute node, a tunnel maps a local loopback port through SSH to a user-specified compute host and remote port. Host and port inputs are validated, and the local listener binds to 127.0.0.1. The user must first start the service in the allocation and supply the appropriate URL or token. Closing the tunnel removes connectivity; it does not stop the underlying job. The application does not infer ownership or readiness of every manually specified remote service.
 
@@ -92,7 +92,7 @@ For an existing service on an allocated compute node, a tunnel maps a local loop
 
 The Help section combines a fixed command reference with an optional ARC-hosted LLM assistant. The command reference includes partition inspection, queue and history queries, account associations, module discovery, and storage commands. A command can be copied or placed into the GPU script editor for review. This exposes the actual command syntax and keeps execution separate from explanation.
 
-The assistant uses ARC's documented OpenAI-compatible API [@arcllm]. Its base URL is configurable, with the ARC endpoint supplied by default. Available model identifiers are fetched from the service rather than presented as a permanent catalog. Access depends on the user's API key, account permissions, network access, and the models currently offered by ARC. A model identifier visible in a screenshot is a saved selection, not a claim of current availability.
+The assistant uses ARC's documented OpenAI-compatible API [Virginia Tech ARC, LLM API](https://www.docs.arc.vt.edu/ai/011_llm_api_arc_vt_edu.html). Its base URL is configurable, with the ARC endpoint supplied by default. Available model identifiers are fetched from the service rather than presented as a permanent catalog. Access depends on the user's API key, account permissions, network access, and the models currently offered by ARC. A model identifier visible in a screenshot is a saved selection, not a claim of current availability.
 
 A request contains the user's typed question and a general ARC-help instruction. Files, job logs, connection passwords, and private keys are not attached automatically. Responses are advice only and never execute commands. Users can nevertheless disclose information by typing it into a question, so the data boundary is determined in part by what they choose to send.
 
@@ -126,17 +126,23 @@ This project was created with assistance from GPT-6 Astra and Codex. AI tools as
 
 ## References
 
-- [@hudak2018] Dave Hudak, Doug Johnson, Alan Chalker, Jeremy Nicklas, Eric Franz, Trey Dockendorf, and Brian L. McMichael. 2018. Open OnDemand: A web-based client portal for HPC centers. *Journal of Open Source Software* 3, 25, 622. https://doi.org/10.21105/joss.00622
-- [@arcood] Virginia Tech Advanced Research Computing. Open OnDemand. https://www.docs.arc.vt.edu/resources/ood.html (accessed November 13, 2026).
-- [@slurm] SchedMD. Slurm documentation. https://slurm.schedmd.com/documentation.html (accessed November 13, 2026).
-- [@arcpolicy] Virginia Tech Advanced Research Computing. Inappropriate Use of Login Nodes. https://www.docs.arc.vt.edu/usage/abuse.html (accessed November 13, 2026).
-- [@swiftterm] Miguel de Icaza and SwiftTerm contributors. SwiftTerm, version 1.20.0. https://github.com/migueldeicaza/SwiftTerm/tree/v1.20.0 (accessed November 13, 2026).
-- [@arcllm] Virginia Tech Advanced Research Computing. LLM API: llm-api.arc.vt.edu. https://www.docs.arc.vt.edu/ai/011_llm_api_arc_vt_edu.html (accessed November 13, 2026).
-1. Andy B. Yoo, Morris A. Jette, Mark Grondona (2003). [SLURM: Simple Linux Utility for Resource Management](https://doi.org/10.1007/10968987_3). Lecture Notes in Computer Science; Job Scheduling Strategies for Parallel Processing. DOI: 10.1007/10968987_3.
+- Dave Hudak, Doug Johnson, Alan Chalker, Jeremy Nicklas, Eric Franz, Trey Dockendorf, and Brian L. McMichael. 2018. Open OnDemand: A web-based client portal for HPC centers. *Journal of Open Source Software* 3, 25, 622. https://doi.org/10.21105/joss.00622
 
-2. Thomas Kluyver, Benjamin Ragan-Kelley, Fernando Pérez, Brian Granger, others (2016). [Jupyter Notebooks—a publishing format for reproducible computational workflows](https://doi.org/10.3233/978-1-61499-649-1-87). Positioning and Power in Academic Publishing: Players, Agents and Agendas. DOI: 10.3233/978-1-61499-649-1-87.
+- Virginia Tech Advanced Research Computing. Open OnDemand. https://www.docs.arc.vt.edu/resources/ood.html (accessed November 13, 2026).
 
-3. Roger D. Peng (2011). [Reproducible Research in Computational Science](https://doi.org/10.1126/science.1213847). Science. DOI: 10.1126/science.1213847.
+- SchedMD. Slurm documentation. https://slurm.schedmd.com/documentation.html (accessed November 13, 2026).
 
-4. Mark D. Wilkinson, Michel Dumontier, IJsbrand Jan Aalbersberg, Gabrielle Appleton, Myles Axton, Arie Baak, Niklas Blomberg, Jan-Willem Boiten, Luiz Bonino da Silva Santos, Philip E. Bourne, Jildau Bouwman, Anthony J. Brookes, Tim Clark, Mercè Crosas, Ingrid Dillo, Olivier Dumon, Scott Edmunds, Chris T. Evelo, Richard Finkers, Alejandra Gonzalez-Beltran, Alasdair J.G. Gray, Paul Groth, Carole Goble, Jeffrey S. Grethe, Jaap Heringa, Peter A.C ’t Hoen, Rob Hooft, Tobias Kuhn, Ruben Kok, Joost Kok, Scott J. Lusher, Maryann E. Martone, Albert Mons, Abel L. Packer, Bengt Persson, Philippe Rocca-Serra, Marco Roos, Rene van Schaik, Susanna-Assunta Sansone, Erik Schultes, Thierry Sengstag, Ted Slater, George Strawn, Morris A. Swertz, Mark Thompson, Johan van der Lei, Erik van Mulligen, Jan Velterop, Andra Waagmeester, Peter Wittenburg, Katherine Wolstencroft, Jun Zhao, Barend Mons (2016). [The FAIR Guiding Principles for scientific data management and stewardship](https://doi.org/10.1038/sdata.2016.18). Scientific Data. DOI: 10.1038/sdata.2016.18.
+- Virginia Tech Advanced Research Computing. Inappropriate Use of Login Nodes. https://www.docs.arc.vt.edu/usage/abuse.html (accessed November 13, 2026).
+
+- Miguel de Icaza and SwiftTerm contributors. SwiftTerm, version 1.20.0. https://github.com/migueldeicaza/SwiftTerm/tree/v1.20.0 (accessed November 13, 2026).
+
+- Virginia Tech Advanced Research Computing. LLM API: llm-api.arc.vt.edu. https://www.docs.arc.vt.edu/ai/011_llm_api_arc_vt_edu.html (accessed November 13, 2026).
+
+- Andy B. Yoo, Morris A. Jette, Mark Grondona (2003). [SLURM: Simple Linux Utility for Resource Management](https://doi.org/10.1007/10968987_3). Lecture Notes in Computer Science; Job Scheduling Strategies for Parallel Processing. DOI: 10.1007/10968987_3.
+
+- Thomas Kluyver, Benjamin Ragan-Kelley, Fernando Pérez, Brian Granger, others (2016). [Jupyter Notebooks—a publishing format for reproducible computational workflows](https://doi.org/10.3233/978-1-61499-649-1-87). Positioning and Power in Academic Publishing: Players, Agents and Agendas. DOI: 10.3233/978-1-61499-649-1-87.
+
+- Roger D. Peng (2011). [Reproducible Research in Computational Science](https://doi.org/10.1126/science.1213847). Science. DOI: 10.1126/science.1213847.
+
+- Mark D. Wilkinson, Michel Dumontier, IJsbrand Jan Aalbersberg, Gabrielle Appleton, Myles Axton, Arie Baak, Niklas Blomberg, Jan-Willem Boiten, Luiz Bonino da Silva Santos, Philip E. Bourne, Jildau Bouwman, Anthony J. Brookes, Tim Clark, Mercè Crosas, Ingrid Dillo, Olivier Dumon, Scott Edmunds, Chris T. Evelo, Richard Finkers, Alejandra Gonzalez-Beltran, Alasdair J.G. Gray, Paul Groth, Carole Goble, Jeffrey S. Grethe, Jaap Heringa, Peter A.C ’t Hoen, Rob Hooft, Tobias Kuhn, Ruben Kok, Joost Kok, Scott J. Lusher, Maryann E. Martone, Albert Mons, Abel L. Packer, Bengt Persson, Philippe Rocca-Serra, Marco Roos, Rene van Schaik, Susanna-Assunta Sansone, Erik Schultes, Thierry Sengstag, Ted Slater, George Strawn, Morris A. Swertz, Mark Thompson, Johan van der Lei, Erik van Mulligen, Jan Velterop, Andra Waagmeester, Peter Wittenburg, Katherine Wolstencroft, Jun Zhao, Barend Mons (2016). [The FAIR Guiding Principles for scientific data management and stewardship](https://doi.org/10.1038/sdata.2016.18). Scientific Data. DOI: 10.1038/sdata.2016.18.
 

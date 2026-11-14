@@ -86,24 +86,24 @@ The runner accepts a native geometry JSON file and supported analysis JSON struc
 
 A hidden state at a selected layer is a vector in $\mathbb{R}^{1024}$. To estimate a direction associated with one emotional contrast, the system compares the model's states for paired passages that differ in the desired property.
 
-There are four hand-authored English pairs for each of three axes. For layer $\ell$, axis $j$, and pair $k$, let $h^+_{\ell,j,k}$ and $h^-_{\ell,j,k}$ denote the captured states for the two members. The mean difference is
+There are four hand-authored English pairs for each of three axes. For layer $\ell$, axis $j$, and pair $k$, let $h_{\ell,j,k}^{+}$ and $h_{\ell,j,k}^{-}$ denote the captured states for the two members. The mean difference is
 
 $$
 u_{\ell,j}=\frac14\sum_{k=1}^{4}
-\left(h^+_{\ell,j,k}-h^-_{\ell,j,k}\right).
+\left(h_{\ell,j,k}^{+}-h_{\ell,j,k}^{-}\right).
 $$
 
 For a vector of dimension $D$, define root-mean-square magnitude as
 
 $$
-\operatorname{RMS}(x)=\sqrt{\frac1D\sum_{r=1}^{D}x_r^2}.
+\mathrm{RMS}(x)=\sqrt{\frac1D\sum_{r=1}^{D}x_r^2}.
 $$
 
 The normalized direction is
 
 $$
 b_{\ell,j}=\frac{u_{\ell,j}}
-{\max(\operatorname{RMS}(u_{\ell,j}),10^{-8})}.
+{\max(\mathrm{RMS}(u_{\ell,j}),10^{-8})}.
 $$
 
 The three directions form the rows of a matrix $B_\ell\in\mathbb{R}^{3\times1024}$. Calibration captures the final chat-formatted prompt position immediately before `post_attention_layernorm`. It does not average all token positions. All selected layers are captured during the same 24 forward passes: three axes, four pairs, and two members per pair.
@@ -126,7 +126,7 @@ $$
 Axes are sorted by this magnitude. The algorithm retains at most `axis_top_k` axes and stops adding axes after their accumulated magnitude reaches `axis_mass` times the total magnitude. Selection includes the axis that crosses the threshold. The retained coefficients are
 
 $$
-a_j=\operatorname{sign}(c_j)q_jm_j,
+a_j=\mathrm{sign}(c_j)q_jm_j,
 $$
 
 where $m_j$ is one for a retained axis and zero otherwise. Coefficients are not renormalized after selection. For coordinate magnitudes below one, $T<1$ reduces their magnitudes and emphasizes relative differences; $T>1$ increases them and makes those differences less pronounced. These operations affect three activation coefficients, not token probabilities.
@@ -136,7 +136,7 @@ where $m_j$ is one for a retained axis and zero otherwise. Coefficients are not 
 For the current final-token state $h_{\ell,n}$, strength $s$, and layer weight $w_\ell$, the raw displacement is
 
 $$
-r_{\ell,n}=s\,w_\ell\operatorname{RMS}(h_{\ell,n})(aB_\ell).
+r_{\ell,n}=s\,w_\ell\mathrm{RMS}(h_{\ell,n})(aB_\ell).
 $$
 
 Multiplication by the current state's RMS expresses the intervention relative to the layer's numerical scale. A negative layer weight reverses the mixed direction at that layer.
@@ -152,8 +152,8 @@ Budget $\beta$ then limits the RMS ratio:
 $$
 \delta_{\ell,n}=\widetilde\delta_{\ell,n}
 \min\left(1,
-\frac{\beta\operatorname{RMS}(h_{\ell,n})}
-{\max(\operatorname{RMS}(\widetilde\delta_{\ell,n}),10^{-12})}
+\frac{\beta\mathrm{RMS}(h_{\ell,n})}
+{\max(\mathrm{RMS}(\widetilde\delta_{\ell,n}),10^{-12})}
 \right).
 $$
 
@@ -164,13 +164,13 @@ Strength determines the proposed displacement; budget supplies its ceiling. Rais
 Let $h$ denote the state entering the feed-forward portion of a decoder block. Without intervention, that portion computes
 
 $$
-y=h+\operatorname{FFN}(\operatorname{Norm}(h)).
+y=h+\mathrm{FFN}(\mathrm{Norm}(h)).
 $$
 
 The implemented intervention produces
 
 $$
-y=(h+\delta)+\operatorname{FFN}(\operatorname{Norm}(h+\delta)).
+y=(h+\delta)+\mathrm{FFN}(\mathrm{Norm}(h+\delta)).
 $$
 
 A pre-hook adds $\delta$ to the normalization input; a block-output hook adds the same displacement to the residual result. Adding a vector only after an unchanged feed-forward computation would have a different effect. Only the final prompt position is modified during prefill; cached decoding modifies the current generated position. The module does not wait for specific words or phrases. Generation hooks are removed in a `finally` block.
