@@ -205,3 +205,6 @@ Version-specific arXiv records are linked below. Years distinguish original rele
 
 **R12.** Haotian Yang; Huikang Jiang; Yucheng Wu; Wen-Jie Jiang; Chenpeng Wang; Yibin Lou; Liangming Pan. 2026. Does Steering Break Your Model? A Multi-Dimensional Evaluation Suite for LLM Steering Methods. [arXiv:2610.07722v1](https://arxiv.org/abs/2610.07722v1). Cited version dated 2026-10-06.
 
+## Suggested Citation
+
+William Taggart. 2026. AFFECTOR: Coordinate-Guided Text Rewriting through Transformer Activation Interventions. Technical report. Modern and Classical Languages and Literatures, Virginia Tech. https://huggingface.co/will-taggart/AFFECTOR

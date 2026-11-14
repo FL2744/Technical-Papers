@@ -8,7 +8,7 @@
     "pdf": "AFFECTOR.pdf",
     "tex": "AFFECTOR.tex",
     "title": "AFFECTOR: Coordinate-Guided Text Rewriting through Transformer Activation Interventions",
-    "commit": "647a68c2b2cd90918aa550a4a35c42e09736bf05",
+    "commit": "8334f24ddac4afb816fc3761aae16ce7ca6b7161",
     "sha256": "3125eeed5e35b5e01506ebe58adfd229b434521f8c1d02b62eee45f35c2a6e65",
     "root_pdf": "AFFECTOR.pdf"
   },
@@ -34,8 +34,8 @@
     "pdf": "ARC-Explorer.pdf",
     "tex": "ARC-Explorer.tex",
     "title": "ARC Explorer: A Native macOS Workspace for Remote High-Performance Computing",
-    "commit": "4b5fd11acec7b50b3ce54ba36000abad4b685591",
-    "sha256": "be6453bac972eb260c9b91b247714b83b70b2826017007e3b8453d98f3e4be7f",
+    "commit": "c3d1846dbd1717af2ad0ca6b319e60353e49b631",
+    "sha256": "4ee7cecb19b7257b47aed7ead93a8ff9d7dde707e09c01b9c9f75a5f90b46293",
     "root_pdf": "ARC-Explorer.pdf"
   },
   {
@@ -47,8 +47,8 @@
     "pdf": "Emotional-Atlas.pdf",
     "tex": "main.tex",
     "title": "Emotional Atlas: Emotional Geometry, Textual Evolution, and Shape-Guided Revision",
-    "commit": "3aef379d855853e65994dbbc95d80d547f01373e",
-    "sha256": "6421197b6888f7981a9b4db62d894bb905c8e7ce33aa0dc42dc3084215ca388e",
+    "commit": "af7707d8d7383de9ef98f1ccda8aaa895978a580",
+    "sha256": "bba87c117586907d9468fc6b45bdff1dc5086cd35589747c1ac5b7b36e3c49f3",
     "root_pdf": "Emotional-Atlas.pdf"
   },
   {
@@ -60,8 +60,8 @@
     "pdf": "Technical-Paper.pdf",
     "tex": "main.tex",
     "title": "FENNEC: A Browser-Based Conversational and Research Companion",
-    "commit": "5aa298a5f4e8703a742d616fca62c54358a462e9",
-    "sha256": "106424b4c73ec081f1ec2dc91935312e4f5cfa10c97dccfc9c4c164546aa7d83",
+    "commit": "e7030a53a4971b540c8c652e3988b36b5d156a0c",
+    "sha256": "439008c8e427719b397f29a15f2142f258f92699113dc3505fd253edcc97bf75",
     "root_pdf": "FENNEC.pdf"
   },
   {
@@ -73,8 +73,8 @@
     "pdf": "Technical-Paper.pdf",
     "tex": "main.tex",
     "title": "KOALA: An Evidence-Aware Writing Studio for Scholarly Articles and Books",
-    "commit": "405492e43ff1af4de11dac90d4504af3c104e344",
-    "sha256": "dc96557878891348be9211a39dccea67b6dadcca219ca268e9ea3cdc9ce1bbfb",
+    "commit": "7c95f803c7410f1cd4b5e9ede3f48b23fddf9a60",
+    "sha256": "d2ae62e887a9ec23f0a994cdfcaca1a5419d395406bb625474903a3a389e9402",
     "root_pdf": "KOALA.pdf"
   },
   {
@@ -86,8 +86,8 @@
     "pdf": "Technical-Paper.pdf",
     "tex": "main.tex",
     "title": "L1001: Stateful Long-Document Translation in a Browser and Command Line",
-    "commit": "55d45e1a8ab4888838bc99408dd3494273aa9a30",
-    "sha256": "7e35205ceb17fa26d3b62ae00c91dd25f82f883c23db037da21bc459402f3f19",
+    "commit": "9c7281dd28946ab89fa6cf86cd6cdc4b18f76abf",
+    "sha256": "c308bc3a8b243fb35289e72c47a47e8878ead4da41b3ad5a72c7e843a683cfb6",
     "root_pdf": "L1001.pdf"
   },
   {
@@ -125,8 +125,8 @@
     "pdf": "Technical-Paper.pdf",
     "tex": "main.tex",
     "title": "Synthetic Creativity: Navigating Ordered Combinations of Disciplines",
-    "commit": "4a49dab8c63298508209da1e31af003b3c07157e",
-    "sha256": "60aec7a8f4c00eb63d976bb1ff937490fdcfca9e0190c127bd85cb4aa94da827",
+    "commit": "a93256e9d1034bde8c8af7173f668eb848a44756",
+    "sha256": "bf9fff640cce865f4c2b26f366165062898d180071414f7fb3e3450edb54046e",
     "root_pdf": "synthetic-creativity.pdf"
   },
   {

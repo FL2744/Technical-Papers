@@ -111,3 +111,6 @@ This project was created with assistance from GPT-6 Astra and Codex. AI tools as
 
 10. Mina Lee, Percy Liang, Qian Yang (2022). [CoAuthor: Designing a Human-AI Collaborative Writing Dataset for Exploring Language Model Capabilities](https://doi.org/10.1145/3491102.3502030). CHI Conference on Human Factors in Computing Systems. DOI: 10.1145/3491102.3502030.
 
+## Suggested Citation
+
+William Taggart. 2026. KOALA: An Evidence-Aware Writing Studio for Scholarly Articles and Books. Technical report. Modern and Classical Languages and Literatures, Virginia Tech. https://github.com/FL2744/KOALA
