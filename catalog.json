@@ -92,8 +92,8 @@
     "pdf": "main.pdf",
     "tex": "main.tex",
     "title": "LAMP: Latent Associative Memory Programming in a Frozen Toy Transformer",
-    "commit": "4c067f6df69369e0142cdc711a91f7eef1ed015c",
-    "sha256": "10f147110484996a3e0c9536a9ddb265097a48b70b9d13cdd88fe27f00b9dc5a"
+    "commit": "bd1e54a3a707399016e8aad52a890c2862430079",
+    "sha256": "53d36d52ef4a16cab5d772a9906933e00d7ccba5233d1ebc424144e6ca959f9d"
   },
   {
     "name": "LAMP-Qwen",
