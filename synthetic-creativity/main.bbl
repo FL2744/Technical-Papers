@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{3}
+\begin{thebibliography}{10}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -50,6 +50,35 @@
 \tempurl}
 
 
+\bibitem[Chan et~al\mbox{.}(2015)]%
+        {chan}
+\bibfield{author}{\bibinfo{person}{Joel Chan}, \bibinfo{person}{Steven~P. Dow},
+  {and} \bibinfo{person}{Christian~D. Schunn}.}
+  \bibinfo{year}{2015}\natexlab{}.
+\newblock \bibinfo{title}{{Do the best design ideas (really) come from
+  conceptually distant sources of inspiration?}}
+\newblock \bibinfo{howpublished}{Design Studies}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1016/j.destud.2014.08.001}
+\showDOI{\tempurl}
+\newblock
+\shownote{Vol. 36, pp. 31--58}.
+
+
+\bibitem[Doshi and Hauser(2024)]%
+        {doshi}
+\bibfield{author}{\bibinfo{person}{Anil~R. Doshi} {and}
+  \bibinfo{person}{Oliver~P. Hauser}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \bibinfo{title}{{Generative AI enhances individual creativity but
+  reduces the collective diversity of novel content}}.
+\newblock \bibinfo{howpublished}{Science Advances}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1126/sciadv.adn5290}
+\showDOI{\tempurl}
+
+
 \bibitem[Finke et~al\mbox{.}(1992)]%
         {finke}
 \bibfield{author}{\bibinfo{person}{Ronald~A. Finke}, \bibinfo{person}{Steven~M.
@@ -63,6 +92,51 @@
 \url{https://mitpress.mit.edu/9780262061506/creative-cognition/}
 \showURL{%
 \tempurl}
+
+
+\bibitem[Gentner(1983)]%
+        {gentner}
+\bibfield{author}{\bibinfo{person}{Dedre Gentner}.}
+  \bibinfo{year}{1983}\natexlab{}.
+\newblock \bibinfo{title}{{Structure‐Mapping: A Theoretical Framework for
+  Analogy}}.
+\newblock \bibinfo{howpublished}{Cognitive Science}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1207/s15516709cog0702_3}
+\showDOI{\tempurl}
+\newblock
+\shownote{Vol. 7, pp. 155--170}.
+
+
+\bibitem[Gentner et~al\mbox{.}(2003)]%
+        {analogical}
+\bibfield{author}{\bibinfo{person}{Dedre Gentner}, \bibinfo{person}{Jeffrey
+  Loewenstein}, {and} \bibinfo{person}{Leigh Thompson}.}
+  \bibinfo{year}{2003}\natexlab{}.
+\newblock \bibinfo{title}{{Learning and transfer: A general role for analogical
+  encoding.}}
+\newblock \bibinfo{howpublished}{Journal of Educational Psychology}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1037/0022-0663.95.2.393}
+\showDOI{\tempurl}
+\newblock
+\shownote{Vol. 95, pp. 393--408}.
+
+
+\bibitem[Mednick(1962)]%
+        {mednick}
+\bibfield{author}{\bibinfo{person}{Sarnoff Mednick}.}
+  \bibinfo{year}{1962}\natexlab{}.
+\newblock \bibinfo{title}{{The associative basis of the creative process.}}
+\newblock \bibinfo{howpublished}{Psychological Review}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1037/h0048850}
+\showDOI{\tempurl}
+\newblock
+\shownote{Vol. 69, pp. 220--232}.
 
 
 \bibitem[Rhoten et~al\mbox{.}(2009)]%
@@ -79,6 +153,36 @@
 \url{https://doi.org/10.1177/0725513608099121}
 \showURL{%
 \tempurl}
+
+
+\bibitem[Shneiderman(2007)]%
+        {creativitytools}
+\bibfield{author}{\bibinfo{person}{Ben Shneiderman}.}
+  \bibinfo{year}{2007}\natexlab{}.
+\newblock \bibinfo{title}{{Creativity support tools: accelerating discovery and
+  innovation}}.
+\newblock \bibinfo{howpublished}{Communications of the ACM}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1145/1323688.1323689}
+\showDOI{\tempurl}
+\newblock
+\shownote{Vol. 50, pp. 20--32}.
+
+
+\bibitem[Uzzi et~al\mbox{.}(2013)]%
+        {uzzi}
+\bibfield{author}{\bibinfo{person}{Brian Uzzi}, \bibinfo{person}{Satyam
+  Mukherjee}, \bibinfo{person}{Michael Stringer}, {and} \bibinfo{person}{Ben
+  Jones}.} \bibinfo{year}{2013}\natexlab{}.
+\newblock \bibinfo{title}{{Atypical Combinations and Scientific Impact}}.
+\newblock \bibinfo{howpublished}{Science}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1126/science.1240474}
+\showDOI{\tempurl}
+\newblock
+\shownote{Vol. 342, pp. 468--472}.
 
 
 \end{thebibliography}

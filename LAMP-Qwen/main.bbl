@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{8}
+\begin{thebibliography}{11}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -67,6 +67,37 @@
 \shownote{arXiv:2610.21375v3; project: https://memory.stanford.edu/}.
 
 
+\bibitem[Geva et~al\mbox{.}(2020)]%
+        {kvffn}
+\bibfield{author}{\bibinfo{person}{Mor Geva}, \bibinfo{person}{Roei Schuster},
+  \bibinfo{person}{Jonathan Berant}, {and} \bibinfo{person}{Omer Levy}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \bibinfo{title}{{Transformer Feed-Forward Layers Are Key-Value
+  Memories}}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.48550/arXiv.2012.14913}
+\showDOI{\tempurl}
+\newblock
+\shownote{arXiv preprint}.
+
+
+\bibitem[Meng et~al\mbox{.}(2022)]%
+        {memit}
+\bibfield{author}{\bibinfo{person}{Kevin Meng}, \bibinfo{person}{Arnab~Sen
+  Sharma}, \bibinfo{person}{Alex Andonian}, \bibinfo{person}{Yonatan Belinkov},
+  {and} \bibinfo{person}{David Bau}.} \bibinfo{year}{2022}\natexlab{}.
+\newblock \bibinfo{title}{{Mass-Editing Memory in a Transformer}}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.48550/arXiv.2210.07229}
+\showDOI{\tempurl}
+\newblock
+\shownote{arXiv preprint}.
+
+
 \bibitem[Morris et~al\mbox{.}(2023)]%
         {inversion}
 \bibfield{author}{\bibinfo{person}{J. Morris}, \bibinfo{person}{V. Kuleshov},
@@ -110,6 +141,22 @@
 \tempurl}
 \newblock
 \shownote{Model and configuration}.
+
+
+\bibitem[Ramsauer et~al\mbox{.}(2020)]%
+        {modernhopfield}
+\bibfield{author}{\bibinfo{person}{Hubert Ramsauer}, \bibinfo{person}{Bernhard
+  Schäfl}, \bibinfo{person}{Johannes Lehner}, \bibinfo{person}{Philipp Seidl},
+  \bibinfo{person}{Michael Widrich}, \bibinfo{person}{Thomas Adler},
+  {et~al\mbox{.}}} \bibinfo{year}{2020}\natexlab{}.
+\newblock \bibinfo{title}{{Hopfield Networks is All You Need}}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.48550/arXiv.2008.02217}
+\showDOI{\tempurl}
+\newblock
+\shownote{arXiv preprint}.
 
 
 \bibitem[Schlag et~al\mbox{.}(2021)]%

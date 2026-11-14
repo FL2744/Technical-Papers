@@ -27,6 +27,12 @@ This prototype also distinguishes numerical storage from a conventional response
 
 *Illustration 1. Two-branch intervention schematic. The same displacement enters the normalization input and the residual path; no later attention layer follows this insertion point.*
 
+### Research context
+
+Modern Hopfield networks relate continuous associative retrieval to attention and provide a theoretical comparison for content-addressed memory [Hopfield Networks is All You Need](https://arxiv.org/abs/2008.02217). Analyses of transformer feed-forward layers as key-value memories describe associations distributed through a pretrained model [Transformer Feed-Forward Layers Are Key-Value Memories](https://arxiv.org/abs/2012.14913). LAMP-Qwen adds an externally writable store and replays selected numerical displacements; its slots should therefore not be equated with the model's native learned factual representation, nor with a guarantee of Hopfield-style storage capacity.
+
+MEMIT edits multiple factual associations by updating transformer weights [Mass-Editing Memory in a Transformer](https://arxiv.org/abs/2210.07229). In contrast, the present method keeps the backbone fixed and modifies activations during inference. This distinction makes disabling the added memory straightforward, while leaving recognition, interference, answer-length sensitivity, and paraphrase transfer as empirical questions. The comparison is about where and how a modification enters the computation, not a claim that activation replay matches the generalization or scale demonstrated by parameter-editing methods.
+
 ## Model and intervention point
 
 The implementation loads the official `Qwen/Qwen3.5-0.8B` checkpoint at a fixed revision:\
@@ -234,6 +240,12 @@ This project was created with assistance from GPT-6 Astra and Codex. AI tools su
 <a id="ref-inversion"></a>
 
 8. J. Morris and V. Kuleshov and V. Shmatikov and A. Rush. 2023. *Text Embeddings Reveal (Almost) As Much As Text*. EMNLP. [https://aclanthology.org/2023.emnlp-main.765/](https://aclanthology.org/2023.emnlp-main.765/).
+9. Ramsauer, Hubert, Schäfl, Bernhard, Lehner, Johannes, Seidl, Philipp, Widrich, Michael, Adler, Thomas, Gruber, Lukas, Holzleitner, Markus, Pavlović, Milena, Sandve, Geir Kjetil, Greiff, Victor, Kreil, David, Kopp, Michael, Klambauer, Günter, Brandstetter, Johannes, Hochreiter, Sepp (2020). [Hopfield Networks is All You Need](https://arxiv.org/abs/2008.02217). DOI: 10.48550/arXiv.2008.02217.
+
+10. Geva, Mor, Schuster, Roei, Berant, Jonathan, Levy, Omer (2020). [Transformer Feed-Forward Layers Are Key-Value Memories](https://arxiv.org/abs/2012.14913). DOI: 10.48550/arXiv.2012.14913.
+
+11. Meng, Kevin, Sharma, Arnab Sen, Andonian, Alex, Belinkov, Yonatan, Bau, David (2022). [Mass-Editing Memory in a Transformer](https://arxiv.org/abs/2210.07229). DOI: 10.48550/arXiv.2210.07229.
+
 
 ## Suggested citation
 

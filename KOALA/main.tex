@@ -37,6 +37,12 @@ STORM separates research and outline construction from long-form writing \cite{s
 \label{fig:1}
 \end{figure}
 
+\subsection{Research context}
+
+Retrieval-augmented generation makes an external evidence store part of generation \cite{rag}, and Self-RAG studies retrieval and critique within a trained model \cite{selfrag}. For a scholarly writing studio, their relevance is the separation of evidence selection from fluent drafting. KOALA's source ledger and revision workflow are application mechanisms, not implementations of those model-training procedures. WebGPT's collection of references during browsing offers a further comparison for source-backed answering \cite{webgpt}; the existence of a citation must still be distinguished from support for the particular sentence that cites it.
+
+Self-Refine uses iterative model-generated feedback to revise outputs \cite{selfrefine}, whereas Reflexion retains verbal feedback across task attempts \cite{reflexion}. They motivate explicit revision records and observable feedback loops, without establishing that repeated revision necessarily improves factual accuracy. Long-context experiments show that relevant information can be overlooked depending on its position \cite{lost}, which is pertinent to book-length briefs, source collections, and chapter coordination. CoAuthor documents human interaction with language-model suggestions during writing \cite{coauthor}. Together, these studies suggest evaluating the studio through evidence support, consistency across sections, and the author's acceptance and rejection of suggestions, rather than treating output length or smooth prose as sufficient evidence of quality.
+
 \section{Architecture and persistent projects}
 
 A SwiftUI macOS application invokes a Python workflow. The repository also exposes a command-line path. Native forms, dialogs, and project navigation manage local artifacts; remote language models perform inference through the selected OpenAI or Virginia Tech ARC connection. Literature-discovery services supply metadata and, when available, abstracts or fuller evidence. Local descriptive data analysis and export are separate from inference.

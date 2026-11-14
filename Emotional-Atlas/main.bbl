@@ -1,0 +1,198 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{10}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{#1}\fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[Bradley and Lang(1994)]%
+        {sam}
+\bibfield{author}{\bibinfo{person}{Margaret~M. Bradley} {and}
+  \bibinfo{person}{Peter~J. Lang}.} \bibinfo{year}{1994}\natexlab{}.
+\newblock \bibinfo{title}{{Measuring emotion: The self-assessment manikin and
+  the semantic differential}}.
+\newblock \bibinfo{howpublished}{Journal of Behavior Therapy and Experimental
+  Psychiatry}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1016/0005-7916(94)90063-9}
+\showDOI{\tempurl}
+\newblock
+\shownote{Vol. 25, pp. 49--59}.
+
+
+\bibitem[Demszky et~al\mbox{.}(2020)]%
+        {goemotions}
+\bibfield{author}{\bibinfo{person}{Dorottya Demszky}, \bibinfo{person}{Dana
+  Movshovitz-Attias}, \bibinfo{person}{Jeongwoo Ko}, \bibinfo{person}{Alan
+  Cowen}, \bibinfo{person}{Gaurav Nemade}, {and} \bibinfo{person}{Sujith
+  Ravi}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \bibinfo{title}{{GoEmotions: A Dataset of Fine-Grained Emotions}}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.48550/arXiv.2005.00547}
+\showDOI{\tempurl}
+\newblock
+\shownote{arXiv preprint}.
+
+
+\bibitem[Edelsbrunner and Mücke(1994)]%
+        {alphashapes}
+\bibfield{author}{\bibinfo{person}{Herbert Edelsbrunner} {and}
+  \bibinfo{person}{Ernst~P. Mücke}.} \bibinfo{year}{1994}\natexlab{}.
+\newblock \bibinfo{title}{{Three-dimensional alpha shapes}}.
+\newblock \bibinfo{howpublished}{ACM Transactions on Graphics}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1145/174462.156635}
+\showDOI{\tempurl}
+\newblock
+\shownote{Vol. 13, pp. 43--72}.
+
+
+\bibitem[Jin et~al\mbox{.}(2020)]%
+        {style}
+\bibfield{author}{\bibinfo{person}{Di Jin}, \bibinfo{person}{Zhijing Jin},
+  \bibinfo{person}{Zhiting Hu}, \bibinfo{person}{Olga Vechtomova}, {and}
+  \bibinfo{person}{Rada Mihalcea}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \bibinfo{title}{{Deep Learning for Text Style Transfer: A Survey}}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.48550/arXiv.2011.00416}
+\showDOI{\tempurl}
+\newblock
+\shownote{arXiv preprint}.
+
+
+\bibitem[Jolliffe and Cadima(2016)]%
+        {pca}
+\bibfield{author}{\bibinfo{person}{Ian~T. Jolliffe} {and}
+  \bibinfo{person}{Jorge Cadima}.} \bibinfo{year}{2016}\natexlab{}.
+\newblock \bibinfo{title}{{Principal component analysis: a review and recent
+  developments}}.
+\newblock \bibinfo{howpublished}{Philosophical Transactions of the Royal
+  Society A: Mathematical, Physical and Engineering Sciences}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1098/rsta.2015.0202}
+\showDOI{\tempurl}
+\newblock
+\shownote{Vol. 374, pp. 20150202}.
+
+
+\bibitem[Madabushi et~al\mbox{.}(2022)]%
+        {idioms}
+\bibfield{author}{\bibinfo{person}{Harish~Tayyar Madabushi},
+  \bibinfo{person}{Edward Gow-Smith}, \bibinfo{person}{Marcos Garcia},
+  \bibinfo{person}{Carolina Scarton}, \bibinfo{person}{Marco Idiart}, {and}
+  \bibinfo{person}{Aline Villavicencio}.} \bibinfo{year}{2022}\natexlab{}.
+\newblock \bibinfo{title}{{SemEval-2022 Task 2: Multilingual Idiomaticity
+  Detection and Sentence Embedding}}.
+\newblock \bibinfo{howpublished}{Proceedings of the 16th International Workshop
+  on Semantic Evaluation (SemEval-2022)}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.18653/v1/2022.semeval-1.13}
+\showDOI{\tempurl}
+\newblock
+\shownote{pp. 107--121}.
+
+
+\bibitem[Mohammad(2018)]%
+        {vad}
+\bibfield{author}{\bibinfo{person}{Saif Mohammad}.}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \bibinfo{title}{{Obtaining Reliable Human Ratings of Valence,
+  Arousal, and Dominance for 20,000 English Words}}.
+\newblock \bibinfo{howpublished}{Proceedings of the 56th Annual Meeting of the
+  Association for Computational Linguistics (Volume 1: Long Papers)}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.18653/v1/P18-1017}
+\showDOI{\tempurl}
+\newblock
+\shownote{pp. 174--184}.
+
+
+\bibitem[Reagan et~al\mbox{.}(2016)]%
+        {arcs}
+\bibfield{author}{\bibinfo{person}{Andrew~J. Reagan}, \bibinfo{person}{Lewis
+  Mitchell}, \bibinfo{person}{Dilan Kiley}, \bibinfo{person}{Christopher~M.
+  Danforth}, {and} \bibinfo{person}{Peter~Sheridan Dodds}.}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \bibinfo{title}{{The emotional arcs of stories are dominated by six
+  basic shapes}}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.48550/arXiv.1606.07772}
+\showDOI{\tempurl}
+\newblock
+\shownote{arXiv preprint}.
+
+
+\bibitem[Russell(1980)]%
+        {russell}
+\bibfield{author}{\bibinfo{person}{James~A. Russell}.}
+  \bibinfo{year}{1980}\natexlab{}.
+\newblock \bibinfo{title}{{A circumplex model of affect.}}
+\newblock \bibinfo{howpublished}{Journal of Personality and Social Psychology}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1037/h0077714}
+\showDOI{\tempurl}
+\newblock
+\shownote{Vol. 39, pp. 1161--1178}.
+
+
+\bibitem[Warriner et~al\mbox{.}(2013)]%
+        {warriner}
+\bibfield{author}{\bibinfo{person}{Amy~Beth Warriner}, \bibinfo{person}{Victor
+  Kuperman}, {and} \bibinfo{person}{Marc Brysbaert}.}
+  \bibinfo{year}{2013}\natexlab{}.
+\newblock \bibinfo{title}{{Norms of valence, arousal, and dominance for 13,915
+  English lemmas}}.
+\newblock \bibinfo{howpublished}{Behavior Research Methods}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.3758/s13428-012-0314-x}
+\showDOI{\tempurl}
+\newblock
+\shownote{Vol. 45, pp. 1191--1207}.
+
+
+\end{thebibliography}

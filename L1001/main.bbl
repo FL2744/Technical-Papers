@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{4}
+\begin{thebibliography}{10}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -37,6 +37,23 @@
 \providecommand\natexlab[1]{#1}
 \providecommand\showeprint[2][]{arXiv:#2}
 
+\bibitem[Bai et~al\mbox{.}(2023)]%
+        {longbench}
+\bibfield{author}{\bibinfo{person}{Yushi Bai}, \bibinfo{person}{Xin Lv},
+  \bibinfo{person}{Jiajie Zhang}, \bibinfo{person}{Hongchang Lyu},
+  \bibinfo{person}{Jiankai Tang}, \bibinfo{person}{Zhidian Huang},
+  {et~al\mbox{.}}} \bibinfo{year}{2023}\natexlab{}.
+\newblock \bibinfo{title}{{LongBench: A Bilingual, Multitask Benchmark for Long
+  Context Understanding}}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.48550/arXiv.2308.14508}
+\showDOI{\tempurl}
+\newblock
+\shownote{arXiv preprint}.
+
+
 \bibitem[Karpinska and Iyyer(2023)]%
         {literary}
 \bibfield{author}{\bibinfo{person}{Marzena Karpinska} {and}
@@ -51,6 +68,56 @@
 \url{https://aclanthology.org/2023.wmt-1.41/}
 \showURL{%
 \tempurl}
+
+
+\bibitem[Liu et~al\mbox{.}(2023)]%
+        {lost}
+\bibfield{author}{\bibinfo{person}{Nelson~F. Liu}, \bibinfo{person}{Kevin Lin},
+  \bibinfo{person}{John Hewitt}, \bibinfo{person}{Ashwin Paranjape},
+  \bibinfo{person}{Michele Bevilacqua}, \bibinfo{person}{Fabio Petroni}, {and}
+  \bibinfo{person}{Percy Liang}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \bibinfo{title}{{Lost in the Middle: How Language Models Use Long
+  Contexts}}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.48550/arXiv.2307.03172}
+\showDOI{\tempurl}
+\newblock
+\shownote{arXiv preprint}.
+
+
+\bibitem[Papineni et~al\mbox{.}(2002)]%
+        {bleu}
+\bibfield{author}{\bibinfo{person}{Kishore Papineni}, \bibinfo{person}{Salim
+  Roukos}, \bibinfo{person}{Todd Ward}, {and} \bibinfo{person}{Wei-Jing Zhu}.}
+  \bibinfo{year}{2002}\natexlab{}.
+\newblock \bibinfo{title}{{Bleu: a Method for Automatic Evaluation of Machine
+  Translation}}.
+\newblock \bibinfo{howpublished}{Proceedings of the 40th Annual Meeting of the
+  Association for Computational Linguistics}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.3115/1073083.1073135}
+\showDOI{\tempurl}
+\newblock
+\shownote{pp. 311}.
+
+
+\bibitem[Popović(2015)]%
+        {chrf}
+\bibfield{author}{\bibinfo{person}{Maja Popović}.}
+  \bibinfo{year}{2015}\natexlab{}.
+\newblock \bibinfo{title}{{chrF: character n-gram F-score for automatic MT
+  evaluation}}.
+\newblock \bibinfo{howpublished}{Proceedings of the Tenth Workshop on
+  Statistical Machine Translation}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.18653/v1/W15-3049}
+\showDOI{\tempurl}
+\newblock
+\shownote{pp. 392--395}.
 
 
 \bibitem[{{Project Jupyter}}(2026)]%
@@ -83,11 +150,11 @@
 \tempurl}
 
 
-\bibitem[Voita et~al\mbox{.}(2019)]%
+\bibitem[Voita et~al\mbox{.}(2019a)]%
         {docrepair}
 \bibfield{author}{\bibinfo{person}{Elena Voita}, \bibinfo{person}{Rico
   Sennrich}, {and} \bibinfo{person}{Ivan Titov}.}
-  \bibinfo{year}{2019}\natexlab{}.
+  \bibinfo{year}{2019}\natexlab{a}.
 \newblock \bibinfo{title}{{Context-Aware Monolingual Repair for Neural Machine
   Translation}}.
 \newblock \bibinfo{howpublished}{Proceedings of EMNLP-IJCNLP;
@@ -97,6 +164,41 @@
 \url{https://aclanthology.org/D19-1081/}
 \showURL{%
 \tempurl}
+
+
+\bibitem[Voita et~al\mbox{.}(2019b)]%
+        {context}
+\bibfield{author}{\bibinfo{person}{Elena Voita}, \bibinfo{person}{Rico
+  Sennrich}, {and} \bibinfo{person}{Ivan Titov}.}
+  \bibinfo{year}{2019}\natexlab{b}.
+\newblock \bibinfo{title}{{When a Good Translation is Wrong in Context:
+  Context-Aware Machine Translation Improves on Deixis, Ellipsis, and Lexical
+  Cohesion}}.
+\newblock \bibinfo{howpublished}{Proceedings of the 57th Annual Meeting of the
+  Association for Computational Linguistics}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.18653/v1/P19-1116}
+\showDOI{\tempurl}
+\newblock
+\shownote{pp. 1198--1212}.
+
+
+\bibitem[Wang et~al\mbox{.}(2023)]%
+        {docmt}
+\bibfield{author}{\bibinfo{person}{Longyue Wang}, \bibinfo{person}{Chenyang
+  Lyu}, \bibinfo{person}{Tianbo Ji}, \bibinfo{person}{Zhirui Zhang},
+  \bibinfo{person}{Dian Yu}, \bibinfo{person}{Shuming Shi}, {and}
+  \bibinfo{person}{Zhaopeng Tu}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \bibinfo{title}{{Document-Level Machine Translation with Large
+  Language Models}}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.48550/arXiv.2304.02210}
+\showDOI{\tempurl}
+\newblock
+\shownote{arXiv preprint}.
 
 
 \end{thebibliography}

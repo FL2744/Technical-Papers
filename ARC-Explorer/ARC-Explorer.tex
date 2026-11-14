@@ -24,7 +24,7 @@
 \setlength{\intextsep}{12pt plus 2pt minus 3pt}
 \raggedbottom
 
-\geometry{top=0.75in,bottom=0.65in,includeheadfoot}
+\geometry{top=0.65in,bottom=0.55in,includeheadfoot}
 \begin{document}
 \begin{abstract}
 ARC Explorer is a native macOS application that brings connection profiles, resource inspection, allocation accounting, GPU job submission, remote files, terminal sessions, web applications, and language-model assistance into one workspace for Virginia Tech Advanced Research Computing (ARC). The client combines SwiftUI, AppKit, WebKit, the system SSH client, and a small remote Python helper. Computational scripts are submitted to Slurm with explicit resource requests, while an integrated login-node terminal supports direct interactive administration. Five main sections organize the workflow: Connection, Resources, Jobs + software, Sessions, and Help. This report describes the implementation, file-editing safeguards, credential boundaries, installation workflow, and release validation. Twenty-eight Python tests and two native terminal tests pass for the release candidate. The evidence establishes functional checks of selected paths, not a performance benchmark, independent security audit, or guarantee of compatibility with every ARC service. Five application screenshots illustrate the workspace.
@@ -39,6 +39,12 @@ Researchers using a shared cluster must coordinate several interfaces: SSH authe
 Web gateways already provide broad access to high-performance computing. Open OnDemand is an established portal architecture for HPC centers \cite{hudak2018}, and ARC documents its deployment for files, jobs, shells, and interactive applications \cite{arcood}. ARC Explorer complements that infrastructure with a native desktop workspace, an embedded browser, a terminal, and local document dialogs. It does not replace the scheduler, identity provider, allocation service, or Open OnDemand deployment. No comparative usability advantage is asserted.
 
 The scheduler remains the authority on resource allocation. Slurm exposes submission, queue inspection, accounting, and cancellation through established commands \cite{slurm}. The application translates form values into explicit scheduler arguments rather than implementing its own queue. ARC's login-node guidance constrains the intended use of interactive commands \cite{arcpolicy}. The distinction between management and compute is therefore part of both the interface and the implementation, although the general terminal cannot enforce that distinction.
+
+\subsection{Research context}
+
+The original Slurm paper describes resource management and scheduling as services of the cluster infrastructure \cite{slurmpaper}. This provides the architectural basis for keeping a desktop client's resource form separate from the scheduler that grants and enforces an allocation. A submitted request is therefore an auditable specification of desired resources, not proof of their availability.
+
+Research on Jupyter notebooks treats executable code, results, and explanatory prose as a shared publication artifact \cite{notebooks}. ARC Explorer's embedded notebook access supports that workflow, while the notebook server and compute allocation retain their own lifecycles. Peng's account of reproducible computational research emphasizes access to the computational artifacts needed to inspect a result \cite{repro}. The FAIR principles additionally distinguish findability, accessibility, interoperability, and reuse \cite{fair}. These perspectives motivate saving scripts, resource settings, environment information, and outputs together. They do not establish that a GUI, a saved script, or an exported log by itself makes an experiment reproducible or FAIR-compliant.
 
 \section{Architecture and execution boundaries}
 
@@ -64,7 +70,7 @@ Light mode is the default, with an explicit dark-mode option. The header uses a 
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=0.90\textwidth,height=0.62\textheight,keepaspectratio]{figures/01-connection.png}
+\includegraphics[width=0.78\textwidth,height=0.62\textheight,keepaspectratio]{figures/01-connection.png}
 \caption{Connection section showing the saved profile and SSH form. Offline capture of the signed v0.1 build; no password, API key, or private-key contents are shown.}
 \Description{Connection section showing the saved profile and SSH form. Offline capture of the signed v0.1 build; no password, API key, or private-key contents are shown.}
 \end{figure}
@@ -85,7 +91,7 @@ An opened file is associated with a revision derived from its content hash, devi
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=0.90\textwidth,height=0.62\textheight,keepaspectratio]{figures/06-file-editor.png}
+\includegraphics[width=0.78\textwidth,height=0.62\textheight,keepaspectratio]{figures/06-file-editor.png}
 \caption{Cropped detail of the remote file browser and lightweight text editor. This offline view illustrates the editing controls, not an active file transaction.}
 \Description{Cropped detail of the remote file browser and lightweight text editor. This offline view illustrates the editing controls, not an active file transaction.}
 \end{figure}
@@ -106,7 +112,7 @@ Repository retrieval does not automatically run arbitrary setup instructions. Th
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=0.90\textwidth,height=0.62\textheight,keepaspectratio]{figures/03-jobs-software.png}
+\includegraphics[width=0.78\textwidth,height=0.62\textheight,keepaspectratio]{figures/03-jobs-software.png}
 \caption{Jobs + software showing explicit GPU resources and the editable script. The example script has not been submitted in this offline screenshot.}
 \Description{Jobs + software showing explicit GPU resources and the editable script. The example script has not been submitted in this offline screenshot.}
 \end{figure}
@@ -125,7 +131,7 @@ For an existing service on an allocated compute node, a tunnel maps a local loop
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=0.90\textwidth,height=0.62\textheight,keepaspectratio]{figures/04-sessions.png}
+\includegraphics[width=0.78\textwidth,height=0.62\textheight,keepaspectratio]{figures/04-sessions.png}
 \caption{Sessions with the full-width Login Node Terminal controls, upper terminal pane, and red compute warning. The terminal is disconnected in this capture.}
 \Description{Sessions with the full-width Login Node Terminal controls, upper terminal pane, and red compute warning. The terminal is disconnected in this capture.}
 \end{figure}
@@ -142,7 +148,7 @@ The transport requires HTTPS and refuses HTTP redirects, preventing automatic fo
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=0.90\textwidth,height=0.62\textheight,keepaspectratio]{figures/05-help.png}
+\includegraphics[width=0.78\textwidth,height=0.62\textheight,keepaspectratio]{figures/05-help.png}
 \caption{Help section with the ARC API configuration, model field, and question editor. The API key is empty; no live response is claimed.}
 \Description{Help section with the ARC API configuration, model field, and question editor. The API key is empty; no live response is claimed.}
 \end{figure}

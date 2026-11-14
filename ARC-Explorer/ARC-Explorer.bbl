@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{6}
+\begin{thebibliography}{10}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -69,6 +69,35 @@
 \showDOI{\tempurl}
 
 
+\bibitem[Kluyver et~al\mbox{.}(2016)]%
+        {notebooks}
+\bibfield{author}{\bibinfo{person}{Thomas Kluyver}, \bibinfo{person}{Benjamin
+  Ragan-Kelley}, \bibinfo{person}{Fernando Pérez}, \bibinfo{person}{Brian
+  Granger}, {et~al\mbox{.}}} \bibinfo{year}{2016}\natexlab{}.
+\newblock \bibinfo{title}{{Jupyter Notebooks---a publishing format for
+  reproducible computational workflows}}.
+\newblock \bibinfo{howpublished}{Positioning and Power in Academic Publishing:
+  Players, Agents and Agendas}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.3233/978-1-61499-649-1-87}
+\showDOI{\tempurl}
+
+
+\bibitem[Peng(2011)]%
+        {repro}
+\bibfield{author}{\bibinfo{person}{Roger~D. Peng}.}
+  \bibinfo{year}{2011}\natexlab{}.
+\newblock \bibinfo{title}{{Reproducible Research in Computational Science}}.
+\newblock \bibinfo{howpublished}{Science}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1126/science.1213847}
+\showDOI{\tempurl}
+\newblock
+\shownote{Vol. 334, pp. 1226--1227}.
+
+
 \bibitem[{SchedMD}(nd)]%
         {slurm}
 \bibfield{author}{\bibinfo{person}{{SchedMD}}.}
@@ -127,6 +156,39 @@
 \tempurl}
 \newblock
 \shownote{Accessed November 13, 2026}.
+
+
+\bibitem[Wilkinson et~al\mbox{.}(2016)]%
+        {fair}
+\bibfield{author}{\bibinfo{person}{Mark~D. Wilkinson}, \bibinfo{person}{Michel
+  Dumontier}, \bibinfo{person}{IJsbrand~Jan Aalbersberg},
+  \bibinfo{person}{Gabrielle Appleton}, \bibinfo{person}{Myles Axton},
+  \bibinfo{person}{Arie Baak}, {et~al\mbox{.}}}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \bibinfo{title}{{The FAIR Guiding Principles for scientific data
+  management and stewardship}}.
+\newblock \bibinfo{howpublished}{Scientific Data}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1038/sdata.2016.18}
+\showDOI{\tempurl}
+
+
+\bibitem[Yoo et~al\mbox{.}(2003)]%
+        {slurmpaper}
+\bibfield{author}{\bibinfo{person}{Andy~B. Yoo}, \bibinfo{person}{Morris~A.
+  Jette}, {and} \bibinfo{person}{Mark Grondona}.}
+  \bibinfo{year}{2003}\natexlab{}.
+\newblock \bibinfo{title}{{SLURM: Simple Linux Utility for Resource
+  Management}}.
+\newblock \bibinfo{howpublished}{Lecture Notes in Computer Science; Job
+  Scheduling Strategies for Parallel Processing}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1007/10968987_3}
+\showDOI{\tempurl}
+\newblock
+\shownote{pp. 44--60}.
 
 
 \end{thebibliography}

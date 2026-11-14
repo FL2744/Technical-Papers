@@ -20,6 +20,12 @@ STORM separates research and outline construction from long-form writing [1], il
 
 *Figure 1. The native macOS writing studio offers article and book project workflows.*
 
+### Research context
+
+Retrieval-augmented generation makes an external evidence store part of generation [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401), and Self-RAG studies retrieval and critique within a trained model [Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection](https://arxiv.org/abs/2310.11511). For a scholarly writing studio, their relevance is the separation of evidence selection from fluent drafting. KOALA's source ledger and revision workflow are application mechanisms, not implementations of those model-training procedures. WebGPT's collection of references during browsing offers a further comparison for source-backed answering [WebGPT: Browser-assisted question-answering with human feedback](https://arxiv.org/abs/2112.09332); the existence of a citation must still be distinguished from support for the particular sentence that cites it.
+
+Self-Refine uses iterative model-generated feedback to revise outputs [Self-Refine: Iterative Refinement with Self-Feedback](https://arxiv.org/abs/2303.17651), whereas Reflexion retains verbal feedback across task attempts [Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/abs/2303.11366). They motivate explicit revision records and observable feedback loops, without establishing that repeated revision necessarily improves factual accuracy. Long-context experiments show that relevant information can be overlooked depending on its position [Lost in the Middle: How Language Models Use Long Contexts](https://arxiv.org/abs/2307.03172), which is pertinent to book-length briefs, source collections, and chapter coordination. CoAuthor documents human interaction with language-model suggestions during writing [CoAuthor: Designing a Human-AI Collaborative Writing Dataset for Exploring Language Model Capabilities](https://doi.org/10.1145/3491102.3502030). Together, these studies suggest evaluating the studio through evidence support, consistency across sections, and the author's acceptance and rejection of suggestions, rather than treating output length or smooth prose as sufficient evidence of quality.
+
 ## Architecture and persistent projects
 
 A SwiftUI macOS application invokes a Python workflow. The repository also exposes a command-line path. Native forms, dialogs, and project navigation manage local artifacts; remote language models perform inference through the selected OpenAI or Virginia Tech ARC connection. Literature-discovery services supply metadata and, when available, abstracts or fuller evidence. Local descriptive data analysis and export are separate from inference.
@@ -91,4 +97,17 @@ This project was created with assistance from GPT-6 Astra and Codex. AI tools as
 2. Tianyu Gao, Howard Yen, Jiatong Yu, Danqi Chen (2023). [Enabling Large Language Models to Generate Text with Citations](https://aclanthology.org/2023.emnlp-main.398/). Proceedings of EMNLP; doi:10.18653/v1/2023.emnlp-main.398.
 
 3. Sewon Min, Kalpesh Krishna, Xinxi Lyu, Mike Lewis, Wen-tau Yih, Pang Koh, Mohit Iyyer, Luke Zettlemoyer, Hannaneh Hajishirzi (2023). [FActScore: Fine-grained Atomic Evaluation of Factual Precision in Long Form Text Generation](https://aclanthology.org/2023.emnlp-main.741/). Proceedings of EMNLP; doi:10.18653/v1/2023.emnlp-main.741.
+4. Lewis, Patrick, Perez, Ethan, Piktus, Aleksandra, Petroni, Fabio, Karpukhin, Vladimir, Goyal, Naman, Küttler, Heinrich, Lewis, Mike, Yih, Wen-tau, Rocktäschel, Tim, Riedel, Sebastian, Kiela, Douwe (2020). [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401). DOI: 10.48550/arXiv.2005.11401.
+
+5. Asai, Akari, Wu, Zeqiu, Wang, Yizhong, Sil, Avirup, Hajishirzi, Hannaneh (2023). [Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection](https://arxiv.org/abs/2310.11511). DOI: 10.48550/arXiv.2310.11511.
+
+6. Nakano, Reiichiro, Hilton, Jacob, Balaji, Suchir, Wu, Jeff, Ouyang, Long, Kim, Christina, Hesse, Christopher, Jain, Shantanu, Kosaraju, Vineet, Saunders, William, Jiang, Xu, Cobbe, Karl, Eloundou, Tyna, Krueger, Gretchen, Button, Kevin, Knight, Matthew, Chess, Benjamin, Schulman, John (2021). [WebGPT: Browser-assisted question-answering with human feedback](https://arxiv.org/abs/2112.09332). DOI: 10.48550/arXiv.2112.09332.
+
+7. Madaan, Aman, Tandon, Niket, Gupta, Prakhar, Hallinan, Skyler, Gao, Luyu, Wiegreffe, Sarah, Alon, Uri, Dziri, Nouha, Prabhumoye, Shrimai, Yang, Yiming, Gupta, Shashank, Majumder, Bodhisattwa Prasad, Hermann, Katherine, Welleck, Sean, Yazdanbakhsh, Amir, Clark, Peter (2023). [Self-Refine: Iterative Refinement with Self-Feedback](https://arxiv.org/abs/2303.17651). DOI: 10.48550/arXiv.2303.17651.
+
+8. Shinn, Noah, Cassano, Federico, Berman, Edward, Gopinath, Ashwin, Narasimhan, Karthik, Yao, Shunyu (2023). [Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/abs/2303.11366). DOI: 10.48550/arXiv.2303.11366.
+
+9. Liu, Nelson F., Lin, Kevin, Hewitt, John, Paranjape, Ashwin, Bevilacqua, Michele, Petroni, Fabio, Liang, Percy (2023). [Lost in the Middle: How Language Models Use Long Contexts](https://arxiv.org/abs/2307.03172). DOI: 10.48550/arXiv.2307.03172.
+
+10. Mina Lee, Percy Liang, Qian Yang (2022). [CoAuthor: Designing a Human-AI Collaborative Writing Dataset for Exploring Language Model Capabilities](https://doi.org/10.1145/3491102.3502030). CHI Conference on Human Factors in Computing Systems. DOI: 10.1145/3491102.3502030.
 
