@@ -42,7 +42,9 @@ The reusable SSH control socket is placed in a private temporary directory. Mult
 
 Light mode is the default, with an explicit dark-mode option. The header uses a bold ARC wordmark and a lighter Explorer wordmark. A resource library and current GPU-request summary provide context across sections. The interface keeps progress and connection state visible without claiming that a queued request is already computing.
 
-![Connection section showing the saved profile and SSH form. Offline capture of the signed v0.1 build; no password, API key, or private-key contents are shown.](figures/01-connection.png)
+![Figure 1. Connection section showing the saved profile and SSH form. Offline capture of the signed v0.1 build; no password, API key, or private-key contents are shown.](figures/01-connection.png)
+
+*Figure 1. Connection section showing the saved profile and SSH form. Offline capture of the signed v0.1 build; no password, API key, or private-key contents are shown.*
 
 ## Resources: availability, accounting, and remote files
 
@@ -56,7 +58,9 @@ The lightweight editor opens UTF-8 text files up to 1 MiB, supports new files an
 
 An opened file is associated with a revision derived from its content hash, device, inode, and modification time. Before replacement, the helper compares the current revision with the expected revision, writes a temporary file in the destination directory, preserves supported permissions and group metadata, flushes it, checks again, and replaces the destination. A detected conflict preserves the remote version. This is optimistic conflict detection; it is not a server-side lock or a proof that all concurrent-writer races are impossible.
 
-![Cropped detail of the remote file browser and lightweight text editor. This offline view illustrates the editing controls, not an active file transaction.](figures/06-file-editor.png)
+![Figure 2. Cropped detail of the remote file browser and lightweight text editor. This offline view illustrates the editing controls, not an active file transaction.](figures/06-file-editor.png)
+
+*Figure 2. Cropped detail of the remote file browser and lightweight text editor. This offline view illustrates the editing controls, not an active file transaction.*
 
 ## Jobs + software: resource requests and reproducible scripts
 
@@ -72,7 +76,9 @@ Install / update code generates a reviewable script for a GitHub or Hugging Face
 
 Repository retrieval does not automatically run arbitrary setup instructions. The user reviews the generated script, adds needed modules or environment steps, and submits it as a GPU job. Private repositories require suitable remote credentials. The module-discovery controls and command reference help identify available toolchains. The native form is GPU-oriented; a general CPU-only resource form, job arrays, and multi-node configuration are not implemented in v0.1.
 
-![Jobs + software showing explicit GPU resources and the editable script. The example script has not been submitted in this offline screenshot.](figures/03-jobs-software.png)
+![Figure 3. Jobs + software showing explicit GPU resources and the editable script. The example script has not been submitted in this offline screenshot.](figures/03-jobs-software.png)
+
+*Figure 3. Jobs + software showing explicit GPU resources and the editable script. The example script has not been submitted in this offline screenshot.*
 
 ## Sessions: terminal, web applications, and tunnels
 
@@ -86,7 +92,9 @@ Web / Jupyter embeds ARC web applications through WebKit. Open OnDemand provides
 
 For an existing service on an allocated compute node, a tunnel maps a local loopback port through SSH to a user-specified compute host and remote port. Host and port inputs are validated, and the local listener binds to 127.0.0.1. The user must first start the service in the allocation and supply the appropriate URL or token. Closing the tunnel removes connectivity; it does not stop the underlying job. The application does not infer ownership or readiness of every manually specified remote service.
 
-![Sessions with the full-width Login Node Terminal controls, upper terminal pane, and red compute warning. The terminal is disconnected in this capture.](figures/04-sessions.png)
+![Figure 4. Sessions with the full-width Login Node Terminal controls, upper terminal pane, and red compute warning. The terminal is disconnected in this capture.](figures/04-sessions.png)
+
+*Figure 4. Sessions with the full-width Login Node Terminal controls, upper terminal pane, and red compute warning. The terminal is disconnected in this capture.*
 
 ## Help: command reference and ARC-hosted language models
 
@@ -98,7 +106,9 @@ A request contains the user's typed question and a general ARC-help instruction.
 
 The transport requires HTTPS and refuses HTTP redirects, preventing automatic forwarding of the bearer credential to a redirected destination. API keys remain in memory unless the user explicitly saves one to macOS Keychain. Changing the API base clears the in-memory key. Requests are non-streaming, use a 120-second timeout, and request at most 4,096 output tokens. Errors are surfaced to the user; the assistant is not an autonomous troubleshooting or job-execution agent.
 
-![Help section with the ARC API configuration, model field, and question editor. The API key is empty; no live response is claimed.](figures/05-help.png)
+![Figure 5. Help section with the ARC API configuration, model field, and question editor. The API key is empty; no live response is claimed.](figures/05-help.png)
+
+*Figure 5. Help section with the ARC API configuration, model field, and question editor. The API key is empty; no live response is claimed.*
 
 ## Verification, distribution, and reproducibility
 
@@ -126,25 +136,25 @@ This project was created with assistance from GPT-6 Astra and Codex. AI tools as
 
 ## References
 
-- Dave Hudak, Doug Johnson, Alan Chalker, Jeremy Nicklas, Eric Franz, Trey Dockendorf, and Brian L. McMichael. 2018. Open OnDemand: A web-based client portal for HPC centers. *Journal of Open Source Software* 3, 25, 622. https://doi.org/10.21105/joss.00622
+1. Dave Hudak, Doug Johnson, Alan Chalker, Jeremy Nicklas, Eric Franz, Trey Dockendorf, and Brian L. McMichael. 2018. Open OnDemand: A web-based client portal for HPC centers. *Journal of Open Source Software* 3, 25, 622. https://doi.org/10.21105/joss.00622
 
-- Virginia Tech Advanced Research Computing. Open OnDemand. https://www.docs.arc.vt.edu/resources/ood.html (accessed November 13, 2026).
+2. Virginia Tech Advanced Research Computing. Open OnDemand. https://www.docs.arc.vt.edu/resources/ood.html (accessed November 13, 2026).
 
-- SchedMD. Slurm documentation. https://slurm.schedmd.com/documentation.html (accessed November 13, 2026).
+3. SchedMD. Slurm documentation. https://slurm.schedmd.com/documentation.html (accessed November 13, 2026).
 
-- Virginia Tech Advanced Research Computing. Inappropriate Use of Login Nodes. https://www.docs.arc.vt.edu/usage/abuse.html (accessed November 13, 2026).
+4. Virginia Tech Advanced Research Computing. Inappropriate Use of Login Nodes. https://www.docs.arc.vt.edu/usage/abuse.html (accessed November 13, 2026).
 
-- Miguel de Icaza and SwiftTerm contributors. SwiftTerm, version 1.20.0. https://github.com/migueldeicaza/SwiftTerm/tree/v1.20.0 (accessed November 13, 2026).
+5. Miguel de Icaza and SwiftTerm contributors. SwiftTerm, version 1.20.0. https://github.com/migueldeicaza/SwiftTerm/tree/v1.20.0 (accessed November 13, 2026).
 
-- Virginia Tech Advanced Research Computing. LLM API: llm-api.arc.vt.edu. https://www.docs.arc.vt.edu/ai/011_llm_api_arc_vt_edu.html (accessed November 13, 2026).
+6. Virginia Tech Advanced Research Computing. LLM API: llm-api.arc.vt.edu. https://www.docs.arc.vt.edu/ai/011_llm_api_arc_vt_edu.html (accessed November 13, 2026).
 
-- Andy B. Yoo, Morris A. Jette, Mark Grondona (2003). [SLURM: Simple Linux Utility for Resource Management](https://doi.org/10.1007/10968987_3). Lecture Notes in Computer Science; Job Scheduling Strategies for Parallel Processing. DOI: 10.1007/10968987_3.
+7. Andy B. Yoo, Morris A. Jette, Mark Grondona (2003). [SLURM: Simple Linux Utility for Resource Management](https://doi.org/10.1007/10968987_3). Lecture Notes in Computer Science; Job Scheduling Strategies for Parallel Processing. DOI: 10.1007/10968987_3.
 
-- Thomas Kluyver, Benjamin Ragan-Kelley, Fernando Pérez, Brian Granger, others (2016). [Jupyter Notebooks—a publishing format for reproducible computational workflows](https://doi.org/10.3233/978-1-61499-649-1-87). Positioning and Power in Academic Publishing: Players, Agents and Agendas. DOI: 10.3233/978-1-61499-649-1-87.
+8. Thomas Kluyver, Benjamin Ragan-Kelley, Fernando Pérez, Brian Granger, others (2016). [Jupyter Notebooks—a publishing format for reproducible computational workflows](https://doi.org/10.3233/978-1-61499-649-1-87). Positioning and Power in Academic Publishing: Players, Agents and Agendas. DOI: 10.3233/978-1-61499-649-1-87.
 
-- Roger D. Peng (2011). [Reproducible Research in Computational Science](https://doi.org/10.1126/science.1213847). Science. DOI: 10.1126/science.1213847.
+9. Roger D. Peng (2011). [Reproducible Research in Computational Science](https://doi.org/10.1126/science.1213847). Science. DOI: 10.1126/science.1213847.
 
-- Mark D. Wilkinson, Michel Dumontier, IJsbrand Jan Aalbersberg, Gabrielle Appleton, Myles Axton, Arie Baak, Niklas Blomberg, Jan-Willem Boiten, Luiz Bonino da Silva Santos, Philip E. Bourne, Jildau Bouwman, Anthony J. Brookes, Tim Clark, Mercè Crosas, Ingrid Dillo, Olivier Dumon, Scott Edmunds, Chris T. Evelo, Richard Finkers, Alejandra Gonzalez-Beltran, Alasdair J.G. Gray, Paul Groth, Carole Goble, Jeffrey S. Grethe, Jaap Heringa, Peter A.C ’t Hoen, Rob Hooft, Tobias Kuhn, Ruben Kok, Joost Kok, Scott J. Lusher, Maryann E. Martone, Albert Mons, Abel L. Packer, Bengt Persson, Philippe Rocca-Serra, Marco Roos, Rene van Schaik, Susanna-Assunta Sansone, Erik Schultes, Thierry Sengstag, Ted Slater, George Strawn, Morris A. Swertz, Mark Thompson, Johan van der Lei, Erik van Mulligen, Jan Velterop, Andra Waagmeester, Peter Wittenburg, Katherine Wolstencroft, Jun Zhao, Barend Mons (2016). [The FAIR Guiding Principles for scientific data management and stewardship](https://doi.org/10.1038/sdata.2016.18). Scientific Data. DOI: 10.1038/sdata.2016.18.
+10. Mark D. Wilkinson, Michel Dumontier, IJsbrand Jan Aalbersberg, Gabrielle Appleton, Myles Axton, Arie Baak, Niklas Blomberg, Jan-Willem Boiten, Luiz Bonino da Silva Santos, Philip E. Bourne, Jildau Bouwman, Anthony J. Brookes, Tim Clark, Mercè Crosas, Ingrid Dillo, Olivier Dumon, Scott Edmunds, Chris T. Evelo, Richard Finkers, Alejandra Gonzalez-Beltran, Alasdair J.G. Gray, Paul Groth, Carole Goble, Jeffrey S. Grethe, Jaap Heringa, Peter A.C ’t Hoen, Rob Hooft, Tobias Kuhn, Ruben Kok, Joost Kok, Scott J. Lusher, Maryann E. Martone, Albert Mons, Abel L. Packer, Bengt Persson, Philippe Rocca-Serra, Marco Roos, Rene van Schaik, Susanna-Assunta Sansone, Erik Schultes, Thierry Sengstag, Ted Slater, George Strawn, Morris A. Swertz, Mark Thompson, Johan van der Lei, Erik van Mulligen, Jan Velterop, Andra Waagmeester, Peter Wittenburg, Katherine Wolstencroft, Jun Zhao, Barend Mons (2016). [The FAIR Guiding Principles for scientific data management and stewardship](https://doi.org/10.1038/sdata.2016.18). Scientific Data. DOI: 10.1038/sdata.2016.18.
 
 ## Suggested Citation
 
