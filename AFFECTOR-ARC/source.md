@@ -359,16 +359,6 @@ Version-specific arXiv records are linked below. Years distinguish original rele
 
 12. Haotian Yang; Huikang Jiang; Yucheng Wu; Wen-Jie Jiang; Chenpeng Wang; Yibin Lou; Liangming Pan. 2026. Does Steering Break Your Model? A Multi-Dimensional Evaluation Suite for LLM Steering Methods. [arXiv:2610.07722v1](https://arxiv.org/abs/2610.07722v1). Cited version dated 2026-10-06.
 
-### Suggested citation
+## Suggested Citation
 
-```bibtex
-@techreport{taggart2026affectorarc,
-  author = {Taggart, William},
-  title = {{AFFECTOR-ARC}: Emotional Trajectory Control through Transformer Activation Steering},
-  institution = {Modern and Classical Languages and Literatures, Virginia Tech},
-  year = {2026},
-  month = nov,
-  note = {Technical report, revision 0.2; current CUDA and emotional-effectiveness validation pending},
-  url = {https://huggingface.co/will-taggart/AFFECTOR-ARC/blob/main/TECHNICAL_REPORT.md}
-}
-```
+William Taggart. 2026. AFFECTOR-ARC: Emotional Trajectory Control through Transformer Activation Steering. Technical report. Modern and Classical Languages and Literatures, Virginia Tech. [https://huggingface.co/will-taggart/AFFECTOR-ARC](https://huggingface.co/will-taggart/AFFECTOR-ARC)
