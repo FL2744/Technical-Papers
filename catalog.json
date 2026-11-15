@@ -8,7 +8,7 @@
     "pdf": "AFFECTOR.pdf",
     "tex": "AFFECTOR.tex",
     "title": "AFFECTOR: Coordinate-Guided Text Rewriting through Transformer Activation Interventions",
-    "commit": "5005bb9d0df5b8ae676464a4805545595a7b5ce3",
+    "commit": "6ccbca3f099f142ae2b2121254e57189045ae844",
     "sha256": "3125eeed5e35b5e01506ebe58adfd229b434521f8c1d02b62eee45f35c2a6e65",
     "root_pdf": "AFFECTOR.pdf"
   },

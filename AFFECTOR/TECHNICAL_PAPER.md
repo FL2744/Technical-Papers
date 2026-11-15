@@ -207,4 +207,4 @@ Version-specific arXiv records are linked below. Years distinguish original rele
 
 ## Suggested Citation
 
-William Taggart. 2026. AFFECTOR: Coordinate-Guided Text Rewriting through Transformer Activation Interventions. Technical report. Modern and Classical Languages and Literatures, Virginia Tech. https://huggingface.co/will-taggart/AFFECTOR
+William Taggart. 2026. AFFECTOR: Coordinate-Guided Text Rewriting through Transformer Activation Interventions. Technical report. Modern and Classical Languages and Literatures, Virginia Tech. [https://huggingface.co/will-taggart/AFFECTOR](https://huggingface.co/will-taggart/AFFECTOR)
