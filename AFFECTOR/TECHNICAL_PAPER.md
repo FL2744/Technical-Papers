@@ -17,9 +17,9 @@ A document conveys more than propositions. Its lexical choices, rhythm, imagery,
 
 Activation steering offers a way to connect this target to the process of generation. Turner and colleagues construct intervention vectors from contrasting prompts, while Panickssery and colleagues average activation differences across positive and negative behavioral examples ([Turner et al., 2023](https://arxiv.org/abs/2308.10248v1); [Panickssery et al., 2024](https://arxiv.org/abs/2312.06681v4)). Building on this contrastive approach, AFFECTOR maps emotional coordinates into changes to a frozen model's internal states during local inference. The application also provides an API route, in which the coordinates are expressed as instructions to a hosted model. Together, these routes make it possible to investigate numerical intervention alongside prompt-based control, although their settings and outcomes are not directly interchangeable.
 
-![Document workspace with an example input, rewrite controls, and an empty output pane before generation.](figures/screenshot-01.png)
+![Figure 1. Document workspace with an example input, rewrite controls, and an empty output pane before generation.](figures/screenshot-01.png)
 
-*Document workspace with an example input, rewrite controls, and an empty output pane before generation.*
+*Figure 1. Document workspace with an example input, rewrite controls, and an empty output pane before generation.*
 
 For either route, the usefulness of the coordinates depends on their relationship to human interpretations of the output. Work by Wu and colleagues connects model emotion spaces with human valence/arousal ratings and reports concept-based steering across linguistic-cultural settings ([Wu et al., 2025](https://arxiv.org/abs/2506.13978v1)). Diallo and colleagues extend this evaluative perspective by examining emotional intensity and text quality with human raters, finding effects that vary with the emotion and steering strength ([Diallo et al., 2026](https://arxiv.org/abs/2601.21505v1)). These findings motivate assessing emotional movement and readable expression separately. They also clarify what remains to be established for AFFECTOR: neither its inward/outward axis nor the correspondence between its RMS-scaled controls and a reader's emotional judgment has been validated by those studies.
 
@@ -33,9 +33,9 @@ Taken together, these considerations define the scope of the present report: the
 
 A geometry consists of ordered points `(t, v, d, i)`. Position `t` is in `[0,1]`; valence `v` and direction `d` are in `[-1,1]`; intensity `i` is in `[0,1]`. Negative valence denotes unpleasant affect and positive valence pleasant affect. Negative direction denotes self-focused or inward-directed emotion; positive direction denotes outward focus. Direction is independent of valence: anger toward oneself can be inward and sadness for another person outward. Intensity describes strength of affect, not pleasantness.
 
-![Geometry editor showing the selected three-point trajectory and its steering controls.](figures/screenshot-02.png)
+![Figure 2. Geometry editor showing the selected three-point trajectory and its steering controls.](figures/screenshot-02.png)
 
-*Geometry editor showing the selected three-point trajectory and its steering controls.*
+*Figure 2. Geometry editor showing the selected three-point trajectory and its steering controls.*
 For intervention, intensity is centered:
 
 `c(t) = (v(t), d(t), 2i(t) - 1)`.
@@ -46,17 +46,17 @@ The target document is divided into chunks of at most 700 characters, preferring
 
 This normalized alignment compresses or stretches a source trajectory to the target length. It samples only as many positions as there are chunks. It does not preserve all events or oscillations of a much longer curve. Changes to segmentation can change emotional targets even when the same geometry is selected.
 
-![One continuous path, a finite set of targets](figures/illustration-01.png)
+![Figure 3. One continuous path, a finite set of targets](figures/illustration-01.png)
 
-*Illustration 1. Normalized alignment schematic. Target chunks sample a continuous source path at original character midpoints; a short target can miss narrow changes in a long source trajectory.*
+*Figure 3. Normalized alignment schematic. Target chunks sample a continuous source path at original character midpoints; a short target can miss narrow changes in a long source trajectory.*
 
 ## Frozen model and contrastive calibration
 
 The local backend loads Qwen3.5-0.8B at revision `2fc06364715b967f1860aea9cf38778875588b17`. The implementation operates on its text stack of 24 blocks with hidden width 1,024. Base parameters are frozen; inference uses float32 and eager attention. Apple MPS is selected when available, otherwise CPU. The chat template disables thinking output. The package contains Python 3.14, PyTorch 2.15.0 and Transformers 5.22.2; exact dependency pins accompany the bundle.
 
-![Source-analysis dialog for generating a geometry and optionally calibrating a local activation basis.](figures/screenshot-03.png)
+![Figure 4. Source-analysis dialog for generating a geometry and optionally calibrating a local activation basis.](figures/screenshot-03.png)
 
-*Source-analysis dialog for generating a geometry and optionally calibrating a local activation basis.*
+*Figure 4. Source-analysis dialog for generating a geometry and optionally calibrating a local activation basis.*
 Before steering, the application obtains three directions per selected layer from twelve manually authored English contrast pairs, four per axis. For example, valence pairs contrast despair with joy, and intensity pairs contrast mild unease with overwhelming terror. Both members of every pair are processed under a continuation instruction. Thus calibration requires 24 forward passes.
 
 The capture site is the final chat-formatted prompt position immediately before the post-attention normalization that feeds the feed-forward sublayer. It is not a mean over all content tokens. For layer `l` and axis `j`, the mean contrast is:
@@ -75,9 +75,9 @@ There is no gradient training, score-supervised fitting, orthogonalization, or g
 
 Axis temperature `T` transforms each coordinate magnitude while retaining its sign:
 
-![Expanded numerical weights for the selected geometry, including the local calibration metadata.](figures/screenshot-04.png)
+![Figure 5. Expanded numerical weights for the selected geometry, including the local calibration metadata.](figures/screenshot-04.png)
 
-*Expanded numerical weights for the selected geometry, including the local calibration metadata.*
+*Figure 5. Expanded numerical weights for the selected geometry, including the local calibration metadata.*
 `q[j] = sign(c[j]) * abs(c[j])^(1/T)`.
 
 The implementation ranks axes by magnitude, retains at most axis top-k, and stops adding axes once cumulative magnitude reaches the configured mass fraction. Surviving coefficients are not renormalized. These operations act on three emotional coefficients, not on the model's vocabulary distribution.
@@ -181,29 +181,29 @@ The equations and implementation descriptions above are derived from the include
 
 Version-specific arXiv records are linked below. Years distinguish original release from later revision where applicable. These research references supplement the implementation and infrastructure sources elsewhere in this report. Reusable citations: [BibTeX](references.bib). Verification details: [source-check notes](LITERATURE_SOURCES.md).
 
-**R1.** Alex Turner; Lisa Thiergart; David Udell; Gavin Leech; Ulisse Mini; Monte MacDiarmid. 2023. Activation Addition: Steering Language Models Without Optimization. [arXiv:2308.10248v1](https://arxiv.org/abs/2308.10248v1). Cited version dated 2023-08-20.
+1. Alex Turner; Lisa Thiergart; David Udell; Gavin Leech; Ulisse Mini; Monte MacDiarmid. 2023. Activation Addition: Steering Language Models Without Optimization. [arXiv:2308.10248v1](https://arxiv.org/abs/2308.10248v1). Cited version dated 2023-08-20.
 
-**R2.** Nina Panickssery; Nick Gabrieli; Julian Schulz; Meg Tong; Evan Hubinger; Alexander Matt Turner. 2024. Steering Llama 2 via Contrastive Activation Addition. [arXiv:2312.06681v4](https://arxiv.org/abs/2312.06681v4). Cited version dated 2024-07-05.
+2. Nina Panickssery; Nick Gabrieli; Julian Schulz; Meg Tong; Evan Hubinger; Alexander Matt Turner. 2024. Steering Llama 2 via Contrastive Activation Addition. [arXiv:2312.06681v4](https://arxiv.org/abs/2312.06681v4). Cited version dated 2024-07-05.
 
-**R3.** Xiuwen Wu; Hao Wang; Zhiang Yan; Xiaohan Tang; Pengfei Xu; Wai-Ting Siok; Ping Li; Jia-Hong Gao; Bingjiang Lyu; Lang Qin. 2025. AI shares emotion with humans across languages and cultures. [arXiv:2506.13978v1](https://arxiv.org/abs/2506.13978v1). Cited version dated 2025-06-11.
+3. Xiuwen Wu; Hao Wang; Zhiang Yan; Xiaohan Tang; Pengfei Xu; Wai-Ting Siok; Ping Li; Jia-Hong Gao; Bingjiang Lyu; Lang Qin. 2025. AI shares emotion with humans across languages and cultures. [arXiv:2506.13978v1](https://arxiv.org/abs/2506.13978v1). Cited version dated 2025-06-11.
 
-**R4.** Diaoulé Diallo; Katharina Dworatzyk; Sophie Jentzsch; Peer Schütt; Sabine Theis; Tobias Hecking. 2026. The Effectiveness of Style Vectors for Steering Large Language Models: A Human Evaluation. [arXiv:2601.21505v1](https://arxiv.org/abs/2601.21505v1). Cited version dated 2026-01-29. ArXiv record lists IEEE Access 13 (2025), 191443-191457; DOI: 10.1109/ACCESS.2025.3628500.
+4. Diaoulé Diallo; Katharina Dworatzyk; Sophie Jentzsch; Peer Schütt; Sabine Theis; Tobias Hecking. 2026. The Effectiveness of Style Vectors for Steering Large Language Models: A Human Evaluation. [arXiv:2601.21505v1](https://arxiv.org/abs/2601.21505v1). Cited version dated 2026-01-29. ArXiv record lists IEEE Access 13 (2025), 191443-191457; DOI: 10.1109/ACCESS.2025.3628500.
 
-**R5.** Moran Sun; Tianlin Li; Yuwei Zheng; Zhenhong Zhou; Aishan Liu; Xianglong Liu; Yang Liu. 2026. How Emotion Shapes the Behavior of LLMs and Agents: A Mechanistic Study. [arXiv:2604.00005v1](https://arxiv.org/abs/2604.00005v1). Cited version dated 2026-03-09.
+5. Moran Sun; Tianlin Li; Yuwei Zheng; Zhenhong Zhou; Aishan Liu; Xianglong Liu; Yang Liu. 2026. How Emotion Shapes the Behavior of LLMs and Agents: A Mechanistic Study. [arXiv:2604.00005v1](https://arxiv.org/abs/2604.00005v1). Cited version dated 2026-03-09.
 
-**R6.** Jihoon Jeong. 2026. Extracting and Steering Emotion Representations in Small Language Models: A Methodological Comparison. [arXiv:2604.04064v1](https://arxiv.org/abs/2604.04064v1). Cited version dated 2026-04-05.
+6. Jihoon Jeong. 2026. Extracting and Steering Emotion Representations in Small Language Models: A Methodological Comparison. [arXiv:2604.04064v1](https://arxiv.org/abs/2604.04064v1). Cited version dated 2026-04-05.
 
-**R7.** Bangzhao Shu; Arinjay Singh; Mai ElSherief. 2026. Why Are Some Emotions Harder for LLMs? Uncovering the Causal Mechanisms of Emotion Inference via Sparse Autoencoders. [arXiv:2604.25866v3](https://arxiv.org/abs/2604.25866v3). Cited version dated 2026-10-24.
+7. Bangzhao Shu; Arinjay Singh; Mai ElSherief. 2026. Why Are Some Emotions Harder for LLMs? Uncovering the Causal Mechanisms of Emotion Inference via Sparse Autoencoders. [arXiv:2604.25866v3](https://arxiv.org/abs/2604.25866v3). Cited version dated 2026-10-24.
 
-**R8.** Yibo Wang; Jisheng Dang; Bimei Wang; Yitao Wu; Wencan Zhang; Hong Peng; Jizhao Liu; Bin Hu; Qi Tian; Tat-Seng Chua. 2026. Read-Best Is Not Steer-Best: A Probing--Steering Layer Dissociation in Omni-Modal Large Language Models. [arXiv:2609.22135v1](https://arxiv.org/abs/2609.22135v1). Cited version dated 2026-08-24.
+8. Yibo Wang; Jisheng Dang; Bimei Wang; Yitao Wu; Wencan Zhang; Hong Peng; Jizhao Liu; Bin Hu; Qi Tian; Tat-Seng Chua. 2026. Read-Best Is Not Steer-Best: A Probing--Steering Layer Dissociation in Omni-Modal Large Language Models. [arXiv:2609.22135v1](https://arxiv.org/abs/2609.22135v1). Cited version dated 2026-08-24.
 
-**R9.** JuHeon Ha; Byounghan Lee; Yunseo Choi; Kyung-Ah Sohn. 2026. Empathy Is Steerable but Multi-Axial: Mechanism Geometry and Persona Effects in LLMs. [arXiv:2609.15654v1](https://arxiv.org/abs/2609.15654v1). Cited version dated 2026-09-14. ArXiv comments report acceptance to the EMNLP 2026 main conference.
+9. JuHeon Ha; Byounghan Lee; Yunseo Choi; Kyung-Ah Sohn. 2026. Empathy Is Steerable but Multi-Axial: Mechanism Geometry and Persona Effects in LLMs. [arXiv:2609.15654v1](https://arxiv.org/abs/2609.15654v1). Cited version dated 2026-09-14. ArXiv comments report acceptance to the EMNLP 2026 main conference.
 
-**R10.** Sasha Cui; Zhongren Chen. 2025. Painless Activation Steering: An Automated, Lightweight Approach for Post-Training Large Language Models. [arXiv:2509.22739v3](https://arxiv.org/abs/2509.22739v3). Cited version dated 2026-05-15.
+10. Sasha Cui; Zhongren Chen. 2025. Painless Activation Steering: An Automated, Lightweight Approach for Post-Training Large Language Models. [arXiv:2509.22739v3](https://arxiv.org/abs/2509.22739v3). Cited version dated 2026-05-15.
 
-**R11.** Alex Ferrando; Xavier Suau; Jordi Gonzàlez; Pau Rodriguez. 2025. Dynamically Scaled Activation Steering. [arXiv:2512.03661v2](https://arxiv.org/abs/2512.03661v2). Cited version dated 2026-07-30.
+11. Alex Ferrando; Xavier Suau; Jordi Gonzàlez; Pau Rodriguez. 2025. Dynamically Scaled Activation Steering. [arXiv:2512.03661v2](https://arxiv.org/abs/2512.03661v2). Cited version dated 2026-07-30.
 
-**R12.** Haotian Yang; Huikang Jiang; Yucheng Wu; Wen-Jie Jiang; Chenpeng Wang; Yibin Lou; Liangming Pan. 2026. Does Steering Break Your Model? A Multi-Dimensional Evaluation Suite for LLM Steering Methods. [arXiv:2610.07722v1](https://arxiv.org/abs/2610.07722v1). Cited version dated 2026-10-06.
+12. Haotian Yang; Huikang Jiang; Yucheng Wu; Wen-Jie Jiang; Chenpeng Wang; Yibin Lou; Liangming Pan. 2026. Does Steering Break Your Model? A Multi-Dimensional Evaluation Suite for LLM Steering Methods. [arXiv:2610.07722v1](https://arxiv.org/abs/2610.07722v1). Cited version dated 2026-10-06.
 
 ## Suggested Citation
 
