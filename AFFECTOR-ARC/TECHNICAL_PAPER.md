@@ -17,9 +17,9 @@ The geometry gives this workflow a common representation. It is an ordered path 
 
 This mechanism builds on contrastive activation steering. Turner and colleagues derive directions from contrasting prompts, and Panickssery and colleagues average differences between positive and negative behavioral examples ([Turner et al., 2023](https://arxiv.org/abs/2308.10248v1); [Panickssery et al., 2024](https://arxiv.org/abs/2312.06681v4)). AFFECTOR-ARC applies the same broad principle to small sets of emotionally contrasting passages, then mixes the resulting directions according to the requested trajectory. The central research question is how reliably this mapping can influence a sustained rewrite, given that a numerical displacement need not produce a unique or consistent emotional interpretation.
 
-![Document workspace displaying an existing Little Red Riding Hood input and rewrite.](figures/screenshot-02.png)
+![Figure 1. Document workspace displaying an existing Little Red Riding Hood input and rewrite.](figures/screenshot-02.png)
 
-*Document workspace displaying an existing Little Red Riding Hood input and rewrite.*
+*Figure 1. Document workspace displaying an existing Little Red Riding Hood input and rewrite.*
 
 That question connects the implementation to research on the relation between model representations and human judgments. Wu and colleagues study concept-based emotional steering across linguistic-cultural settings, while Diallo and colleagues use human ratings to examine perceived emotional intensity and text quality ([Wu et al., 2025](https://arxiv.org/abs/2506.13978v1); [Diallo et al., 2026](https://arxiv.org/abs/2601.21505v1)). These studies motivate coordinate-based experiments whose outcomes are judged through readers' interpretations. They do not, however, establish the validity of this system's inward/outward axis or calibrate its RMS-scaled controls. The requested trajectory, the activation displacement, and the emotion perceived in the output must therefore be evaluated as related but distinct quantities.
 
@@ -41,9 +41,9 @@ The Mac serves as the client: lightweight SSH requests manage files and jobs, wh
 
 The runner loads `Qwen/Qwen3.5-0.8B` at revision `2fc06364715b967f1860aea9cf38778875588b17`. The implementation uses `Qwen3_5ForConditionalGeneration`, its text decoder layers, float32 computation, eager attention, and the first process-visible CUDA device. It checks for 24 decoder layers; the geometry and calibration code assume hidden width 1,024. The backbone is in evaluation mode, its parameters have gradients disabled, and calibration and generation run without gradient tracking.
 
-![Connection workspace with SSH settings and the Slurm GPU resource request. The client is offline in this capture.](figures/screenshot-01.png)
+![Figure 2. Connection workspace with SSH settings and the Slurm GPU resource request. The client is offline in this capture.](figures/screenshot-01.png)
 
-*Connection workspace with SSH settings and the Slurm GPU resource request. The client is offline in this capture.*
+*Figure 2. Connection workspace with SSH settings and the Slurm GPU resource request. The client is offline in this capture.*
 The execution sequence is:
 
 ```text
@@ -60,9 +60,9 @@ Source files are distributed with the repository. `ENGINE_MANIFEST.json` records
 
 The example Slurm script requests one GPU, eight CPU cores, 64 GB of host memory, and one hour. These are scheduling requests, not measured minimum requirements. Users must supply an allocation and a suitable model cache. The runner is single-process and single-GPU; it is not a concurrent inference server.
 
-![Schedule the computation on a GPU node](figures/illustration-01.png)
+![Figure 3. Schedule the computation on a GPU node](figures/illustration-01.png)
 
-*Illustration 1. Execution schematic. The compute workload belongs to the allocated GPU node. Resource requests describe scheduling needs and do not establish measured minimum requirements.*
+*Figure 3. Execution schematic. The compute workload belongs to the allocated GPU node. Resource requests describe scheduling needs and do not establish measured minimum requirements.*
 
 ## Emotional coordinates and trajectory interpolation
 
@@ -124,9 +124,9 @@ Default layers are 8, 16, and 23, using zero-based indexing, with weights 1, 1, 
 
 ### Selecting and weighting axes
 
-![Geometry and weights editor with the trajectory and activation-steering controls.](figures/screenshot-03.png)
+![Figure 4. Geometry and weights editor with the trajectory and activation-steering controls.](figures/screenshot-03.png)
 
-*Geometry and weights editor with the trajectory and activation-steering controls.*
+*Figure 4. Geometry and weights editor with the trajectory and activation-steering controls.*
 Let $T$ be axis temperature. Each coordinate first receives magnitude
 
 $$
@@ -246,9 +246,9 @@ Sentence cleanup prevents chopped words from being joined directly to the next p
 
 Each chunk receives one generation attempt at the requested activation settings. A caught generation exception is recorded; the original chunk remains in the assembled text and processing continues. Calibration failures, invalid inputs, filesystem failures, and process termination are outside this per-chunk recovery mechanism and can stop a run. A persistent device failure may cause subsequent chunks to fail as well.
 
-![Jobs and results controls in the offline client; the report pane has no loaded report.](figures/screenshot-04.png)
+![Figure 5. Jobs and results controls in the offline client; the report pane has no loaded report.](figures/screenshot-04.png)
 
-*Jobs and results controls in the offline client; the report pane has no loaded report.*
+*Figure 5. Jobs and results controls in the offline client; the report pane has no loaded report.*
 After each processed chunk, the runner writes:
 
 1. An atomic JSON report containing the input, geometry, calibration basis, runtime identity, style, sampling settings, character spans, target coordinates, and per-chunk records.
@@ -335,29 +335,29 @@ This project was created with assistance from GPT-6 Astra and Codex. AI tools su
 
 Version-specific arXiv records are linked below. Years distinguish original release from later revision where applicable. These research references supplement the implementation and infrastructure sources elsewhere in this report. Reusable citations: [BibTeX](references.bib). Verification details: [source-check notes](LITERATURE_SOURCES.md).
 
-**R1.** Alex Turner; Lisa Thiergart; David Udell; Gavin Leech; Ulisse Mini; Monte MacDiarmid. 2023. Activation Addition: Steering Language Models Without Optimization. [arXiv:2308.10248v1](https://arxiv.org/abs/2308.10248v1). Cited version dated 2023-08-20.
+1. Alex Turner; Lisa Thiergart; David Udell; Gavin Leech; Ulisse Mini; Monte MacDiarmid. 2023. Activation Addition: Steering Language Models Without Optimization. [arXiv:2308.10248v1](https://arxiv.org/abs/2308.10248v1). Cited version dated 2023-08-20.
 
-**R2.** Nina Panickssery; Nick Gabrieli; Julian Schulz; Meg Tong; Evan Hubinger; Alexander Matt Turner. 2024. Steering Llama 2 via Contrastive Activation Addition. [arXiv:2312.06681v4](https://arxiv.org/abs/2312.06681v4). Cited version dated 2024-07-05.
+2. Nina Panickssery; Nick Gabrieli; Julian Schulz; Meg Tong; Evan Hubinger; Alexander Matt Turner. 2024. Steering Llama 2 via Contrastive Activation Addition. [arXiv:2312.06681v4](https://arxiv.org/abs/2312.06681v4). Cited version dated 2024-07-05.
 
-**R3.** Xiuwen Wu; Hao Wang; Zhiang Yan; Xiaohan Tang; Pengfei Xu; Wai-Ting Siok; Ping Li; Jia-Hong Gao; Bingjiang Lyu; Lang Qin. 2025. AI shares emotion with humans across languages and cultures. [arXiv:2506.13978v1](https://arxiv.org/abs/2506.13978v1). Cited version dated 2025-06-11.
+3. Xiuwen Wu; Hao Wang; Zhiang Yan; Xiaohan Tang; Pengfei Xu; Wai-Ting Siok; Ping Li; Jia-Hong Gao; Bingjiang Lyu; Lang Qin. 2025. AI shares emotion with humans across languages and cultures. [arXiv:2506.13978v1](https://arxiv.org/abs/2506.13978v1). Cited version dated 2025-06-11.
 
-**R4.** Diaoulé Diallo; Katharina Dworatzyk; Sophie Jentzsch; Peer Schütt; Sabine Theis; Tobias Hecking. 2026. The Effectiveness of Style Vectors for Steering Large Language Models: A Human Evaluation. [arXiv:2601.21505v1](https://arxiv.org/abs/2601.21505v1). Cited version dated 2026-01-29. ArXiv record lists IEEE Access 13 (2025), 191443-191457; DOI: 10.1109/ACCESS.2025.3628500.
+4. Diaoulé Diallo; Katharina Dworatzyk; Sophie Jentzsch; Peer Schütt; Sabine Theis; Tobias Hecking. 2026. The Effectiveness of Style Vectors for Steering Large Language Models: A Human Evaluation. [arXiv:2601.21505v1](https://arxiv.org/abs/2601.21505v1). Cited version dated 2026-01-29. ArXiv record lists IEEE Access 13 (2025), 191443-191457; DOI: 10.1109/ACCESS.2025.3628500.
 
-**R5.** Moran Sun; Tianlin Li; Yuwei Zheng; Zhenhong Zhou; Aishan Liu; Xianglong Liu; Yang Liu. 2026. How Emotion Shapes the Behavior of LLMs and Agents: A Mechanistic Study. [arXiv:2604.00005v1](https://arxiv.org/abs/2604.00005v1). Cited version dated 2026-03-09.
+5. Moran Sun; Tianlin Li; Yuwei Zheng; Zhenhong Zhou; Aishan Liu; Xianglong Liu; Yang Liu. 2026. How Emotion Shapes the Behavior of LLMs and Agents: A Mechanistic Study. [arXiv:2604.00005v1](https://arxiv.org/abs/2604.00005v1). Cited version dated 2026-03-09.
 
-**R6.** Jihoon Jeong. 2026. Extracting and Steering Emotion Representations in Small Language Models: A Methodological Comparison. [arXiv:2604.04064v1](https://arxiv.org/abs/2604.04064v1). Cited version dated 2026-04-05.
+6. Jihoon Jeong. 2026. Extracting and Steering Emotion Representations in Small Language Models: A Methodological Comparison. [arXiv:2604.04064v1](https://arxiv.org/abs/2604.04064v1). Cited version dated 2026-04-05.
 
-**R7.** Bangzhao Shu; Arinjay Singh; Mai ElSherief. 2026. Why Are Some Emotions Harder for LLMs? Uncovering the Causal Mechanisms of Emotion Inference via Sparse Autoencoders. [arXiv:2604.25866v3](https://arxiv.org/abs/2604.25866v3). Cited version dated 2026-10-24.
+7. Bangzhao Shu; Arinjay Singh; Mai ElSherief. 2026. Why Are Some Emotions Harder for LLMs? Uncovering the Causal Mechanisms of Emotion Inference via Sparse Autoencoders. [arXiv:2604.25866v3](https://arxiv.org/abs/2604.25866v3). Cited version dated 2026-10-24.
 
-**R8.** Yibo Wang; Jisheng Dang; Bimei Wang; Yitao Wu; Wencan Zhang; Hong Peng; Jizhao Liu; Bin Hu; Qi Tian; Tat-Seng Chua. 2026. Read-Best Is Not Steer-Best: A Probing--Steering Layer Dissociation in Omni-Modal Large Language Models. [arXiv:2609.22135v1](https://arxiv.org/abs/2609.22135v1). Cited version dated 2026-08-24.
+8. Yibo Wang; Jisheng Dang; Bimei Wang; Yitao Wu; Wencan Zhang; Hong Peng; Jizhao Liu; Bin Hu; Qi Tian; Tat-Seng Chua. 2026. Read-Best Is Not Steer-Best: A Probing--Steering Layer Dissociation in Omni-Modal Large Language Models. [arXiv:2609.22135v1](https://arxiv.org/abs/2609.22135v1). Cited version dated 2026-08-24.
 
-**R9.** JuHeon Ha; Byounghan Lee; Yunseo Choi; Kyung-Ah Sohn. 2026. Empathy Is Steerable but Multi-Axial: Mechanism Geometry and Persona Effects in LLMs. [arXiv:2609.15654v1](https://arxiv.org/abs/2609.15654v1). Cited version dated 2026-09-14. ArXiv comments report acceptance to the EMNLP 2026 main conference.
+9. JuHeon Ha; Byounghan Lee; Yunseo Choi; Kyung-Ah Sohn. 2026. Empathy Is Steerable but Multi-Axial: Mechanism Geometry and Persona Effects in LLMs. [arXiv:2609.15654v1](https://arxiv.org/abs/2609.15654v1). Cited version dated 2026-09-14. ArXiv comments report acceptance to the EMNLP 2026 main conference.
 
-**R10.** Sasha Cui; Zhongren Chen. 2025. Painless Activation Steering: An Automated, Lightweight Approach for Post-Training Large Language Models. [arXiv:2509.22739v3](https://arxiv.org/abs/2509.22739v3). Cited version dated 2026-05-15.
+10. Sasha Cui; Zhongren Chen. 2025. Painless Activation Steering: An Automated, Lightweight Approach for Post-Training Large Language Models. [arXiv:2509.22739v3](https://arxiv.org/abs/2509.22739v3). Cited version dated 2026-05-15.
 
-**R11.** Alex Ferrando; Xavier Suau; Jordi Gonzàlez; Pau Rodriguez. 2025. Dynamically Scaled Activation Steering. [arXiv:2512.03661v2](https://arxiv.org/abs/2512.03661v2). Cited version dated 2026-07-30.
+11. Alex Ferrando; Xavier Suau; Jordi Gonzàlez; Pau Rodriguez. 2025. Dynamically Scaled Activation Steering. [arXiv:2512.03661v2](https://arxiv.org/abs/2512.03661v2). Cited version dated 2026-07-30.
 
-**R12.** Haotian Yang; Huikang Jiang; Yucheng Wu; Wen-Jie Jiang; Chenpeng Wang; Yibin Lou; Liangming Pan. 2026. Does Steering Break Your Model? A Multi-Dimensional Evaluation Suite for LLM Steering Methods. [arXiv:2610.07722v1](https://arxiv.org/abs/2610.07722v1). Cited version dated 2026-10-06.
+12. Haotian Yang; Huikang Jiang; Yucheng Wu; Wen-Jie Jiang; Chenpeng Wang; Yibin Lou; Liangming Pan. 2026. Does Steering Break Your Model? A Multi-Dimensional Evaluation Suite for LLM Steering Methods. [arXiv:2610.07722v1](https://arxiv.org/abs/2610.07722v1). Cited version dated 2026-10-06.
 
 ### Suggested citation
 

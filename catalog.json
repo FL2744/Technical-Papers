@@ -21,7 +21,7 @@
     "pdf": "AFFECTOR-ARC.pdf",
     "tex": "AFFECTOR-ARC.tex",
     "title": "AFFECTOR-ARC: Emotional Trajectory Control through Transformer Activation Steering",
-    "commit": "c8134d693b01b3e57367cdf8a609990ac1372532",
+    "commit": "0f1415306a390563d41daedac4bcfe90ced9a68f",
     "sha256": "faf072babff6b3f33eb7160e0c03b6b7bc4316ec8844aa0230785c0f9e8f4343",
     "root_pdf": "AFFECTOR-ARC.pdf"
   },
