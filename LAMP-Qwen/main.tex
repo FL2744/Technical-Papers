@@ -27,9 +27,9 @@
 \affiliation{\department{Modern and Classical Languages and Literatures}
 \institution{Virginia Tech}\city{Blacksburg}\state{Virginia}\country{USA}}
 \email{wtaggart@vt.edu}
-\subtitle{Technical Report: November 13, 2026}
+\subtitle{Technical Report: November 14, 2026}
 \begin{abstract}
-LAMP-Qwen extends Latent Associative Memory Programming (LAMP) from a small, one-word question--answer model to Qwen3.5-0.8B. A frozen pretrained transformer is augmented with editable numerical memory at the entrance to its final feed-forward network. A forward-only writer stores a normalized recognition key and differences between source and donor hidden states. A single stored adjustment changed responses but did not reproduce either of two initial target answers exactly. A sequence extension instead stores one adjustment per decoding step and reproduced all 12 selected target answers in a development pilot. Replacement, persistence, and clearing were also demonstrated; five unrelated questions retained their baseline answers, and hashes of the base model's parameters were unchanged. These results establish a narrow implementation result: selected answers can be programmed through additional activation-steering tensors without gradient updates to the base model. They do not establish general semantic memory, reliable paraphrase recognition, or performance across the full 1,000-question catalogue. This report describes the intervention, writer, computational costs, practical uses, and limits of the evidence, including a subsequent candidate-based recovery of a programmed association from an exported memory.
+LAMP-Qwen extends Latent Associative Memory Programming (LAMP) from a small, one-word question--answer model to Qwen3.5-0.8B. A frozen pretrained transformer is augmented with editable numerical memory at the entrance to its final feed-forward network. A forward-only writer stores a normalized recognition key and differences between source and donor hidden states. A single stored adjustment changed responses but did not reproduce either of two initial target answers exactly. A sequence extension instead stores one adjustment per decoding step and reproduced all 12 selected target answers in a development pilot. Replacement, persistence, and clearing were also demonstrated; five unrelated questions retained their baseline answers, and hashes of the base model's parameters were unchanged. These results establish a narrow implementation result: selected answers can be programmed through additional activation-steering tensors without gradient updates to the base model. They do not establish general semantic memory, reliable paraphrase recognition, or performance across the full 1,000-question catalogue. The implementation is available as a native macOS application and a command-line interface, both using the same local inference and memory-writing backend. This report describes the intervention, writer, computational costs, practical uses, and limits of the evidence, including a subsequent candidate-based recovery of a programmed association from an exported memory.
 \end{abstract}
 \keywords{associative memory, activation intervention, frozen transformer, forward-only writing}
 \maketitle
@@ -42,9 +42,9 @@ The design relates to several forms of associative computation. Modern Hopfield 
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=0.82\linewidth,height=0.58\textheight,keepaspectratio]{figures/screenshot-01.png}
-\caption{Chat workspace comparing base and memory-enabled responses in the displayed persona configuration. This interface example is not an accuracy benchmark.}
-\Description{Chat workspace comparing base and memory-enabled responses in the displayed persona configuration. This interface example is not an accuracy benchmark.}
+\includegraphics[width=0.74\linewidth,height=0.58\textheight,keepaspectratio]{figures/screenshot-01.png}
+\caption{Native macOS chat workspace comparing base and memory-enabled responses in the displayed persona configuration. This interface example is not an accuracy benchmark.}
+\Description{Native macOS chat workspace comparing base and memory-enabled responses in the displayed persona configuration. This interface example is not an accuracy benchmark.}
 \label{fig:app-screen-1}
 \end{figure}
 
@@ -61,6 +61,14 @@ The distinction between training and writing is central to that scope. Qwen has 
 MEMORILLA offers a useful comparison with a different latent-memory architecture \cite{memorilla}. Its frozen encoder stores document embeddings, and a trained memory module conditions on a query to produce soft tokens in the language model's input space. Its supervised experiments use 16 memory tokens with Qwen3-8B; adding a document requires encoding rather than retraining the language model. LAMP-Qwen writes source-donor differences without training a memory module and intervenes near the end of the model instead of adding input tokens. Its sequence storage grows with answer length, while MEMORILLA's fixed token budget limits decoder context rather than the size of its embedding store.
 
 These differences also determine what the demonstrations can establish. Ordinary inference continues the model's forward computation after a numerical intervention rather than retrieving and printing a stored answer string, but the sequence extension records a decoding-position-dependent trajectory for a particular answer. It is therefore restricted activation replay whose recognition, interference, and paraphrase transfer require testing. MEMORILLA addresses document recall and composition through eight benchmarks and an agent setting; this report presents a 12-question exact-source development pilot. The results do not support a comparative accuracy or latency claim. The contribution is an inspectable forward-only intervention, with the LAMP code under the MIT license and model and dependency licenses remaining separate.
+
+\section{Native macOS application and local workflow}
+
+LAMP-Qwen provides a native SwiftUI macOS application alongside its command-line tools. The desktop workspace supports chat, base-versus-memory comparisons, memory writing, a searchable 1,000-question catalogue, slot controls, direct numerical editing, and memory import and export. The chat, writer, and persona screenshots in this report show the native application.
+
+The interface exchanges JSON messages with a bundled Python worker over private standard-input and standard-output pipes. The worker uses the same inference engine and memory writer as the command-line implementation; the interface does not change the intervention algorithm. Operations run locally, with conflicting controls disabled while the worker is busy. No browser or web server is required.
+
+The Apple Silicon distribution bundles Qwen3.5-0.8B, Python, and dependencies, requires macOS 26 or later, and is available from the \href{https://huggingface.co/will-taggart/LAMP-Qwen-v0.1}{project repository on Hugging Face}. No separate Python installation, Ollama service, or model download is needed. Memory persists in Application Support, separately from the app bundle and command-line memory; imports require compatible model and runtime settings. Questions are processed independently: the visible chat is not supplied as conversation history, and answers do not automatically become memories. The interface supports inspection and experimentation without extending the pilot's empirical claims.
 
 \section{Model and intervention point}
 The implementation loads the official \nolinkurl{Qwen/Qwen3.5-0.8B} checkpoint at a fixed revision:\\ {\small\nolinkurl{2fc06364715b967f1860aea9cf38778875588b17}}. Its text decoder has 24 layers, hidden width $d=1024$, feed-forward intermediate width 3,584, and an output vocabulary dimension of 248,320~\cite{qwen}. Its hybrid stack alternates groups of linear-attention layers with full-attention layers; the final decoder layer uses full attention.
@@ -110,9 +118,9 @@ For the exact source state and unit gain, $h_0+D_i=h^\ast_0$: the remaining feed
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=0.82\linewidth,height=0.58\textheight,keepaspectratio]{figures/screenshot-02.png}
-\caption{Memory-writing form with a source question and desired answer entered; the write has not been submitted.}
-\Description{Memory-writing form with a source question and desired answer entered; the write has not been submitted.}
+\includegraphics[width=0.74\linewidth,height=0.58\textheight,keepaspectratio]{figures/screenshot-02.png}
+\caption{Native macOS memory-writing form with a source question and desired answer entered; the write has not been submitted.}
+\Description{Native macOS memory-writing form with a source question and desired answer entered; the write has not been submitted.}
 \label{fig:app-screen-2}
 \end{figure}
 Single mode applies the same adjustment at every decoding step. In the initial two-question smoke test, it changed the generated responses but neither complete response matched its target. This motivated the sequence writer. The donor prompts also evolved during development, so these observations are not a controlled comparison isolating the effect of sequence memory.
@@ -196,9 +204,9 @@ The immediate practical uses are controlled answer overrides, swappable sets of 
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=0.82\linewidth,height=0.58\textheight,keepaspectratio]{figures/screenshot-04.png}
-\caption{Persona configuration interface for preparing a behavioral profile.}
-\Description{Persona configuration interface for preparing a behavioral profile.}
+\includegraphics[width=0.74\linewidth,height=0.58\textheight,keepaspectratio]{figures/screenshot-04.png}
+\caption{Native macOS persona configuration interface for preparing a behavioral profile.}
+\Description{Native macOS persona configuration interface for preparing a behavioral profile.}
 \label{fig:app-screen-4}
 \end{figure}
 An output filter can replace a completed answer string; LAMP instead changes hidden states before token selection. Prompt instructions and constrained decoding provide other ways to control generation. All can yield the same visible answer, and semantic recognition is not unique to LAMP. For fixed question--answer replacement, a conventional lookup is simpler and may be more reliable. Sequence memory remains a model-dependent trajectory for a selected answer, not evidence of a general knowledge update. Its value beyond replacement depends on demonstrating useful generalization. Reusable steering of tone or explanation style is a possible extension, motivated by activation-engineering research~\cite{actadd}, rather than an established capability of this writer.
@@ -221,6 +229,6 @@ This project was created with assistance from GPT-6 Astra and Codex. AI tools su
 \bibliography{references}
 
 \section*{Suggested citation}
-William Taggart. 2026. LAMP-Qwen: Forward-Only Associative Memory for a Frozen Small Language Model. Technical report. Modern and Classical Languages and Literatures, Virginia Tech. November 13, 2026. https://huggingface.co/will-taggart/LAMP-Qwen-v0.1
+William Taggart. 2026. LAMP-Qwen: Forward-Only Associative Memory for a Frozen Small Language Model. Technical report. Modern and Classical Languages and Literatures, Virginia Tech. November 14, 2026. https://huggingface.co/will-taggart/LAMP-Qwen-v0.1
 
 \end{document}

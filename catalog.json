@@ -112,8 +112,8 @@
     "pdf": "LAMP-Qwen.pdf",
     "tex": "main.tex",
     "title": "LAMP-Qwen: Forward-Only Associative Memory for a Frozen Small Language Model",
-    "commit": "79b0214013f26f59297aa0118be5ab18785347e4",
-    "sha256": "ccdcc0de59161bae422d7beb27da4f2fe8ce959e87a9f9d14cdcef6d6f72f802",
+    "commit": "ff71b6538de17918600bb99ca3567305d036ba88",
+    "sha256": "1d43b14ce4fd01037a27ebc137ca017c82605e81f5e712ebf8fbd4fe698d0ad8",
     "root_pdf": "LAMP-Qwen.pdf"
   },
   {
