@@ -7,7 +7,7 @@ Technical reports for research software projects by William Taggart.
 Modern and Classical Languages and Literatures, Virginia Tech  
 wtaggart@vt.edu
 
-The collection contains **11 reports**, with PDF, LaTeX, Markdown, and source bundles. Each project folder includes the figures and bibliography needed to build its paper.
+The collection contains **12 reports**, with PDF, LaTeX, Markdown, and source bundles. Each project folder includes the figures and bibliography needed to build its paper.
 
 | Project | Technical paper | Files |
 | :--- | :--- | :--- |
@@ -20,6 +20,7 @@ The collection contains **11 reports**, with PDF, LaTeX, Markdown, and source bu
 | [L1001](https://github.com/FL2744/L1001) | L1001: Stateful Long-Document Translation in a Browser and Command Line | [PDF](L1001.pdf) · [LaTeX](L1001/main.tex) · [Markdown](L1001/TECHNICAL_PAPER.md) · [Source](L1001/Source.zip) |
 | [LAMP](https://github.com/FL2744/LAMP) | LAMP: Latent Associative Memory Programming in a Frozen Toy Transformer | [PDF](LAMP.pdf) · [LaTeX](LAMP/main.tex) · [Markdown](LAMP/TECHNICAL_PAPER.md) · [Source](LAMP/Source.zip) |
 | [LAMP-Qwen](https://github.com/FL2744/LAMP-Qwen) | LAMP-Qwen: Forward-Only Associative Memory for a Frozen Small Language Model | [PDF](LAMP-Qwen.pdf) · [LaTeX](LAMP-Qwen/main.tex) · [Markdown](LAMP-Qwen/TECHNICAL_PAPER.md) · [Source](LAMP-Qwen/Source.zip) |
+| [qlm](https://github.com/FL2744/qlm) | qlm: A Native Document Editor for Writing and Small Web Pages | [PDF](qlm.pdf) · [LaTeX](qlm/qlm.tex) · [Markdown](qlm/qlm.md) · [Source](qlm/Source.zip) |
 | [Synthetic Creativity](https://github.com/FL2744/synthetic-creativity) | Synthetic Creativity: Navigating Ordered Combinations of Disciplines | [PDF](synthetic-creativity.pdf) · [LaTeX](synthetic-creativity/main.tex) · [Markdown](synthetic-creativity/TECHNICAL_PAPER.md) · [Source](synthetic-creativity/Source.zip) |
 | [TURTLE](https://github.com/FL2744/TURTLE) | TURTLE: Trajectory-based Understanding and Rendering of Transformations in Latent Embeddings | [PDF](TURTLE.pdf) · [LaTeX](TURTLE/main.tex) · [Markdown](TURTLE/TECHNICAL_PAPER.md) · [Source](TURTLE/Source.zip) |
 

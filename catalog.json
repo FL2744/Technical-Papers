@@ -141,5 +141,17 @@
     "commit": "3e439375614e394eb11a3b23e6af8449334e0ff8",
     "sha256": "b3e9b804863e58a1d687c866050b1cb484396223af480bb110bdfef506bdc255",
     "root_pdf": "TURTLE.pdf"
+  },
+  {
+    "name": "qlm",
+    "slug": "qlm",
+    "repo": "FL2744/qlm",
+    "folder": "paper",
+    "pdf": "qlm.pdf",
+    "tex": "qlm.tex",
+    "title": "qlm: A Native Document Editor for Writing and Small Web Pages",
+    "commit": "7cdb6b5d42e4cd53549540d2464c3dc7f28e556e",
+    "sha256": "0a72baa913594a777d86049d9de0e5cceb6781c5c3294a75b5cb6f446de5210a",
+    "root_pdf": "qlm.pdf"
   }
 ]
