@@ -149,9 +149,9 @@
     "folder": "paper",
     "pdf": "qlm.pdf",
     "tex": "qlm.tex",
-    "title": "qlm: A Native Document Editor for Writing and Small Web Pages",
-    "commit": "7cdb6b5d42e4cd53549540d2464c3dc7f28e556e",
-    "sha256": "0a72baa913594a777d86049d9de0e5cceb6781c5c3294a75b5cb6f446de5210a",
+    "title": "qlm: AI-Assisted Writing and Multilingual Translation in a Native macOS Editor",
+    "commit": "1595bdb3b7ac64dd7edfd859310ef89ef376cdf6",
+    "sha256": "a2f481ddf0123fe3a3d4f0c6f128140ac9b9224a889fafafdcad5ead010c0b0c",
     "root_pdf": "qlm.pdf"
   }
 ]
