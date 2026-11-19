@@ -150,8 +150,8 @@
     "pdf": "qlm.pdf",
     "tex": "qlm.tex",
     "title": "qlm: AI-Assisted Writing and Multilingual Translation in a Native macOS Editor",
-    "commit": "8cf89fd17fffda3f6d419173938c992c70861112",
-    "sha256": "322160d364fc92f96c6d1c21b6aec3182f316d6cc7bff5142d2ebc4496b66175",
+    "commit": "78e3df3db0608dcf6159425caebe536aa119e2c9",
+    "sha256": "7aa39172ba51553d019a6685902bb7d1d39388238f0dbf301b6b1cfa9537d67b",
     "root_pdf": "qlm.pdf"
   }
 ]
