@@ -3,7 +3,7 @@
 **William Taggart**  
 Modern and Classical Languages and Literatures, Virginia Tech  
 Email: wtaggart@vt.edu  
-**Technical report · November 22, 2026 · Revision 0.4**
+**Technical report · November 22, 2026 · Revision 0.5**
 
 ## Abstract
 
@@ -37,7 +37,7 @@ The native SwiftUI application is distributed on Hugging Face for Apple Silicon 
 
 The Mac serves as the client: lightweight SSH requests manage files and jobs, while model setup and execution run in requested GPU allocations. The bundled Python remote agent handles requests over SSH without a persistent listening server. The desktop interface and the command-line runner are separately versioned components, so a recorded application version alone does not identify the remote engine revision. Both should be recorded when reporting a run.
 
-The emotional-shape preview in the sidebar supports mouse or trackpad dragging to rotate the trajectory and its coordinate axes. Horizontal dragging changes azimuth; vertical dragging changes elevation. Double-clicking restores the initial view. These rotations affect only the display: they do not modify trajectory coordinates, calibration matrices, layer weights, or rewriting settings.
+The sidebar displays a bounded three-dimensional scatter plot: valence (X) and direction (Y) span [-1, +1], and intensity spans [0, 1]. A floor grid and box edges define the plotting volume; red-to-blue points encode valence without crossing trajectory lines. Dragging rotates the view; double-clicking resets it. The projection fits all eight box corners at every orientation. Out-of-range coordinates are clamped for display, and nonfinite points are omitted. Viewing operations never alter saved geometry, calibration matrices, layer weights, or rewriting settings.
 
 The Generate from source text workflow accepts TXT, RTF, and DOCX documents or pasted text. For RTF and DOCX, the desktop extracts plain text before submission. The remote agent writes the submitted text to `jobs/<run-ID>/input.txt` within the configured ARC workspace before submitting the GPU job. With the default workspace, this is `~/affector-arc-desktop/jobs/<run-ID>/input.txt`. The original filename is not retained, so a document opened as jungle.txt appears remotely as input.txt. This file is the submitted analysis text, including any edits made in the dialog, rather than an archive of the original document formatting. Users can find it through 05 ARC files by opening Workspace and then the appropriate jobs folder, or obtain it with Download run in 04 Jobs + results. Reports preserve failed assessments and unknown directions; Use generated shape imports a usable result into the local shape library.
 
@@ -274,11 +274,11 @@ Smoke mode defaults to the original 128-token allowance and 600-second time thre
 
 For the November 13 revision, seven CPU policy tests passed, Python and shell syntax were checked, and CLI loading was verified. Tests cover such behavior as unchanged requested controls, paragraph allowance accounting, draft retention, sentence cleanup, and continuing after a failed chunk. They do not execute the CUDA model. The current revision has not yet been run on an ARC GPU. A successful GPU run was reported for an earlier revision on November 12; it is historical evidence, not validation of the current code.
 
-Desktop version 1.0.8 adds rotation of the emotional-shape preview and retains the existing document, job, and file workflows. Native core and Studio regression checks and 23 remote-agent/file tests passed for this release. These checks concern application behavior and persistence; they do not establish emotional accuracy or multilingual effectiveness. The retained screenshots illustrate earlier desktop workspaces and do not demonstrate the new drag interaction.
+Desktop version 1.0.9 adds a bounded, gridded scatter preview with explicit axis ranges and retains the existing document, job, and file workflows. Native core and Studio regression checks and 23 remote-agent/file tests passed for this release. These checks concern application behavior and persistence; they do not establish emotional accuracy or multilingual effectiveness. The retained screenshots illustrate earlier desktop workspaces and do not demonstrate the new scatter preview.
 
 ## Reproduction
 
-For the desktop workflow, download the native macOS application from the repository's macos directory on Hugging Face, unpack it, and open AFFECTOR ARC.app. Configure the connection profile for the user's own ARC login, SSH authentication, and Slurm allocation. After connecting, install or update the remote source and prepare the GPU environment as needed. Import a document and geometry, adjust the settings, and choose Transform on ARC. Monitor the submitted job in Jobs + results and download its input, output, report, geometry, and logs. Desktop version 1.0.8, build 20261122, is signed with an Apple Developer ID and notarized by Apple. The distributed app includes a stapled notarization ticket. Signing and notarization concern software distribution security, not the scientific effectiveness of the emotional intervention.
+For the desktop workflow, download the native macOS application from the repository's macos directory on Hugging Face, unpack it, and open AFFECTOR ARC.app. Configure the connection profile for the user's own ARC login, SSH authentication, and Slurm allocation. After connecting, install or update the remote source and prepare the GPU environment as needed. Import a document and geometry, adjust the settings, and choose Transform on ARC. Monitor the submitted job in Jobs + results and download its input, output, report, geometry, and logs. Desktop version 1.0.9, build 2026112202, is signed with an Apple Developer ID and notarized by Apple. The distributed app includes a stapled notarization ticket. Signing and notarization concern software distribution security, not the scientific effectiveness of the emotional intervention.
 
 The following commands provide the separate command-line workflow. They run inside a suitable ARC GPU allocation from a fresh repository copy:
 
